@@ -1,0 +1,14 @@
+.product {
+    background: #e0e1dc;
+    height: 100vh;
+
+}
+.productglass {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.54);
+    overflow: hidden;
+    grid-template-columns: 11rem auto;
+    gap: 20px
+}

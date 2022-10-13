@@ -1,0 +1,212 @@
+*{
+    box-sizing: border-box;
+}
+
+.service{
+    background-color: #dcdcdc;
+    
+}
+
+.imgContent{
+    display: flex;
+}
+
+.imgContent>div>button{
+    color: #fff;
+    border: none;
+    background-color:#d7385e ;
+    font-family: poppins, sans-serif;
+    width: 10em;
+    border-radius: 24px;
+    padding: 10px 15px;
+    margin-bottom: 1em;
+    margin-left: 0.2em;
+    margin-top: 20px
+}
+
+.phoneNo>button:hover{
+background-color: #d7385e;
+}
+
+.priceDetails{
+    
+    margin-top: 20px;
+    margin-left: 100px;
+}
+
+.priceDetails>p{
+    
+    color: #d7385e;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.priceDetails>span{
+    
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.tabContainer{
+    background-color: #dcdcdc;
+    display: flex;
+    width: 32%;
+    border-bottom: 2px solid #d0d0d0;
+    margin-bottom: 10px;
+    margin-left: 30px;
+    /* margin-top: 20px; */
+
+}
+
+.tabButton{
+    color: #d7385e;
+    font-family: Roboto;
+    border-bottom: 2px solid #d7385e;
+    /* padding-bottom: 15px; */
+    background-color: transparent;
+    border: none;
+}
+
+.serviceName{
+    display: flex;
+    font: 900 2.9rem Roboto;
+    border-bottom: 3px solid #d0d0d0;
+    margin-bottom: 10px;
+}
+
+.serviceRating{
+    margin-left: 15px;
+    /* line-height: 20px; */
+}
+
+.serviceRating>span{
+    margin-left: 10px;
+    font-size: 15px;
+    
+}
+
+
+.serviceDetailsContainer>p{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 20px 0;
+}
+
+.serviceDetails{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px 60px;
+    margin-bottom: 20px
+}
+
+.venueType{
+    display: flex;
+    align-items: flex-start;
+}
+
+
+.venueTypeName{
+    display: block;
+    margin-left: 10px;
+    white-space: pre-line;
+}
+
+.venueTypeName>p{
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+
+}
+
+.venueTypeName>span{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+
+
+.serviceDescriptionName>p{
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+/* 
+#reviewButton{
+    background-color: transparent;
+    border: none;
+    color: black
+} */
+
+#reviewButton::after{
+height: 100%;
+left: -35%;
+top: 0;
+transform: skew(50deg);
+transition-duration: 0.5s;
+transform-origin: top left;
+width: 0;
+}
+
+#reviewButton:hover:after{
+    height: 100%;
+    width: 135%;
+}
+
+.reviewsHeading {
+    color: #000000be;
+    font: 700 2.9vmax "Roboto";
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.226);
+    padding: 1vmax;
+    width: 20vmax;
+    margin: auto;
+    margin-bottom: 2vmax;
+}
+
+.reviews {
+    display: flex;
+    overflow: auto;
+}
+
+.reviewCard {
+    background-color: rgb(211, 208, 208);
+    flex: none;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.226);
+    border: 1px solid rgba(56, 56, 56, 0.116);
+    width: 20vmax;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1vmax;
+    padding: 3vmax;
+    border-radius: 2vmax;
+}
+
+.reviewCard:hover {
+    box-shadow: 5px 5px 5px rgba(15, 15, 15, 0.26);
+    transform: translateY(-1vmax);
+}
+
+.reviewCard>img {
+    width: 5vmax;
+}
+
+.reviewCard>p {
+    color: rgba(0, 0, 0, 0.836);
+    font: 700 1.5max "Roboto";
+}
+
+.reviewCardComment {
+    color: "black";
+    font: 600 1.5vmax cursive;
+}
+
+.noReviews {
+    font: 400 1.3vmax "Gill Sans";
+    text-align: center;
+    color: rgba(0, 0, 0, 0.548);
+}

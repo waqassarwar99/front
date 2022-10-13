@@ -1,0 +1,109 @@
+.cardContainer{
+    display: grid;
+    height: 234px;
+    width:500px;
+    grid-template-columns: 35% 65%;
+    margin-top: 10px ;
+    margin-bottom: 1.5vh;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    background-color: #f6f6f6;
+    transition: .3s;
+   
+    
+}
+
+.cardContainer:hover{
+    box-shadow: 5px 5px 5px rgba(15,15,15, 0.26);
+    transform: translateY(-0.5vmax);
+}
+
+.brandPicture{
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.cardInfo{
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    padding: 0 2vh 0 3vh;
+    height: inherit;
+    max-height: 100%;
+}
+
+.cardHeader{
+    color: #132743;
+    font-family: Roboto;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+}
+
+.cardHeader>span{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #132743;
+    font-family: Roboto;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.cardHeaderDetails{
+    display: block;
+    font-family: poppins-semi-bold, sans-serif;
+}
+
+.rating{
+    margin-left: 10px;
+    font-size: 1.313rem;
+}
+
+.cardHeaderDetails>span{
+    font-family: poppins, sans-serif;
+    margin-left: 8px;
+    line-height: 14px;
+    font-size: .875rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.cardDescription{
+    color: #0d0d0d;
+    font-family: poppins, sans-serif;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-top: 20px;
+}
+
+.cardFooter{
+    border-top: 1px solid #d0d0d0;;
+    color: #0d0d0d;
+    font-family: poppins, sans-serif;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+}
+
+.cardFooter>p{
+    padding: 0;
+    margin: 0;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    color: #0d0d0d;
+    font-family: poppins, sans-serif;
+    font-weight: 600;
+}
+
+
+
+
