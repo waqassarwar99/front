@@ -116,12 +116,17 @@ const ProductDetails = () => {
 
   const addtocart = (item) => {
     const data = items.some(checkSeller);
-    console.log("productdata", item);
+    console.log("productdata", data);
 
     function checkSeller(seller) {
-      return seller.seller === item.seller && seller._id !== item._id;
+      console.log(seller.product.seller._id)
+      return (
+        seller.product.seller._id === item.seller._id
+      );
     }
-    if (data) {
+    
+      console.log(data);
+    if (data || items.length === 0) {
       dispatch(ADD_ITEM_TO_CART(item));
     } else {
       alert("You can't add different seller products");

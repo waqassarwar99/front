@@ -71,12 +71,18 @@ const SaloonDetails = () => {
   const handleSubmitReview = async (e) => {
     e.preventDefault();
 
-    const addreview = await axios.patch(`/service/serviceReview/${service._id}`, {
-      rating,
-      comment,
-      user: user._id,
-    });
-    await axios.patch(`/service/serviceRating/${service._id}`);
+    const addreview = await axios.patch(
+      `/service/serviceReview/${service._id}`,
+      {
+        rating,
+        comment,
+        user: user._id,
+      }
+    );
+    const addRating = await axios.patch(
+      `/service/serviceRating/${service._id}`
+    );
+    console.log(addRating);
   };
 
   const handleSubmitMsg = async (e) => {
@@ -117,7 +123,7 @@ const SaloonDetails = () => {
             <UserSpeedDial />
           </div>
         ) : null}
-        <div className="service">
+        <div className="service" style={{ height: "550px" }}>
           <div className="tabContainer">
             <button type="button" className="tabButton">
               Details
@@ -132,9 +138,8 @@ const SaloonDetails = () => {
           <div
             className="serviceDetails"
             style={{
-              height: "100%",
+              height: "450px",
               width: "97%",
-              borderRadius: "2rem",
               background: "rgba(255, 255, 255, 0.54)",
               overflow: "hidden",
               gridTemplateColumns: "40rem auto",
@@ -250,7 +255,7 @@ const SaloonDetails = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       backgroundColor: "transparent",
-                      marginLeft: "40px",
+                      marginLeft: "70px",
                       borderRadius: "50%",
                       marginTop: "22px",
                     }}
@@ -426,6 +431,7 @@ const SaloonDetails = () => {
                 color="success"
                 variant="contained"
                 onClick={submitReviewToggle}
+                sx={{ marginTop: "30px" }}
               >
                 Review
               </Button>

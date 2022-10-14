@@ -71,8 +71,8 @@ export default function Login() {
         phone,
         serviceType,
       });
-      console.log(res);
-      navigate("/seller/login");
+      alert("Request has been sent to the admin!");
+      window.location.href = "/seller/login";
     } catch (error) {}
   };
 

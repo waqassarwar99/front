@@ -28,7 +28,6 @@ function Chats() {
 
     const [chat, setChat] = React.useState([]);
 
-    const navigate = useNavigate();
 
     const handleChangeInput = e => {
         const {name, value} = e.target;
@@ -57,7 +56,6 @@ function Chats() {
     }
 
     React.useEffect(() => {
-        console.log("Hello")
         const getData = async() => {
             const res = await axios.get('/message/getChat', {
                 headers: {
@@ -91,7 +89,7 @@ function Chats() {
                     <div key={user._id} style = {{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Avatar src={user.avatar}/>
                         <div className="chatHeader_info">
-                            <h3>{user.fName} {user.lName}</h3>
+                            <h3>{user.name}</h3>
                         </div>
                     </div>
                 ))

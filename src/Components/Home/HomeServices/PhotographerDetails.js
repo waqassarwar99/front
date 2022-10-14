@@ -121,7 +121,7 @@ const PhotographerDetails = () => {
             <UserSpeedDial />
           </div>
         ) : null}
-        <div className="service">
+        <div className="service" style={{ height: "550px" }}>
           <div className="tabContainer">
             <button type="button" className="tabButton">
               Details
@@ -560,11 +560,11 @@ const PhotographerDetails = () => {
           </div>
         </div>
 
-        <div className="subscription" style={{marginTop:"-90px"}}>
+        <div className="subscription">
           <PhotographerSubscription data={service} />
         </div>
 
-        <div>
+        <div style={{ marginTop: "30px" }}>
           <h3 className="reviewsHeading">Reviews</h3>
           {service.reviews && service.reviews[0] ? (
             <div className="reviews">

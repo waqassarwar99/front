@@ -22,7 +22,7 @@ const EditPhotographer = () => {
   const product = location1.state;
 
   const editSellerServices = async (e) => {
-    console.log(product)
+    console.log(product);
     e.preventDefault();
     // let formData = new FormData();
     // formData.append("file", file);
@@ -41,20 +41,20 @@ const EditPhotographer = () => {
         location: location ? location : product.location,
         phoneNo: phoneNo ? phoneNo : product.phoneNo,
         // images: res.data.url,
-        policy: policy ? policy : product.policy,
-        experties: experties ? experties : product.experties,
-        basicPlan: basicPrice && basicService
-          ? { price: basicPrice, addOns: basicService }
-          : { price: product.basicPrice, addOns: product.basicService },
-        goldPlan: goldPrice && goldService
-          ? { price: goldPrice, addOns: goldService }
-          : { price: product.goldPrice, addOns: product.goldService },
-        platinumPlan: platinumPrice && platinumService
-          ? { price: platinumPrice, addOns: platinumService }
-          : {
-              price: product.platinumPrice,
-              addOns: product.platinumService,
-            },
+        // policy: policy ? policy : product.policy,
+        // experties: experties ? experties : product.experties,
+        // basicPlan: basicPrice && basicService
+        //   ? { price: basicPrice, addOns: basicService }
+        //   : { price: product.basicPrice, addOns: product.basicService },
+        // goldPlan: goldPrice && goldService
+        //   ? { price: goldPrice, addOns: goldService }
+        //   : { price: product.goldPrice, addOns: product.goldService },
+        // platinumPlan: platinumPrice && platinumService
+        //   ? { price: platinumPrice, addOns: platinumService }
+        //   : {
+        //       price: product.platinumPrice,
+        //       addOns: product.platinumService,
+        //     },
       }
     );
     navigate("/photographer");

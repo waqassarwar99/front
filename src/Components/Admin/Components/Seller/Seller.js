@@ -28,7 +28,7 @@ function Seller() {
   const deleteUser = async (id) => {
     try {
       const res = await axios.delete(`/admin/rejectSeller/${id}`);
-      console.log(res.data);
+       window.location.href = "/admin/seller";
     } catch (error) {}
   };
 

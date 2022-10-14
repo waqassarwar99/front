@@ -212,16 +212,17 @@ function Navbar() {
                   Contact
                 </a>
               </li>
-              {/* <li
+              <li
                 className="nav-item"
                 style={{
                   cursor: "pointer",
+                  marginLeft:"20px"
                 }}
               >
                 <a className="nav-link" onClick={() => navigate("/login")}>
                   Login
                 </a>
-              </li> */}
+              </li>
             </ul>
           </div>
         </div>

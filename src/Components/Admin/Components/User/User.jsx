@@ -76,6 +76,7 @@ function Users() {
             }
             {
             seller.map((user) => (
+              user.status === "Accepted" ? 
               <tr key={user._id} style = {{cursor: 'pointer'}}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
@@ -85,7 +86,7 @@ function Users() {
                 <td style={{paddingLeft: 30}}>
                   <Button onClick = {() => deleteUser(user._id)}><DeleteIcon color='error' /></Button>
                 </td>
-              </tr>
+              </tr> :null
             ))
             }
           </tbody>

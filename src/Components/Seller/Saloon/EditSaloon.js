@@ -19,14 +19,14 @@ const EditSaloon = () => {
 
   const editSellerServices = async (e) => {
     e.preventDefault();
-    let formData = new FormData();
-    formData.append("file", file);
+    // let formData = new FormData();
+    // formData.append("file", file);
 
-    const res = await axios.post("/user/upload", formData, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
+    // const res = await axios.post("/user/upload", formData, {
+    //   headers: {
+    //     "content-type": "multipart/form-data",
+    //   },
+    // });
     const editsellerservices = await axios.patch(
       `/service/editPhotographer/${product._id}`,
       {
@@ -35,7 +35,7 @@ const EditSaloon = () => {
         category: category ? category : product.category,
         location: location ? location : product.location,
         phoneNo: phoneNo ? phoneNo : product.phoneNo,
-        images: res.data.url,
+        // images: res.data.url,
       }
     );
     console.log(editSellerServices);

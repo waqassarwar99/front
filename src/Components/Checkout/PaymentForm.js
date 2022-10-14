@@ -16,7 +16,6 @@ const PaymentForm = () => {
   const location = useLocation();
   const data = location.state;
   const price = location.state.totalPrice;
-  console.log(price);
 
   const [clientSecret, setClientSecret] = React.useState("");
 

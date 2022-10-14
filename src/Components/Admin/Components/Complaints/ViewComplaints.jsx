@@ -22,6 +22,7 @@ function ViewComplaints()
    const deleteComplain = async (id) => {
      const complain = await axios.delete(`/admin/deleteComplaint/${id}`);
     alert("Complaint Deleted");
+     window.location.href="/admin/complaints"
    }
 
 

@@ -68,6 +68,7 @@ const ProductCards = () => {
       return setFilteredData(data);
     } else if (keyword !== "") {
       let data1 = data.filter((e) => e.name.startsWith(keyword));
+      console.log(data1);
       return setFilteredData(data1);
     } else if (keyword === "" && city !== "All") {
       let data1 = data.filter((e) => e.location === city);
@@ -237,7 +238,7 @@ const ProductCards = () => {
             gap: "30px",
           }}
         >
-          {data.map((data) => (
+          {filteredData.map((data) => (
             <div
               // className="cardContainer"
               onClick={() => navigate("/productdetails", { state: data })}

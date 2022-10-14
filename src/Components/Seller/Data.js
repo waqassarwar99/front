@@ -23,10 +23,10 @@ export const SidebarData = [
     icon: UilEstate,
     heading: "Dashboard",
   },
-  {
-    icon: UilClipboardAlt,
-    heading: "Orders",
-  },
+  // {
+  //   icon: UilClipboardAlt,
+  //   heading: "Orders",
+  // },
   {
     icon: UilPackage,
     heading: "Products",

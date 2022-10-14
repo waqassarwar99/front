@@ -57,8 +57,8 @@ const SaloonSubscription = (props) => {
         gridTemplateColumns: "35% 35% auto",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#a2b9bc",
+        justifyContent: "space-evenly",
+        marginBottom: "20px",
       }}
     >
       <Box
@@ -104,7 +104,7 @@ const SaloonSubscription = (props) => {
           variant="contained"
           className="openBookModal"
           onClick={() => submitBookToggle(props.data.basicPlan.price)}
-          sx={{ marginTop: "60px", marginLeft: "70px" }}
+          sx={{ marginTop: "120px", marginLeft: "70px" }}
         >
           Choose Plan
         </Button>
@@ -200,7 +200,7 @@ const SaloonSubscription = (props) => {
       <div>
         <Box
           sx={{
-            bgcolor: "lavenderblush",
+            bgcolor: "background.paper",
             boxShadow: 4,
             borderRadius: 5,
             p: 2,
@@ -254,7 +254,7 @@ const SaloonSubscription = (props) => {
       <div>
         <Box
           sx={{
-            bgcolor: "#E5E4E2",
+            bgcolor: "background.paper",
             boxShadow: 4,
             borderRadius: 5,
             p: 2,
@@ -295,7 +295,7 @@ const SaloonSubscription = (props) => {
           ))}
           <Button
             variant="contained"
-            sx={{ marginTop: "60px", marginLeft: "70px" }}
+            sx={{ marginTop: "10px", marginLeft: "70px" }}
             onClick={() => submitBookToggle(props.data.platinumPlan.price)}
           >
             Choose Plan

@@ -29,35 +29,7 @@ const Marquee = () => {
           justifyContent: "center",
         }}
       >
-        <div className="photographersCards">
-          <img
-            src={brand1}
-            alt="service image"
-            style={{
-              width: "100%",
-              height: "70%",
-              objectFit: "cover",
-              borderRadius: "2px",
-              flexGrow: 1,
-            }}
-          />
-          <div className="photograhphersDetails">
-            <span>Farah Photography & Films</span>
-            <div style={{ marginTop: "10px" }}>
-              <img
-                src={star}
-                alt="rating"
-                style={{ width: "20px", height: "20px", marginRight: "5px" }}
-              />
-              <span style={{ fontWeight: "bold", marginRight: "50px" }}>
-                5 (7)
-              </span>
-
-              <LocationOnOutlinedIcon />
-              <span style={{ fontWeight: "bold" }}>Islamabad</span>
-            </div>
-          </div>
-        </div>
+      
         <div className="photographersCards">
           <img
             src={brand1}

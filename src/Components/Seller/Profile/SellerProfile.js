@@ -21,12 +21,14 @@ export default function SellerProfile() {
       setPhone(res.data.phone);
       setType(res.data.serviceType);
       setStatus(res.data.status);
+      setId(res.data._id);
     };
 
     getData();
   }, []);
 
   const [status, setStatus] = useState("");
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [cnic, setCnic] = useState("");
@@ -35,6 +37,18 @@ export default function SellerProfile() {
 
   const [avatar, setAvatar] = React.useState(false);
   const [callback, setCallBack] = React.useState(false);
+
+  const submit = async () => {
+    try {
+      const res = await axios.patch("/user/updateSeller", {
+        id,
+        name,
+        phone,
+        type,
+      });
+      alert("Updated");
+    } catch (error) {}
+  };
 
   return (
     <div className="product">
@@ -71,7 +85,7 @@ export default function SellerProfile() {
             <div className="col-7 m-3 profileDetails">
               <h6 className="text-info mt-3 mb-3">Personal Details</h6>
               <div className="row">
-                <div className="col-6">
+                <div className="col-12">
                   <div className="mb-3">
                     <label className="form-label">Name</label>
                     <input
@@ -81,7 +95,7 @@ export default function SellerProfile() {
                       id="exampleFormControlInput1"
                       placeholder="Enter First Name"
                       defaultValue={name}
-                      disabled
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -111,8 +125,8 @@ export default function SellerProfile() {
                       className="form-control"
                       id="exampleFormControlInput1"
                       placeholder="Enter Phone Number"
-                      disabled
                       value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                     />
                   </div>
                 </div>
@@ -136,9 +150,9 @@ export default function SellerProfile() {
                       type="text"
                       className="form-control"
                       id="exampleFormControlInput1"
-                      placeholder="Enter Phone Number"
-                      disabled
+                      placeholder="Enter Service Type"
                       value={type}
+                      onChange={(e) => setType(e.target.value)}
                     />
                   </div>
                 </div>
@@ -155,6 +169,11 @@ export default function SellerProfile() {
                     />
                   </div>
                 </div>
+              </div>
+              <div style={{ display: "flex", alignItems: "flex-end" }}>
+                <button className="btn btn-primary" onClick={submit}>
+                  Edit
+                </button>
               </div>
             </div>
           </div>

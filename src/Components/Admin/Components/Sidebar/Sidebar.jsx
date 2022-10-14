@@ -21,7 +21,18 @@ function Sidebar() {
   return (
     <div className="sidebars" style={{backgroundColor: "rgba(58, 53, 65, 0.87)"}}>
       <div>
-        <span> <img src={logo1} alt="logo" width={170} height={60} style={{marginLeft: "10px", marginTop: "10px"}}  /></span>
+        {/* <span> <img src={logo1} alt="logo" width={170} height={60} style={{marginLeft: "10px", marginTop: "10px"}}  /></span> */}
+      <span  style={{
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
+              fontSize: "20px",
+              fontFamily: "Roboto",
+              fontWeight: "600",
+              color:"white",
+              marginTop:"10px",
+            }}
+            >Events Empire</span>
       </div>
       <hr />
       <div className="center">

@@ -57,8 +57,8 @@ const PhotographerSubscription = (props) => {
         gridTemplateColumns: "35% 35% auto",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#a2b9bc",
+        justifyContent: "space-evenly",
+       
       }}
     >
       <Box
@@ -200,7 +200,7 @@ const PhotographerSubscription = (props) => {
       <div>
         <Box
           sx={{
-            bgcolor: "lavenderblush",
+            bgcolor: "background.paper",
             boxShadow: 4,
             borderRadius: 5,
             p: 2,
@@ -254,7 +254,7 @@ const PhotographerSubscription = (props) => {
       <div>
         <Box
           sx={{
-            bgcolor: "#E5E4E2",
+            bgcolor: "background.paper",
             boxShadow: 4,
             borderRadius: 5,
             p: 2,

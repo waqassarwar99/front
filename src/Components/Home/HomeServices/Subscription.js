@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 const Subscription = (props) => {
   // Basic addons
@@ -49,6 +50,7 @@ const Subscription = (props) => {
   const [guest, setGuest] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [price, setPrice] = useState(0);
+  const [order, setOrder] = useState([]);
 
   const submitBookToggle = (data) => {
     setPrice(data);
@@ -56,18 +58,37 @@ const Subscription = (props) => {
   };
 
   const auth = useSelector((state) => state.authReducer);
-  const token = useSelector((state) => state.token);
-  const users = useSelector((state) => state.users);
-
   const { user } = auth;
 
   const appointment = async (e) => {
     e.preventDefault();
-    setTotalPrice(price * guest);
-    navigate("/paymentform", {
-      state: { totalPrice: price * guest, date, time, items: props.data },
-    });
+    const check = (order) => {
+      console.log("first", order.date);
+      console.log("first1", date);
+      return (
+        order.time === time &&
+        order.orderItems[0].name === props.data.name &&
+        order.date == date
+      );
+    };
+    const orders = order.filter(check);
+    if (orders.length > 0) {
+      alert("Marquee is already booked");
+    } else {
+      setTotalPrice(price * guest);
+      navigate("/paymentform", {
+        state: { totalPrice: price * guest, date, time, items: props.data },
+      });
+    }
   };
+
+  React.useEffect(() => {
+    const getData = async () => {
+      const res = await axios.get("/order/orders");
+      setOrder(res.data);
+    };
+    getData();
+  });
 
   return (
     <div
@@ -77,8 +98,9 @@ const Subscription = (props) => {
         gridTemplateColumns: "35% 35% auto",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#dcdcdc",
+        justifyContent: "space-evenly",
+        marginTop: "10px",
+        marginBottom: "20px",
       }}
     >
       <Box
@@ -181,8 +203,8 @@ const Subscription = (props) => {
               borderRadius: "10px",
             }}
           >
-            {/* <label style={{ fontWeight: "600" }}>
-              Date:
+            <div style={{ display: "flex" }}>
+              <label style={{ fontWeight: "600" }}>Date: </label>
               <input
                 type="date"
                 name="date"
@@ -192,29 +214,34 @@ const Subscription = (props) => {
                   marginBottom: "20px",
                 }}
               />
-            </label> */}
-            <DatePicker
-              selected={startDate}
-              onChange={onChange}
-              startDate={startDate}
-              endDate={endDate}
-              // excludeDates={[addDays(new Date(), 1), addDays(new Date(), 5)]}
-              selectsRange
-              selectsDisabledDaysInRange
-              inline
-            />
-
-            <label style={{ fontWeight: "600" }}>
-              Time:
-              <input
-                type="time"
-                name="time"
+            </div>
+            <div style={{ display: "flex" }}>
+              <label
+                for="slot"
+                style={{ fontWeight: "600", marginRight: "10px" }}
+              >
+                Time:
+              </label>
+              <select
+                name="select"
+                id="slot"
+                style={{ width: "100%" }}
                 onChange={(e) => setTime(e.target.value)}
-                style={{ marginLeft: "10px" }}
-              />
-            </label>
-            <label style={{ fontWeight: "600" }}>
-              No of Guests:
+              >
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+              </select>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <label style={{ fontWeight: "600", marginTop: "20px" }}>
+                No of Guests:
+              </label>
               <input
                 type="text"
                 name="guest"
@@ -222,11 +249,10 @@ const Subscription = (props) => {
                 style={{
                   marginLeft: "10px",
                   marginTop: "20px",
-                  borderBottom: "1px solid black",
-                  width: "50px",
+                  width: "70px",
                 }}
               />
-            </label>
+            </div>
           </div>
         </DialogContent>
         <DialogActions
@@ -299,7 +325,7 @@ const Subscription = (props) => {
       <div>
         <Box
           sx={{
-            bgcolor: "#E5E4E2",
+            bgcolor: "background.paper",
             boxShadow: 4,
             borderRadius: 5,
             p: 2,

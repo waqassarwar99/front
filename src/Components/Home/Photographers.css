@@ -7,7 +7,8 @@
     height: 300px;
     border: 1px solid #b8b8b9;
     border-radius: 8px;
-    margin: 10px;
+    margin: 30px;
+    margin-top: 5px;
     box-shadow: 10px 10px 10px rgb(171 168 168 / 72%);
     background-color: white;
 }

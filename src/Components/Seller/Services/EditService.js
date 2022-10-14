@@ -25,14 +25,14 @@ const EditService = () => {
 
   const editSellerServices = async (e) => {
     e.preventDefault();
-    let formData = new FormData();
-    formData.append("file", file);
+    // let formData = new FormData();
+    // formData.append("file", file);
 
-    const res = await axios.post("/user/upload", formData, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
+    // const res = await axios.post("/user/upload", formData, {
+    //   headers: {
+    //     "content-type": "multipart/form-data",
+    //   },
+    // });
     const editsellerservices = await axios.patch(
       `/service/editservice/${product._id}`,
       {
@@ -40,7 +40,7 @@ const EditService = () => {
         description: description ? description : product.description,
         location: location ? location : product.location,
         phoneNo: phoneNo ? phoneNo : product.phoneNo,
-        images: res.data.url,
+        // images: res.data.url,
       }
     );
     console.log(editSellerServices);

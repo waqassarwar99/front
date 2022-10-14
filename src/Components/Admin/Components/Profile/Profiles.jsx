@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllUsers,
@@ -12,7 +13,19 @@ export default function Profile() {
 
   const { user, isAdmin } = auth;
   const [avatar, setAvatar] = React.useState(false);
+   const [name, setName] = useState("");
+  
   const [callback, setCallBack] = React.useState(false);
+
+  const submit = async () => {
+    try {
+      const res = await axios.patch("/user/update", {
+        id: user._id,
+        name,
+      });
+      alert("Profile Updated!");
+    } catch (error) {}
+  };
 
   const dispatch = useDispatch();
   React.useEffect(() => {
@@ -64,7 +77,7 @@ export default function Profile() {
                     id="exampleFormControlInput1"
                     placeholder="Enter First Name"
                     defaultValue={user.name}
-                    disabled
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </div>
@@ -89,7 +102,11 @@ export default function Profile() {
               </div>
             </div>
            
-           
+            <div style={{ display: "flex", alignItems: "flex-end" }}>
+                <button className="btn btn-primary" onClick={submit}>
+                  Edit
+                </button>
+              </div>
           </div>
         </div>
       </div>

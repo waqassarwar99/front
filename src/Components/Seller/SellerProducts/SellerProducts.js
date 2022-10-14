@@ -17,6 +17,7 @@ const SellerProducts = () => {
   const deleteProduct = async (id) => {
     const product = await axios.delete(`/product/deleteproduct/${id}`);
     alert("Product Deleted");
+     window.location.href = "/sellerproducts";
   };
 
   const editProduct = (data) => {

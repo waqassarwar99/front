@@ -123,7 +123,7 @@ const ServiceDetails = () => {
             <UserSpeedDial />
           </div>
         ) : null}
-        <div className="service">
+        <div className="service" style={{height:"650px"}}>
           <div className="tabContainer">
             <button type="button" className="tabButton">
               Details
@@ -138,9 +138,8 @@ const ServiceDetails = () => {
           <div
             className="serviceDetails"
             style={{
-              height: "100%",
+              height: "550px",
               width: "97%",
-              borderRadius: "2rem",
               background: "rgba(255, 255, 255, 0.54)",
               overflow: "hidden",
               gridTemplateColumns: "40rem auto",
@@ -259,7 +258,7 @@ const ServiceDetails = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       backgroundColor: "transparent",
-                      marginLeft: "40px",
+                      marginLeft: "70px",
                       borderRadius: "50%",
                       marginTop: "22px",
                     }}
