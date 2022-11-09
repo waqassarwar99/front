@@ -18,9 +18,8 @@ const Appointment = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-
               marginTop: "10px",
-              fontFamily: "Roboto",
+              fontFamily: "Dancing Script",
               fontWeight: "bold",
             }}
           >

@@ -73,11 +73,11 @@ const AddPhotographer = () => {
   const [phoneNo, setNumber] = useState("");
   const [experties, setExperties] = useState("");
   const [policy, setPolicy] = useState("");
-  const [basicPrice, setBasicPrice] = useState("");
+  const [basicPrice, setBasicPrice] = useState();
   const [basicService, setBasicService] = useState("");
-  const [goldPrice, setGoldPrice] = useState("");
+  const [goldPrice, setGoldPrice] = useState();
   const [goldService, setGoldService] = useState("");
-  const [platinumPrice, setPlatinumPrice] = useState("");
+  const [platinumPrice, setPlatinumPrice] = useState();
   const [platinumService, setPlatinumService] = useState("");
   const [images, setImages] = useState("");
   const [file, setFile] = useState("");

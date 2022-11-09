@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import Users from '../../Components/User/User';
-import './user.scss'
+import './user.css'
 
 function User() {
   return (

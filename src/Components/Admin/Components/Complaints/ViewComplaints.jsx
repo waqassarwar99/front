@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {Button } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
-import './viewComplaints.scss';
+import './viewComplaints.css';
 
 function ViewComplaints() 
 {

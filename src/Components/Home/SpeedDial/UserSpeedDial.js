@@ -7,7 +7,8 @@ import TextsmsIcon from "@mui/icons-material/Textsms";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DescriptionIcon from "@mui/icons-material/Description";
-import img1 from "../../../images/img1.png";
+// import img1 from "../../../images/img1.png";
+import img1 from "../../../images/waqas.jpeg";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -16,8 +17,11 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  TextField,
+  InputAdornment
 } from "@mui/material";
-import { CloseOutlined } from "@mui/icons-material";
+import { CloseOutlined, Spellcheck, Mail, Article } from "@mui/icons-material";
+
 import MainChat from "../../Chat/MainChat";
 
 const UserSpeedDial = () => {
@@ -26,9 +30,7 @@ const UserSpeedDial = () => {
   const navigate = useNavigate();
 
   const auth = useSelector((state) => state.authReducer);
-  const token = useSelector((state) => state.token);
-  const users = useSelector((state) => state.users);
-
+  
   const { user } = auth;
 
   const handleLogout = async () => {
@@ -56,6 +58,12 @@ const UserSpeedDial = () => {
   const submitMsgModalToggle = () => {
     msgModal ? setMsgModal(false) : setMsgModal(true);
   };
+
+  const getChat = async () => {
+    const res = await axios.post("/chat/getChat", { userId: user._id });
+    console.log(res);
+    navigate("/userchat", { state: { chatID: res.data[0]._id } });
+  };
   return (
     <>
       <div>
@@ -68,7 +76,7 @@ const UserSpeedDial = () => {
             <img
               src={img1}
               alt="profile image"
-              style={{ height: "60px", width: "60px" }}
+              style={{ height: "60px", width: "60px", borderRadius:"100%" }}
             />
           }
           onClose={() => setOpen(false)}
@@ -83,7 +91,7 @@ const UserSpeedDial = () => {
           <SpeedDialAction
             icon={<TextsmsIcon />}
             tooltipTitle="Chat"
-            onClick={() => navigate("/userchat")}
+            onClick={getChat}
           />
           <SpeedDialAction
             icon={<ShoppingCartIcon />}
@@ -132,7 +140,38 @@ const UserSpeedDial = () => {
             className="submitDialog"
             sx={{ display: "flex", flexDirection: "column" }}
           >
-            <input
+            <TextField
+          label="Name"
+          placeholder="Name"
+          id="outlined-start-adornment"
+          sx={{ m: 1, width: '25ch', marginBottom:"20px" }}
+    
+          InputProps={{
+            startAdornment: <InputAdornment position="start"><Spellcheck /></InputAdornment>,
+          }}
+        />
+            <TextField
+          label="Email"
+          placeholder="Email"
+          id="outlined-start-adornment"
+          sx={{ m: 1, width: '25ch', marginBottom:"20px" }}
+    
+          InputProps={{
+            startAdornment: <InputAdornment position="start"><Mail /></InputAdornment>,
+          }}
+        />
+            <TextField
+          label="Complain"
+          placeholder="Complain"
+          id="outlined-start-adornment"
+          sx={{ m: 1, width: '25ch' }}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          InputProps={{
+            startAdornment: <InputAdornment position="start"><Article /></InputAdornment>,
+          }}
+        />
+            {/* <input
               type="text"
               placeholder="Name"
               style={{
@@ -154,15 +193,15 @@ const UserSpeedDial = () => {
             />
             <textarea
               className="submitDialogTextArea"
-              value={message}
               placeholder="Complain"
+              value={message}
               onChange={(e) => setMessage(e.target.value)}
               sx={{
                 outline: "none",
                 padding: "2rem",
                 font: "300 1rem ",
               }}
-            ></textarea>
+            ></textarea> */}
           </DialogContent>
           <DialogActions
             sx={{

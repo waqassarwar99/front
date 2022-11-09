@@ -6,16 +6,16 @@ import Table from "./Table";
 
 const MainDash = () => {
   return (
-    <div className="MainDash">
+    <div className="MainDash" >
       <h1
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "Roboto",
-          marginTop: "-40px",
+          fontFamily: "Dancing Script",
+          marginTop: "-50px",
           fontWeight: "600",
-          marginBottom: "-20px",
+          marginBottom: "-40px",
         }}
       >
         Dashboard

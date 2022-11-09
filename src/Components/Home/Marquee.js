@@ -1,9 +1,22 @@
-import React from "react";
+import React, {useEffect,useState} from "react";
+import axios from 'axios'
 import "./Photographers.css";
-import brand1 from "../../images/brand1.jpg";
 import star from "../../images/star.png";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 const Marquee = () => {
+
+  const [data,setData] = useState([])
+
+  useEffect(() => {
+    axios
+      .get("/service/viewsortedmarquee")
+      .then((data) => {
+        setData(data.data);
+        
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
   return (
     <div style={{ marginTop: "60px", backgroundColor: "#F0F0F0" }}>
       <div style={{ marginLeft: "20px" }}>
@@ -29,123 +42,40 @@ const Marquee = () => {
           justifyContent: "center",
         }}
       >
+        {data.map((data)=> (
+
+        <div className="photographersCards">
+          <img
+            src={data.images}
+            alt="service image"
+            style={{
+              width: "100%",
+              height: "70%",
+              objectFit: "cover",
+              borderRadius: "2px",
+              flexGrow: 1,
+            }}
+          />
+          <div className="photograhphersDetails">
+            <span>{data.name}</span>
+            <div style={{ marginTop: "10px" }}>
+              <img
+                src={star}
+                alt="rating"
+                style={{ width: "20px", height: "20px", marginRight: "5px" }}
+              />
+              <span style={{ fontWeight: "bold", marginRight: "50px" }}>
+                {data.ratings} ({data.numOfReviews})
+              </span>
+
+              <LocationOnOutlinedIcon />
+              <span style={{ fontWeight: "bold" }}>{data.location}</span>
+            </div>
+          </div>
+        </div>
+        ))}
       
-        <div className="photographersCards">
-          <img
-            src={brand1}
-            alt="service image"
-            style={{
-              width: "100%",
-              height: "70%",
-              objectFit: "cover",
-              borderRadius: "2px",
-              flexGrow: 1,
-            }}
-          />
-          <div className="photograhphersDetails">
-            <span>Farah Photography & Films</span>
-            <div style={{ marginTop: "10px" }}>
-              <img
-                src={star}
-                alt="rating"
-                style={{ width: "20px", height: "20px", marginRight: "5px" }}
-              />
-              <span style={{ fontWeight: "bold", marginRight: "50px" }}>
-                5 (7)
-              </span>
-
-              <LocationOnOutlinedIcon />
-              <span style={{ fontWeight: "bold" }}>Islamabad</span>
-            </div>
-          </div>
-        </div>
-        <div className="photographersCards">
-          <img
-            src={brand1}
-            alt="service image"
-            style={{
-              width: "100%",
-              height: "70%",
-              objectFit: "cover",
-              borderRadius: "2px",
-              flexGrow: 1,
-            }}
-          />
-          <div className="photograhphersDetails">
-            <span>Farah Photography & Films</span>
-            <div style={{ marginTop: "10px" }}>
-              <img
-                src={star}
-                alt="rating"
-                style={{ width: "20px", height: "20px", marginRight: "5px" }}
-              />
-              <span style={{ fontWeight: "bold", marginRight: "50px" }}>
-                5 (7)
-              </span>
-
-              <LocationOnOutlinedIcon />
-              <span style={{ fontWeight: "bold" }}>Islamabad</span>
-            </div>
-          </div>
-        </div>
-        <div className="photographersCards">
-          <img
-            src={brand1}
-            alt="service image"
-            style={{
-              width: "100%",
-              height: "70%",
-              objectFit: "cover",
-              borderRadius: "2px",
-              flexGrow: 1,
-            }}
-          />
-          <div className="photograhphersDetails">
-            <span>Farah Photography & Films</span>
-            <div style={{ marginTop: "10px" }}>
-              <img
-                src={star}
-                alt="rating"
-                style={{ width: "20px", height: "20px", marginRight: "5px" }}
-              />
-              <span style={{ fontWeight: "bold", marginRight: "50px" }}>
-                5 (7)
-              </span>
-
-              <LocationOnOutlinedIcon />
-              <span style={{ fontWeight: "bold" }}>Islamabad</span>
-            </div>
-          </div>
-        </div>
-        <div className="photographersCards">
-          <img
-            src={brand1}
-            alt="service image"
-            style={{
-              width: "100%",
-              height: "70%",
-              objectFit: "cover",
-              borderRadius: "2px",
-              flexGrow: 1,
-            }}
-          />
-          <div className="photograhphersDetails">
-            <span>Farah Photography & Films</span>
-            <div style={{ marginTop: "10px" }}>
-              <img
-                src={star}
-                alt="rating"
-                style={{ width: "20px", height: "20px", marginRight: "5px" }}
-              />
-              <span style={{ fontWeight: "bold", marginRight: "50px" }}>
-                5 (7)
-              </span>
-
-              <LocationOnOutlinedIcon />
-              <span style={{ fontWeight: "bold" }}>Islamabad</span>
-            </div>
-          </div>
-        </div>
+       
       </div>
     </div>
   );

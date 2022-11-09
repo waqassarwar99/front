@@ -28,6 +28,7 @@ function SideBarChat() {
   const [keyword, setkeyword] = useState("");
   const [allUsers, setAllUsers] = useState([]);
   const [name, setName] = useState("")
+  const [userId, setId] = useState("")
   const navigate = useNavigate();
 
 
@@ -41,6 +42,7 @@ function SideBarChat() {
         headers: { Authorization: token1 },
       });
       setName(res.data.name);
+      setId(res.data._id)
     };
     
     getSellerData();
@@ -50,17 +52,18 @@ function SideBarChat() {
 
 // User Data
   const getData = async () => {
-    const res = await axios.get(`/message/allUsers?search=${keyword}`, {
+    const res = await axios.get(`/chat/allUsers?search=${keyword}`, {
       headers: {
         Authorization: token,
       },
     });
+    console.log(res)
     setAllUsers(res.data);
   };
 
   const handleClick1 = async (userId, chatName) => {
     const res = await axios.post(
-      `/message/chat`,
+      `/chat/chat`,
       { userId, chatName },
       {
         headers: {
@@ -87,11 +90,7 @@ function SideBarChat() {
 
   React.useEffect(() => {
     const getData = async () => {
-      const res = await axios.get("/message/getChat", {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const res = await axios.post("/chat/getChat", {userId});
       setMessage(res.data);
       console.log(res.data)
     };
@@ -247,8 +246,6 @@ function SideBarChat() {
         </div>
         <div className="sidebar_chats mt-4">
           {message.map((user) =>
-            user.user.map((admin) =>
-              admin._id == "6324909b42ab3898a89322d8" ? null : (
                 <div
                   style={{
                     display: "flex",
@@ -256,12 +253,12 @@ function SideBarChat() {
                     cursor: "pointer",
                   }}
                   className="border-bottom mb-4"
-                  onClick={() => handleClick(user._id)}
+                  onClick={() => handleClick(user)}
                   key = {user._id}
                 >
-                  <Avatar src={admin.avatar} style={{ marginBottom: 10 }} />
+                  <Avatar src={user.user.avatar} style={{ marginBottom: 10 }} />
                   <div className="">
-                    <span>{admin.fName + " " + admin.lName}</span>
+                    <span>{user.chatName}</span>
                     <br />
                     {user.latestMessage ? (
                       <span style={{ fontSize: 10 }}>
@@ -271,8 +268,7 @@ function SideBarChat() {
                   </div>
                 </div>
               )
-            )
-          )}
+          }
         </div>
       </div>
     </>

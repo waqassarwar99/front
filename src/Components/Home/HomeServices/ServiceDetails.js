@@ -16,6 +16,8 @@ import {
   createTheme,
   ThemeProvider,
   colors,
+  TextField,
+  InputAdornment,
 } from "@mui/material";
 import Subscription from "./Subscription";
 import ReviewCard from "./ReviewCard";
@@ -28,6 +30,7 @@ import {
   TimeToLeave,
   RestaurantOutlined,
   DescriptionOutlined,
+  Article,
 } from "@mui/icons-material";
 import marquee from "../../../images/marquee.png";
 import star from "../../../images/star.png";
@@ -45,20 +48,34 @@ const ServiceDetails = () => {
   const [open, setOpen] = useState(false);
 
   const [phoneModal, setPhoneModal] = useState(false);
+  const [book, setBook] = useState(false);
   const [msgModal, setMsgModal] = useState(false);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [message, setMessage] = useState("");
   const [msg, setMsg] = useState("");
+  const [Capacity, setCapacity] = useState("");
+
+  //
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("Lunch");
+  const [venue, setVenue] = useState("");
+  const [menu, setMenu] = useState("");
+  const [guest, setGuest] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [order, setOrder] = useState([]);
 
   const location = useLocation();
 
   const service = location.state;
+  console.log(service, "service")
 
   const auth = useSelector((state) => state.authReducer);
   const token = useSelector((state) => state.token);
 
   const { user, isLogged } = auth;
+
 
   const submitReviewToggle = () => {
     open ? setOpen(false) : setOpen(true);
@@ -70,6 +87,10 @@ const ServiceDetails = () => {
 
   const submitMsgModalToggle = () => {
     msgModal ? setMsgModal(false) : setMsgModal(true);
+  };
+
+  const submitBookToggle = (data) => {
+    book ? setBook(false) : setBook(true);
   };
 
   const handleSubmitReview = async (e) => {
@@ -88,30 +109,64 @@ const ServiceDetails = () => {
     const addMsg = await axios.post(
       `/chat/chat`,
       {
-        chatName: service.name,
+        chatName: user.name,
         userId: service.seller,
-      },
-      {
-        headers: {
-          Authorization: token,
-        },
+        sellerId: user._id
       }
     );
-    console.log(addMsg);
+
+    console.log("message",addMsg)
 
     const res = await axios.post(
       "/chat/sendMessage",
       {
         content: message,
         chatId: addMsg.data._id,
-      },
-      {
-        headers: {
-          Authorization: token,
-        },
+        userId: user._id
       }
     );
-    console.log(res);
+    console.log(res.data);
+  };
+
+  const onChange = (data) => {
+    setGuest(data);
+    const capacity = service.goldPlan.filter((data) => data.venueName === venue);
+    console.log(capacity[0].venueCapacity);
+    setCapacity(capacity[0].venueCapacity);
+    setTotalPrice(capacity[0].venueGoldPrice);
+  }
+
+
+  const appointment = async (e) => {
+    e.preventDefault();
+    const check = (order) => {
+      return (
+        order.time === time &&
+        order.orderItems[0].name === service.data.name &&
+        order.date == date
+      );
+    };
+    const orders = order.filter(check);
+
+    if (orders.length > 0) {
+      alert("Marquee is already booked");
+    }
+    else if (guest > Capacity) {
+      alert("Max Capacity is " + Capacity);
+    }
+     else {
+      setTotalPrice(price * guest + parseInt(venue) + parseInt(menu));
+      console.log(menu);
+      navigate("/paymentform", {
+        state: {
+          totalPrice: parseInt(totalPrice) + parseInt(menu * guest),
+          date,
+          time,
+          items: service.name,
+          seller: service.seller
+        },
+      });
+    }
   };
 
   return (
@@ -123,7 +178,7 @@ const ServiceDetails = () => {
             <UserSpeedDial />
           </div>
         ) : null}
-        <div className="service" style={{height:"650px"}}>
+        <div className="service" style={{ height: "650px" }}>
           <div className="tabContainer">
             <button type="button" className="tabButton">
               Details
@@ -213,8 +268,22 @@ const ServiceDetails = () => {
                           {service.name}
                         </span>
                       </div>
-
-                      <textarea
+                      <TextField
+                        label="Message"
+                        placeholder="Message"
+                        id="outlined-start-adornment"
+                        sx={{ m: 1, width: "25ch" }}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Article />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      {/* <textarea
                         className="submitDialogTextArea"
                         placeholder="Message..."
                         value={message}
@@ -226,7 +295,7 @@ const ServiceDetails = () => {
                           padding: "2rem",
                           font: "300 1rem ",
                         }}
-                      ></textarea>
+                      ></textarea> */}
                     </DialogContent>
                     <DialogActions
                       sx={{
@@ -353,8 +422,8 @@ const ServiceDetails = () => {
                 <div className="priceDetails">
                   <p>Price Range</p>
                   <span>
-                    PKR {service.basicPlan.price} - PKR{" "}
-                    {service.platinumPlan.price}
+                    PKR {service.basicPlan[0].basicPrice} - PKR{" "}
+                    {service.basicPlan[1].basicPrice}
                   </span>
                 </div>
               </div>
@@ -470,6 +539,191 @@ const ServiceDetails = () => {
                 Review
               </Button>
 
+              <Button
+                variant="contained"
+                color="warning"
+                className="openBookModal"
+                onClick={() => submitBookToggle()}
+                sx={{  marginLeft: "80px" }}
+              >
+                Book
+              </Button>
+
+              {/* Booking Model */}
+              <Dialog
+                aria-labelledby="simple-dialog-title"
+                open={book}
+                onClose={submitBookToggle}
+              >
+                <DialogTitle
+                  sx={{
+                    display: "flex",
+                    // alignItems: "center",
+                    // justifyContent: "center",
+                    fontWeight: "bold",
+                    fontFamily: "Roboto",
+                    fontSize: "30px",
+                  }}
+                >
+                  Book
+                  <CloseOutlined
+                    sx={{
+                      marginLeft: "140px",
+                      marginTop: "-40px",
+                      cursor: "pointer",
+                      color: "red",
+                    }}
+                    onClick={submitBookToggle}
+                  />
+                </DialogTitle>
+                <Divider />
+                <DialogContent>
+                  <div
+                    className="phoneNoDetails"
+                    style={{ marginBottom: "20px" }}
+                  >
+                    <AccountCircleOutlined />
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        fontFamily: "Roboto",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      {service.name}
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+
+                      padding: "15px 20px",
+                      backgroundColor: "#A8A8A8",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <div style={{ display: "flex" }}>
+                      <label style={{ fontWeight: "600" }}>Date: </label>
+                      <input
+                        type="date"
+                        name="date"
+                        onChange={(e) => setDate(e.target.value)}
+                        style={{
+                          marginLeft: "10px",
+                          marginBottom: "20px",
+                        }}
+                      />
+                    </div>
+                    <div style={{ display: "flex" }}>
+                      <label
+                        for="slot"
+                        style={{ fontWeight: "600", marginRight: "10px" }}
+                      >
+                        Time:
+                      </label>
+                      <select
+                        name="select"
+                        id="slot"
+                        style={{ width: "100%" }}
+                        onChange={(e) => setTime(e.target.value)}
+                      >
+                        <option>
+                            Select Time
+                          </option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                      </select>
+                    </div>
+
+                    <div style={{ display: "flex", marginTop: "20px" }}>
+                      <label
+                        for="slot"
+                        style={{ fontWeight: "600", marginRight: "10px" }}
+                      >
+                        Venue:
+                      </label>
+                      <select
+                        name="select"
+                        id="slot"
+                        style={{ width: "100%" }}
+                        onChange={(e) => setVenue(e.target.value)}
+                      >
+                        <option>
+                            Select Venue
+                          </option>
+                        {service.goldPlan.map((data) => (
+                          <option value={data.venueName}>
+                            {data.venueName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div style={{ display: "flex", marginTop: "20px" }}>
+                      <label
+                        for="slot"
+                        style={{ fontWeight: "600", marginRight: "10px" }}
+                      >
+                        Menu:
+                      </label>
+                      <select
+                        name="select"
+                        id="slot"
+                        style={{ width: "100%" }}
+                        onChange={(e) => setMenu(e.target.value)}
+                      >
+                        <option>
+                            Select Menu
+                          </option>
+                        {service.basicPlan.map((data, index) => (
+                          <option value={data.basicPrice}>
+                            Menu {index + 1}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <label style={{ fontWeight: "600", marginTop: "20px" }}>
+                        No of Guests:
+                      </label>
+                      <input
+                        type="text"
+                        name="guest"
+                        onChange={(e) => onChange(e.target.value)}
+                        style={{
+                          marginLeft: "10px",
+                          marginTop: "20px",
+                          width: "70px",
+                        }}
+                      />
+                    </div>
+                  </div>
+                </DialogContent>
+                <DialogActions
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Button
+                    color="success"
+                    variant="contained"
+                    onClick={appointment}
+                  >
+                    Submit
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              {/* Booking Model End*/}
+
               <Dialog
                 aria-labelledby="simple-dialog-title"
                 open={open}
@@ -542,13 +796,15 @@ const ServiceDetails = () => {
                     >
                       Rating
                     </span>
+
                     <Rating
-                      name="simple-controlled"
+                      name="size-large"
                       value={rating}
+                      size="large"
                       onChange={(e) => setRating(e.target.value)}
                       sx={{ marginBottom: "15px" }}
                     />
-                    <span
+                    {/* <span
                       style={{
                         fontWeight: "600",
                         fontSize: "18px",
@@ -557,8 +813,23 @@ const ServiceDetails = () => {
                       }}
                     >
                       Review
-                    </span>
-                    <textarea
+                    </span> */}
+                    <TextField
+                      label="Review"
+                      placeholder="Review.."
+                      id="outlined-start-adornment"
+                      sx={{ width: "25ch" }}
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Article />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    {/* <textarea
                       className="submitDialogTextArea"
                       cols="20"
                       rows="1"
@@ -572,7 +843,7 @@ const ServiceDetails = () => {
                         padding: "2rem",
                         font: "300 1rem ",
                       }}
-                    ></textarea>
+                    ></textarea> */}
                   </div>
                 </DialogContent>
                 <DialogActions

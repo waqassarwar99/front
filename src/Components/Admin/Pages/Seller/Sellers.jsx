@@ -2,7 +2,7 @@ import React from 'react'
 import Sidebar from '../../Components/Sidebar/Sidebar'
 
 import Seller from '../../Components/Seller/Seller';
-import './seller.scss'
+import './seller.css'
 
 function Sellers() {
   return (

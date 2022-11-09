@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import arch from "../../images/arch.png";
 import camera from "../../images/camera.png";
 import makeup from "../../images/makeup.png";
-
+import crown from "../../images/crown.png";
+// import crown from "../../images/crown (1).png";
 
 import { styled, alpha } from "@mui/material/styles";
 
@@ -82,19 +83,16 @@ function Navbar() {
         style={{ backgroundColor: "#EECC9A", maxWidth: "100%" }}
       >
         <div className="container-fluid">
-          {/* <a className="navbar-brand">
-            Logo
-            <img src={logo} alt="Logo" />
-          </a> */}
-
+          <img src={crown} alt="logo" height={35} width={35} />
           <span
             style={{
-              fontSize: "20px",
+              fontSize: "30px",
               fontFamily: "Roboto",
               fontWeight: "600",
+              marginLeft: "5px",
             }}
           >
-            Events Empire
+            EE
           </span>
 
           <button
@@ -141,9 +139,8 @@ function Navbar() {
                 aria-controls={open ? "demo-customized-menu" : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
-                disableElevation
+                disableelevation="true"
                 onClick={handleClick}
-                endIcon={<KeyboardArrowDownIcon />}
                 style={{ marginRight: "30px", cursor: "pointer" }}
               >
                 <a className="nav-link">
@@ -216,7 +213,7 @@ function Navbar() {
                 className="nav-item"
                 style={{
                   cursor: "pointer",
-                  marginLeft:"20px"
+                  marginLeft: "20px",
                 }}
               >
                 <a className="nav-link" onClick={() => navigate("/login")}>

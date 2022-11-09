@@ -27,6 +27,8 @@ import Filter from "../SearchAndFilter/Filter";
 import Cart from "../Checkout/Cart";
 import AddressForm from "../Checkout/AddressForm";
 import PaymentForm from "../Checkout/PaymentForm";
+import PhotographerPaymentForm from "../Checkout/PhotographerPaymentForm";
+import PhotographerCheckoutForm from "../Checkout/PhotographerCheckoutForm";
 import Checkout from "../Checkout/CheckOut";
 import ConfirmPayment from "../Checkout/ConfirmPayment";
 import Photographer from "../Seller/Photographer/Photographer";
@@ -36,6 +38,7 @@ import Saloon from "../Seller/Saloon/Saloon";
 import AddSaloon from "../Seller/Saloon/AddSaloon";
 
 import SaloonServicesCard from "../Home/HomeServices/SaloonServicesCard";
+import SaloonPaymentForm from "../Checkout/SaloonPaymentForm";
 import PhotographerServiceCard from "../Home/HomeServices/PhotographerServiceCards";
 
 import PhotographerDetails from "../Home/HomeServices/PhotographerDetails";
@@ -44,8 +47,15 @@ import SaloonDetails from "../Home/HomeServices/SaloonDetails";
 import SaloonSubscription from "../Home/HomeServices/SaloonSubscription";
 import EditSaloon from "../Seller/Saloon/EditSaloon";
 
-import MainChat from "../Chat/MainChat";
+import UserMainChat from "../UserChat/MainChat";
 import ClientProfile from "../Home/Profile/ClientProfile";
+import Testing from "../Home/HomeServices/Testing";
+import MainChat from "../Chat/MainChat";
+
+// Invitation Card
+
+import CardGenerator from "../Card Generator/CardGenerator";
+import WalimaCard from "../Card Generator/WalimaCard";
 const stripePromise = loadStripe(
   "sk_test_51Kr2oHDGZefk1hIJPmvj4miJ6yZMVPKPpO1vTh33XktHv1jxMf41PF4qZytZNGDKWwH0c70tI5bzWVbrNDPqeGro00jiI06fND"
 );
@@ -58,9 +68,10 @@ export default function UserRoute() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Home />} />
+            <Route path="/form" element={<Testing />} />
 
             <Route path="/userProfile" element={<ClientProfile />} />
-            <Route path="/userchat" element={<MainChat />} />
+            <Route path="/userchat" element={<UserMainChat />} />
             <Route path="/products" element={<Products />} />
             <Route path="/productdetails" element={<ProductDetails />} />
             <Route path="/services" element={<HomeServices />} />
@@ -87,8 +98,17 @@ export default function UserRoute() {
             <Route path="/filter" element={<Filter />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route
+              path="/photogaphercheckout"
+              element={<PhotographerCheckoutForm />}
+            />
             <Route path="/addressform" element={<AddressForm />} />
             <Route path="/paymentform" element={<PaymentForm />} />
+            <Route
+              path="/photographerpaymentform"
+              element={<PhotographerPaymentForm />}
+            />
+            <Route path="/saloonpaymentform" element={<SaloonPaymentForm />} />
             <Route path="/confirmPayment" element={<ConfirmPayment />} />
             <Route path="/seller/register" element={<SellerRegistration />} />
             <Route path="/seller/login" element={<SellerLogin />} />
@@ -111,6 +131,10 @@ export default function UserRoute() {
             <Route path="/addsaloon" element={<AddSaloon />} />
             <Route path="/editsaloon" element={<EditSaloon />} />
             <Route path="/sellerChat" element={<MainChat />} />
+
+            {/* Card generator */}
+            <Route path="/cardGenerator" element={<CardGenerator />} />
+            <Route path="/walimaCard" element={<WalimaCard />} />
           </Routes>
         </BrowserRouter>
       </Elements>

@@ -10,49 +10,62 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from "@mui/material";
 import { CloseOutlined, AccountCircleOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
-import DatePicker from "react-datepicker";
+import { styled } from "@mui/material/styles";
+import { tableCellClasses } from "@mui/material/TableCell";
+
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
+// Table
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 17,
+    fontFamily: "Roboto",
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
+
 const Subscription = (props) => {
-  // Basic addons
-  const basicAddOns = props.data.basicPlan.addOns;
-  const addOnsArr = basicAddOns.split(",");
-
-  // Gold Addons
-  const goldAddOns = props.data.goldPlan.addOns;
-  const goldAddOnsArr = goldAddOns.split(",");
-
-  //Platinum addons
-  const platinumAddOns = props.data.platinumPlan.addOns;
-  const platinumAddOnsArr = platinumAddOns.split(",");
-
-  // Date picker start
-
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
-  const onChange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-  };
-  // Date Picker end
-
   const navigate = useNavigate();
 
+  
   const [book, setBook] = useState(false);
   const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState("Lunch");
+  const [venue, setVenue] = useState("");
+  const [menu, setMenu] = useState("");
   const [guest, setGuest] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [price, setPrice] = useState(0);
   const [order, setOrder] = useState([]);
 
   const submitBookToggle = (data) => {
+    console.log(data);
     setPrice(data);
     book ? setBook(false) : setBook(true);
   };
@@ -63,8 +76,6 @@ const Subscription = (props) => {
   const appointment = async (e) => {
     e.preventDefault();
     const check = (order) => {
-      console.log("first", order.date);
-      console.log("first1", date);
       return (
         order.time === time &&
         order.orderItems[0].name === props.data.name &&
@@ -72,86 +83,41 @@ const Subscription = (props) => {
       );
     };
     const orders = order.filter(check);
+
     if (orders.length > 0) {
       alert("Marquee is already booked");
     } else {
-      setTotalPrice(price * guest);
+      setTotalPrice(price * guest + parseInt(venue));
+      console.log(time);
       navigate("/paymentform", {
-        state: { totalPrice: price * guest, date, time, items: props.data },
+        state: {
+          totalPrice: parseInt(price * guest) + parseInt(venue),
+          date,
+          time,
+          items: props.data,
+        },
       });
     }
   };
 
   React.useEffect(() => {
+    console.log("use Effect");
     const getData = async () => {
       const res = await axios.get("/order/orders");
       setOrder(res.data);
     };
     getData();
-  });
+  }, []);
 
   return (
     <div
       className="subscription"
       style={{
-        height: "100%",
-        gridTemplateColumns: "35% 35% auto",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-evenly",
-        marginTop: "10px",
-        marginBottom: "20px",
+        width: "60%",
+        marginTop: "50px",
       }}
     >
-      <Box
-        sx={{
-          bgcolor: "background.paper",
-          boxShadow: 4,
-          borderRadius: 5,
-          p: 2,
-          width: 350,
-          marginTop: 5,
-          height: 500,
-          marginLeft: 5,
-        }}
-      >
-        <Typography
-          variant="h3"
-          sx={{ fontWeight: "bold", fontStyle: "Roboto", textAlign: "center" }}
-        >
-          Basic
-        </Typography>
-        <Typography
-          variant="h6"
-          sx={{
-            fontWeight: "bold",
-            fontStyle: "Roboto",
-            textAlign: "center",
-            color: "red",
-          }}
-          gutterBottom
-        >
-          PKR {props.data.basicPlan.price}
-        </Typography>
-
-        <Divider />
-        {addOnsArr.map((arr) => (
-          <Stack mt={4} direction="row" gap={2}>
-            <FileDownloadDoneIcon />
-            <Typography variant="body1">{arr}</Typography>
-          </Stack>
-        ))}
-
-        <Button
-          variant="contained"
-          className="openBookModal"
-          onClick={() => submitBookToggle(props.data.basicPlan.price)}
-          sx={{ marginTop: "90px", marginLeft: "80px" }}
-        >
-          Choose Plan
-        </Button>
-      </Box>
-
+      {/* Booking Model */}
       <Dialog
         aria-labelledby="simple-dialog-title"
         open={book}
@@ -232,6 +198,43 @@ const Subscription = (props) => {
                 <option value="Dinner">Dinner</option>
               </select>
             </div>
+
+            <div style={{ display: "flex", marginTop: "20px" }}>
+              <label
+                for="slot"
+                style={{ fontWeight: "600", marginRight: "10px" }}
+              >
+                Venue:
+              </label>
+              <select
+                name="select"
+                id="slot"
+                style={{ width: "100%" }}
+                onChange={(e) => setVenue(e.target.value)}
+              >
+                {props.data.goldPlan.map((data) => (
+                  <option value={data.venueGoldPrice}> {data.venueName}</option>
+                ))}
+              </select>
+            </div>
+            <div style={{ display: "flex", marginTop: "20px" }}>
+              <label
+                for="slot"
+                style={{ fontWeight: "600", marginRight: "10px" }}
+              >
+                Menu:
+              </label>
+              <select
+                name="select"
+                id="slot"
+                style={{ width: "100%" }}
+                onChange={(e) => setMenu(e.target.value)}
+              >
+                {props.data.basicPlan.map((data, index) => (
+                  <option value={data.basicPrice}> Menu {index + 1}</option>
+                ))} 
+              </select>
+            </div>
             <div
               style={{
                 display: "flex",
@@ -267,111 +270,97 @@ const Subscription = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
+      {/* Booking Model End*/}
 
-      <div>
-        <Box
-          sx={{
-            bgcolor: "background.paper",
-            boxShadow: 4,
-            borderRadius: 5,
-            p: 2,
-            width: 350,
-            marginTop: 5,
-            height: 500,
-            marginLeft: 5,
-          }}
-        >
-          {" "}
-          <Typography
-            variant="h3"
-            sx={{
-              fontWeight: "bold",
-              fontStyle: "Roboto",
-              textAlign: "center",
-              color: "warning.light",
-            }}
-          >
-            Gold
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: "bold",
-              fontStyle: "Roboto",
-              textAlign: "center",
-              color: "red",
-            }}
-            gutterBottom
-          >
-            PKR {props.data.goldPlan.price}
-          </Typography>
-          <Divider />
-          {goldAddOnsArr.map((arr) => (
-            <Stack mt={4} direction="row" gap={2}>
-              <FileDownloadDoneIcon />
-              <Typography variant="body1">{arr}</Typography>
-            </Stack>
-          ))}
-          <Button
-            variant="contained"
-            sx={{ marginTop: "90px", marginLeft: "80px" }}
-            onClick={() => submitBookToggle(props.data.goldPlan.price)}
-          >
-            Choose Plan
-          </Button>
-        </Box>
+      <div style={{ marginLeft: "20px", marginTop: "40px" }}>
+        <h2 style={{ fontFamily: "cursive", marginBottom: "20px" }}>
+          Venue Pricing
+        </h2>
+
+        <TableContainer component={Paper}>
+          <Table sx={{ maxWidth: 900 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Package Name</StyledTableCell>
+                <StyledTableCell align="left">Price</StyledTableCell>
+                <StyledTableCell align="left">Services</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {props.data.goldPlan.map((data) => (
+                <StyledTableRow key={data.name}>
+                  <StyledTableCell component="th" scope="row">
+                    <span style={{ fontWeight: "700", fontSize: "17px" }}>
+                      {data.venueName}
+                    </span>
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    <span style={{ fontWeight: "800", fontSize: "19px" }}>
+                      PKR {data.venueGoldPrice}
+                    </span>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {data.venueGoldService.split(",").map((data1) => (
+                      <StyledTableRow align="right">
+                        <StyledTableCell align="left">{data1}</StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
+      <div style={{ marginLeft: "20px", marginTop: "40px" }}>
+        <h2 style={{ fontFamily: "cursive", marginBottom: "20px" }}>
+          Menu Pricing
+        </h2>
+        <TableContainer component={Paper}>
+          <Table aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Package Name</StyledTableCell>
+                <StyledTableCell align="left">Price</StyledTableCell>
+                <StyledTableCell align="left">Services</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {props.data.basicPlan.map((data, index) => (
+                <StyledTableRow key={data.name}>
+                  <StyledTableCell component="th" scope="row">
+                    <span style={{ fontWeight: "700", fontSize: "17px" }}>
+                      Menu {index + 1}
+                    </span>
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    <span style={{ fontWeight: "800", fontSize: "19px" }}>
+                      PKR {data.basicPrice}
+                    </span>
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    {data.basicService.split(",").map((data1) => (
+                      <StyledTableRow align="right">
+                        <StyledTableCell align="left">{data1}</StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                  </StyledTableCell>
 
-      <div>
-        <Box
-          sx={{
-            bgcolor: "background.paper",
-            boxShadow: 4,
-            borderRadius: 5,
-            p: 2,
-            width: 350,
-            marginTop: 5,
-            height: 500,
-            marginLeft: 5,
-          }}
-        >
-          <Typography
-            variant="h3"
-            sx={{
-              fontWeight: "bold",
-              fontStyle: "Roboto",
-              textAlign: "center",
-            }}
-          >
-            Platinum
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: "bold",
-              fontStyle: "Roboto",
-              textAlign: "center",
-              color: "red",
-            }}
-            gutterBottom
-          >
-            PKR {props.data.platinumPlan.price}
-          </Typography>
-          <Divider />
-          {platinumAddOnsArr.map((arr) => (
-            <Stack mt={4} direction="row" gap={2}>
-              <FileDownloadDoneIcon />
-              <Typography variant="body1">{arr}</Typography>
-            </Stack>
-          ))}
-          <Button
-            variant="contained"
-            sx={{ marginTop: "40px", marginLeft: "80px" }}
-            onClick={() => submitBookToggle(props.data.platinumPlan.price)}
-          >
-            Choose Plan
-          </Button>
-        </Box>
+                  {/* <Button
+                    variant="contained"
+                    className="openBookModal"
+                    onClick={() =>
+                      submitBookToggle(props.data.basicPlan[index].basicPrice)
+                    }
+                    sx={{ marginTop: "90px", marginLeft: "80px" }}
+                  >
+                    Choose Plan
+                  </Button> */}
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react'
 import Sidebar from '../../../Components/Sidebar/Sidebar'
 
 import ViewComplaints from '../../../Components/Complaints/ViewComplaints'
-import './viewComplaint.scss'
+import './viewComplaint.css'
 
 function ViewComplaint() {
   return (

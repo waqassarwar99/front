@@ -40,6 +40,11 @@ const PhotographerServiceCard = () => {
     setFilteredData(service.data);
   };
 
+  const ratings = async () => {
+    const service = await axios.get("/service/serviceratings");
+    setFilteredData(service.data);
+  };
+
   const [data, setData] = useState([]);
 
   const [filteredData, setFilteredData] = useState([]);
@@ -50,6 +55,7 @@ const PhotographerServiceCard = () => {
   const [city, setCity] = useState("All");
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
+  const [rating, setRating] = useState("");
 
   useEffect(() => {
     axios
@@ -63,7 +69,7 @@ const PhotographerServiceCard = () => {
 
   useEffect(() => {
     filtering();
-  }, [keyword, city, minPrice, maxPrice]);
+  }, [keyword, city, minPrice, maxPrice, rating]);
 
   const [service, setService] = useState([]);
 
@@ -190,32 +196,6 @@ const PhotographerServiceCard = () => {
             </div>
             <Divider sx={{ marginBottom: "20px" }} />
 
-            {/* <div
-              className="subAreaFilter"
-              style={{
-                height: "60px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                border: "1px solid #d0d0d0",
-                borderRadius: "7px",
-                padding: "5px",
-              }}
-            >
-              <span style={{ fontWeight: "bold", display: "inline-block" }}>
-                Sub Area
-              </span>
-              <label className="subArea">
-                <input
-                  type="text"
-                  name="subarea"
-                  placeholder="e.g. G-10 Markaz"
-                />
-              </label>
-            </div> */}
-
-            {/* <Divider sx={{ marginTop: "20px", marginBottom: "10px" }} /> */}
-
             <div
               className="priceList"
               style={{ display: "flex", flexDirection: "column" }}
@@ -253,6 +233,17 @@ const PhotographerServiceCard = () => {
                   />
                   <label className="form-check-label">Highest To Lowest</label>
                 </div>
+                <div className="form-check" style={{ marginTop: "20px" }}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="lowest"
+                    value="rating"
+                    id="flexRadioDefault1"
+                    onChange={ratings}
+                  />
+                  <label className="form-check-label">Rating</label>
+                </div>
               </div>
               <Divider sx={{ marginBottom: "10px" }} />
             </div>
@@ -261,7 +252,9 @@ const PhotographerServiceCard = () => {
 
         <div style={{ marginTop: "10px" }}>
           {filteredData.map((e) =>
-            e.category === "Photographer" ? <PhotographerCard data={e} /> : null
+            e.category === "Photographer" ? (
+              <PhotographerCard data={e} key={e._id} />
+            ) : null
           )}
         </div>
       </div>

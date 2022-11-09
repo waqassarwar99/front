@@ -6,8 +6,11 @@ import TextsmsIcon from "@mui/icons-material/Textsms";
 import LogoutIcon from "@mui/icons-material/Logout";
 import img1 from "../../../images/img1.png";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 const SellerSpeedDial = () => {
   const [open, setOpen] = useState(false);
+  const [userId, setId] = useState("");
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -20,6 +23,30 @@ const SellerSpeedDial = () => {
     } catch (error) {
       window.location.href = "/";
     }
+  };
+
+  const token1 = localStorage.getItem("token");
+
+  const auth = useSelector((state) => state.authReducer);
+  const token = useSelector((state) => state.token);
+
+  const { user, isLogged } = auth;
+
+  React.useEffect(() => {
+    const getSellerData = async () => {
+      const res = await axios.get("/user/sellerdetail", {
+        headers: { Authorization: token1 },
+      });
+      setId(res.data._id);
+    };
+
+    getSellerData();
+  }, []);
+
+  const getChat = async () => {
+    const res = await axios.post("/chat/getChat", { userId: userId, sellerId: user._id });
+    console.log(res);
+    navigate("/sellerChat", { state: { chatID: res.data[0]._id } });
   };
   return (
     <div>
@@ -47,7 +74,7 @@ const SellerSpeedDial = () => {
         <SpeedDialAction
           icon={<TextsmsIcon />}
           tooltipTitle="Chat"
-          onClick={() => navigate("/sellerChat")}
+          onClick={getChat}
         />
         <SpeedDialAction
           icon={<LogoutIcon />}

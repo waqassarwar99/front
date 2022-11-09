@@ -1,5 +1,5 @@
 import React from "react";
-import "./seller.scss";
+import "./seller.css";
 import {
   fetchAllUsers,
   dispatchGetAllUser,

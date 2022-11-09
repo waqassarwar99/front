@@ -1,0 +1,40 @@
+.sidebarChat{
+    display: flex;
+    padding: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f6f6f6;
+}
+
+.chatHeaderName{
+    font-size: 17px;
+    color: #111b21;
+    font-family: 'Segoe UI', Helvetica, Geneva, Verdana, sans-serif;
+    margin-left: 0px;
+}
+
+.messageSpan{
+    font-size: 14px;
+    color: #667781;
+    margin-left: 13px;
+    font-family: 'Segoe UI', Helvetica, Geneva, Verdana, sans-serif;
+}
+
+.sidebarchatInfo > h2{
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.sidebarchatInfo{
+    margin-left: -50px;
+}
+
+.sidebarchatInfo > p{
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebarchatInfo{
+    margin-left: 10px;
+    margin-top: 5px;
+}

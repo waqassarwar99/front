@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./sidebar.css";
-import Logo from "../../images/logo.png";
+// import Logo from "../../images/logo.png";
+import Logo from "../../images/crown.png";
 import { useNavigate } from "react-router-dom";
 import { SidebarData } from "./Data";
 
@@ -31,8 +32,17 @@ const Sidebar = () => {
     <div className="sidebar">
       {/* Logo */}
       <div className="logo">
-        <img src={Logo} alt="" />
-        <span>Events Empire</span>
+        <img src={Logo} alt="Logo" style={{height:"30px", width:"30px"}} />
+        <span
+          style={{
+            fontSize: "30px",
+            fontFamily: "Roboto",
+            fontWeight: "600",
+            marginLeft: "-10px",
+          }}
+        >
+          EE
+        </span>
       </div>
 
       {/* Menu */}

@@ -37,6 +37,12 @@ const SaloonServicesCard = () => {
     setFilteredData(service.data);
   };
 
+  
+  const ratings = async () => {
+    const service = await axios.get("/service/serviceratings");
+    setFilteredData(service.data);
+  };
+
   const [data, setData] = useState([]);
 
   const [filteredData, setFilteredData] = useState([]);
@@ -47,6 +53,7 @@ const SaloonServicesCard = () => {
   const [city, setCity] = useState("All");
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
+  const [rating, setRating] = useState("");
 
   useEffect(() => {
     axios
@@ -60,7 +67,7 @@ const SaloonServicesCard = () => {
 
   useEffect(() => {
     filtering();
-  }, [keyword, city, minPrice, maxPrice]);
+  }, [keyword, city, minPrice, maxPrice, rating]);
 
   const [service, setService] = useState([]);
 
@@ -82,7 +89,6 @@ const SaloonServicesCard = () => {
       );
       return setFilteredData(data1);
     } else if (minPrice !== 0) {
-      console.log(minPrice);
       minPrice === "lowest" ? miniPrice() : maxiPrice();
     } else if (keyword !== "" && city !== "All" && minPrice !== 0) {
       let data1 = data.filter(
@@ -183,7 +189,7 @@ const SaloonServicesCard = () => {
                 <input
                   className="form-check-input"
                   type="radio"
-                  name="Rawalpindi"
+                  name="Islamabad"
                   value="Rawalpindi"
                   id="flexRadioDefault2"
                   style={{
@@ -233,6 +239,17 @@ const SaloonServicesCard = () => {
                     onChange={(e) => setMinPrice(e.target.value)}
                   />
                   <label className="form-check-label">Highest To Lowest</label>
+                </div>
+                <div className="form-check" style={{ marginTop: "20px" }}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="lowest"
+                    value="rating"
+                    id="flexRadioDefault1"
+                    onChange={ratings}
+                  />
+                  <label className="form-check-label">Rating</label>
                 </div>
               </div>
               <Divider sx={{ marginBottom: "10px" }} />

@@ -40,17 +40,6 @@ const AddProduct = () => {
       },
     });
 
-    console.log(
-      name,
-      description,
-      category,
-      price,
-      stock,
-      number,
-      userId,
-      res.data.url
-    );
-
     const addproduct = await axios.post("/product/addproduct", {
       name,
       description,
@@ -80,9 +69,12 @@ const AddProduct = () => {
       <div>
         <SellerSpeedDial />
       </div>
-      <div className="productglass">
+      <div className="productglass" style={{ overflow: "scroll" }}>
         <Sidebar />
-        <div className="newProductContainer">
+        <div
+          className="newProductContainer"
+          style={{ overflow: "scroll" }}
+        >
           <h1
             style={{
               color: "rgba(0, 0, 0, 0.733)",

@@ -12,6 +12,7 @@ import {
   House,
   DirectionsCar,
   PriceCheck,
+  Article,
 } from "@mui/icons-material";
 
 import SellerSpeedDial from "../SellerSpeedDial/SellerSpeedDial";
@@ -66,18 +67,18 @@ const AddSaloon = () => {
   };
   const [userId, setUserId] = useState("");
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
   const [phoneNo, setNumber] = useState("");
   const [experties, setExperties] = useState("");
   const [policy, setPolicy] = useState("");
-  const [basicPrice, setBasicPrice] = useState("");
+  const [basicPrice, setBasicPrice] = useState();
   const [basicService, setBasicService] = useState("");
-  const [goldPrice, setGoldPrice] = useState("");
+  const [goldPrice, setGoldPrice] = useState();
   const [goldService, setGoldService] = useState("");
-  const [platinumPrice, setPlatinumPrice] = useState("");
+  const [platinumPrice, setPlatinumPrice] = useState();
   const [platinumService, setPlatinumService] = useState("");
   const [images, setImages] = useState("");
   const [file, setFile] = useState("");
@@ -148,8 +149,6 @@ const AddSaloon = () => {
                   onChange={(e) => setNumber(e.target.value)}
                 />
               </div>
-            </div>
-            <div className="col-4">
               <div>
                 <LocationOn />
                 <input
@@ -160,6 +159,9 @@ const AddSaloon = () => {
                   onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
+            </div>
+            <div className="col-4">
+             
               <div>
                 <House />
                 <input
@@ -195,7 +197,7 @@ const AddSaloon = () => {
               </div>
 
               <div>
-                <PriceCheck />
+                <Article />
                 <textarea
                   placeholder="Basic Plan services"
                   onChange={(e) => setBasicService(e.target.value)}
@@ -203,8 +205,6 @@ const AddSaloon = () => {
                   rows="1"
                 ></textarea>
               </div>
-            </div>
-            <div className="col-4">
               <div>
                 <PriceCheck />
                 <input
@@ -216,8 +216,11 @@ const AddSaloon = () => {
                   rows="1"
                 ></input>
               </div>
+            </div>
+            <div className="col-4">
+             
               <div>
-                <PriceCheck />
+                <Article />
                 <textarea
                   placeholder="Gold Plan Services"
                   onChange={(e) => setGoldService(e.target.value)}
@@ -237,7 +240,7 @@ const AddSaloon = () => {
                 ></input>
               </div>
               <div>
-                <PriceCheck />
+                <Article />
                 <textarea
                   placeholder="Platinum Plan Services"
                   value={platinumService}

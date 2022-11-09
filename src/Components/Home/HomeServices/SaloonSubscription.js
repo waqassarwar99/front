@@ -36,6 +36,7 @@ const SaloonSubscription = (props) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [price, setPrice] = useState(0);
+  const [order, setOrder] = useState([]);
 
   const submitBookToggle = (data) => {
     setPrice(data);
@@ -44,9 +45,22 @@ const SaloonSubscription = (props) => {
 
   const appointment = async (e) => {
     e.preventDefault();
-    navigate("/paymentform", {
-      state: { date, time, items: props.data, totalPrice: price },
-    });
+    const check = (order) => {
+      return (
+        order.time === time &&
+        order.orderItems[0].name === props.data.name &&
+        order.date == date
+      );
+    };
+    const orders = order.filter(check);
+    if (orders.length > 0) {
+      alert("Photographer is already booked");
+    }
+    else {
+      navigate("/saloonpaymentform", {
+        state: { date, time, items: props.data, totalPrice: price },
+      });
+    }
   };
 
   return (

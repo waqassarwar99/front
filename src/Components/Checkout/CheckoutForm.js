@@ -18,6 +18,7 @@ import {
 import { useSelector } from "react-redux";
 
 export default function CheckoutForm(props) {
+  console.log(props)
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
@@ -36,14 +37,13 @@ export default function CheckoutForm(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const addorder = await axios.post("/order/addMarqueeOrder", {
-      orderItems: [{ name: props.data.items.name }],
+      orderItems: props.data.items ? props.data.items : "",
       date: props.data.date ? props.data.date : null,
       time: props.data.time ? props.data.time : null,
       shippingInfo: { name, city, address, phoneNo },
       user: user._id,
-      seller: props.data.items.seller,
+      seller: props.data.seller,
     });
 
     if (!stripe || !elements) {

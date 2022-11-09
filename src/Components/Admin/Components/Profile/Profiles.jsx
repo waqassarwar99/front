@@ -5,7 +5,7 @@ import {
   fetchAllUsers,
   dispatchGetAllUser,
 } from "../../../../redux/actions/usersAction";
-import "./profiles.scss";
+import "./profiles.css";
 
 export default function Profile() {
   const auth = useSelector((state) => state.authReducer);

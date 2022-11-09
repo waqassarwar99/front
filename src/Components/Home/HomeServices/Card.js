@@ -46,7 +46,7 @@ const Card = ({ data }) => {
           <div className="cardFooter">
             <p>
               Starting at <strong>PKR</strong>{" "}
-              <strong>{data.basicPlan.price}</strong>
+              <strong>{data.basicPlan[0].basicPrice}</strong>
             </p>
           </div>
         </div>

@@ -28,7 +28,11 @@ const HomeServiceCards = () => {
     const service = await axios.get("/service/maxPrice");
     setFilteredData(service.data);
   };
-  const navigate = useNavigate();
+
+  const ratings = async () => {
+    const service = await axios.get("/service/ratings");
+    setFilteredData(service.data);
+  };
 
   const [data, setData] = useState([]);
 
@@ -38,6 +42,7 @@ const HomeServiceCards = () => {
   const [city, setCity] = useState("All");
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
+  const [rating, setRating] = useState("");
   const [service, setService] = useState([]);
 
   useEffect(() => {
@@ -52,7 +57,7 @@ const HomeServiceCards = () => {
 
   useEffect(() => {
     filtering();
-  }, [keyword, city, minPrice, maxPrice]);
+  }, [keyword, city, minPrice, maxPrice, rating]);
 
   const filtering = () => {
     if (keyword === "" && city === "All" && minPrice === 0 && maxPrice === 0) {
@@ -219,6 +224,18 @@ const HomeServiceCards = () => {
                   />
                   <label className="form-check-label">Highest To Lowest</label>
                 </div>
+                <div className="form-check" style={{ marginTop: "20px" }}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="lowest"
+                    value="rating"
+                    id="flexRadioDefault1"
+                    // onChange={(e) => setRating(e.target.value)}
+                    onChange={ratings}
+                  />
+                  <label className="form-check-label">Rating</label>
+                </div>
               </div>
               <Divider sx={{ marginBottom: "10px" }} />
             </div>
@@ -227,7 +244,7 @@ const HomeServiceCards = () => {
 
         <div style={{ marginTop: "10px", display: "flex", flexWrap: "wrap" }}>
           {filteredData.map((e) => (
-            <Card data={e} />
+            <Card data={e} key={e._id}/>
           ))}
         </div>
       </div>

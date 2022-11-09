@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import UserSpeedDial from "../SpeedDial/UserSpeedDial";
-import img2 from "../../../images/img2.png";
+import img2 from "../../../images/waqas.jpeg";
 import Navbar from "../Navbar";
 export default function ClientProfile() {
   //seller data

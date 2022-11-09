@@ -14,11 +14,10 @@ import {
 import { CloseOutlined, AccountCircleOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
+import axios from 'axios';
 
 const PhotographerSubscription = (props) => {
   const navigate = useNavigate();
-
-  console.log(props);
 
   // Basic addons
   const basicAddOns = props.data.basicPlan.addOns;
@@ -36,17 +35,40 @@ const PhotographerSubscription = (props) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [price, setPrice] = useState(0);
+  const [order, setOrder] = useState([]);
 
   const submitBookToggle = (data) => {
     setPrice(data);
-    book ? setBook(false) : setBook(true);
+    book ? setBook(false) : setBook(true)
   };
+
+  React.useEffect(() => {
+    const getData = async () => {
+      const res = await axios.get("/photographer/orders");
+      setOrder(res.data);
+    
+    };
+    getData();
+  });
 
   const appointment = async (e) => {
     e.preventDefault();
-    navigate("/paymentform", {
-      state: { date, time, items: props.data, totalPrice: price },
-    });
+    const check = (order) => {
+      return (
+        order.time === time &&
+        order.orderItems[0].name === props.data.name &&
+        order.date == date
+      );
+    };
+    const orders = order.filter(check);
+    if (orders.length > 0) {
+      alert("Photographer is already booked");
+    }
+    else {
+      navigate("/photographerpaymentform", {
+        state: { date, time, items: props.data, totalPrice: price },
+      });
+    }
   };
 
   return (

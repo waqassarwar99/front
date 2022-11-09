@@ -9,8 +9,11 @@ import {
   LocationOn,
   Phone,
   PriceCheck,
+  ArticleOutlined,
+  Article,
 } from "@mui/icons-material";
 import SellerSpeedDial from "../SellerSpeedDial/SellerSpeedDial";
+import experience from "../../../images/experience.png";
 
 const EditSaloon = () => {
   const navigate = useNavigate();
@@ -19,14 +22,14 @@ const EditSaloon = () => {
 
   const editSellerServices = async (e) => {
     e.preventDefault();
-    // let formData = new FormData();
-    // formData.append("file", file);
+    let formData = new FormData();
+    formData.append("file", file);
 
-    // const res = await axios.post("/user/upload", formData, {
-    //   headers: {
-    //     "content-type": "multipart/form-data",
-    //   },
-    // });
+    const res = await axios.post("/user/upload", formData, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
     const editsellerservices = await axios.patch(
       `/service/editPhotographer/${product._id}`,
       {
@@ -35,7 +38,24 @@ const EditSaloon = () => {
         category: category ? category : product.category,
         location: location ? location : product.location,
         phoneNo: phoneNo ? phoneNo : product.phoneNo,
-        // images: res.data.url,
+        images: res.data.url,
+        policy: policy ? policy : product.policy,
+        experties: experties ? experties : product.experties,
+        basicPlan:
+          basicPrice && basicService
+            ? { price: basicPrice, addOns: basicService }
+            : { price: product.basicPrice, addOns: product.basicService },
+        goldPlan:
+          goldPrice && goldService
+            ? { price: goldPrice, addOns: goldService }
+            : { price: product.goldPrice, addOns: product.goldService },
+        platinumPlan:
+          platinumPrice && platinumService
+            ? { price: platinumPrice, addOns: platinumService }
+            : {
+                price: product.platinumPrice,
+                addOns: product.platinumService,
+              },
       }
     );
     console.log(editSellerServices);
@@ -47,6 +67,8 @@ const EditSaloon = () => {
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
   const [phoneNo, setNumber] = useState("");
+  const [experties, setExperties] = useState("");
+  const [policy, setPolicy] = useState("");
   const [basicPrice, setBasicPrice] = useState("");
   const [basicService, setBasicService] = useState("");
   const [goldPrice, setGoldPrice] = useState("");
@@ -74,7 +96,7 @@ const EditSaloon = () => {
               marginTop: "10px",
             }}
           >
-            Edit Photographer
+            Edit Saloon
           </h1>
           <div className="addMarquee row">
             <div className="col-4">
@@ -135,6 +157,35 @@ const EditSaloon = () => {
             </div>
             <div className="col-4">
               <div>
+                <img
+                  src={experience}
+                  width={25}
+                  height={25}
+                  style={{
+                    position: "absolute",
+                    transform: "translateY(1vmax)",
+                    marginLeft: "15px",
+                  }}
+                />
+                <input
+                  type="string"
+                  placeholder="Experties"
+                  defaultValue={product.experties}
+                  required
+                  onChange={(e) => setExperties(e.target.value)}
+                />
+              </div>
+              <div>
+                <ArticleOutlined />
+                <input
+                  type="string"
+                  placeholder="Cancelation Policy"
+                  defaultValue={product.policy}
+                  required
+                  onChange={(e) => setPolicy(e.target.value)}
+                />
+              </div>
+              <div>
                 <PriceCheck />
                 <input
                   type="number"
@@ -147,7 +198,7 @@ const EditSaloon = () => {
               </div>
 
               <div>
-                <PriceCheck />
+                <Article />
                 <textarea
                   placeholder="Basic Plan services"
                   defaultValue={product.basicPlan.addOns}
@@ -167,8 +218,11 @@ const EditSaloon = () => {
                   rows="1"
                 ></input>
               </div>
-              <div>
-                <PriceCheck />
+              
+            </div>
+            <div className="col-4">
+            <div>
+                <Article />
                 <textarea
                   placeholder="Gold Plan Services"
                   defaultValue={product.goldPlan.addOns}
@@ -188,10 +242,8 @@ const EditSaloon = () => {
                   rows="1"
                 ></input>
               </div>
-            </div>
-            <div className="col-4">
               <div>
-                <PriceCheck />
+                <Article />
                 <textarea
                   placeholder="Platinum Plan Services"
                   defaultValue={product.platinumPlan.addOns}

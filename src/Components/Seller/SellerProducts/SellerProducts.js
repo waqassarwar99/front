@@ -17,7 +17,7 @@ const SellerProducts = () => {
   const deleteProduct = async (id) => {
     const product = await axios.delete(`/product/deleteproduct/${id}`);
     alert("Product Deleted");
-     window.location.href = "/sellerproducts";
+    window.location.href = "/sellerproducts";
   };
 
   const editProduct = (data) => {
@@ -52,7 +52,7 @@ const SellerProducts = () => {
 
   const [data, setData] = useState([]);
   return (
-    <div className="SellerProducts">
+    <div className="SellerProducts" style={{ overflow: "scroll" }}>
       <div
         style={{
           display: "flex",
@@ -81,8 +81,8 @@ const SellerProducts = () => {
           product.seller._id === userId ? (
             <div className="col-6" style={{ width: "550px" }}>
               <Card
+                className="card"
                 style={{
-                  padding: "10px",
                   marginTop: "20px",
                   borderRadius: 15,
                   backgroundColor: "#e0e1dc",
@@ -97,7 +97,7 @@ const SellerProducts = () => {
                     >
                       <img
                         width={"180px"}
-                        height={"180px"}
+                        height={"220px"}
                         alt="Apple iPhone 11 Pro"
                         src={product.images}
                       />
@@ -127,13 +127,24 @@ const SellerProducts = () => {
                       >
                         {product.name}
                       </Typography>
-                      <Typography variant="body2" sx={{ marginBottom: 3.5 }}>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          marginBottom: 3.5,
+                          textOverflow: "ellipsis",
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
                         {product.description}
                       </Typography>
                       <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
-                        Price:
-                        <Box component="span" sx={{ fontWeight: "bold" }}>
-                          PKR{product.price}
+                        Price:{" "}
+                        <Box
+                          component="span"
+                          sx={{ fontWeight: "bold", fontSize: "17px" }}
+                        >
+                          PKR {product.price}
                         </Box>
                       </Typography>
                     </CardContent>

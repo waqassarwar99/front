@@ -53,7 +53,7 @@ const ServiceCards = () => {
 
   const [data, setData] = useState([]);
   return (
-    <div className="ServiceCards">
+    <div className="ServiceCards" style={{ overflow: "scroll" }}>
       <div
         style={{
           display: "flex",
@@ -84,12 +84,12 @@ const ServiceCards = () => {
           product.seller === userId ? (
             <div className="col-6" style={{ width: "550px" }}>
               <Card
+                className="card"
                 style={{
                   marginTop: "20px",
                   borderRadius: 15,
                   backgroundColor: "#e0e1dc",
                 }}
-                className="card"
               >
                 <Grid container spacing={3}>
                   <StyledGrid item md={5} xs={12}>
@@ -146,11 +146,11 @@ const ServiceCards = () => {
                       >
                         {product.description}
                       </Typography>
-                      <Typography sx={{ fontWeight: 500 }}>
-                        Price Range:{" "}
-                        <Box component="span" sx={{ fontWeight: "bold" }}>
-                          PKR {product.basicPlan.price} - PKR{" "}
-                          {product.platinumPlan.price}
+                      <Typography sx={{ fontWeight: 500, fontSize: "15px" }}>
+                        Starting From:{" "}
+                        <Box component="span" sx={{ fontWeight: "700", fontSize:"17px" }}>
+                          PKR {product.basicPlan[0].basicPrice} 
+                          
                         </Box>
                       </Typography>
                     </CardContent>

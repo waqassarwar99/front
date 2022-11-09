@@ -101,7 +101,7 @@ const ProductCards = () => {
             padding: "15px",
             marginTop: "20px",
             // marginLeft: "20px",
-            gap: "30px",
+            gap: "300px",
           }}
         >
           <p
@@ -235,7 +235,8 @@ const ProductCards = () => {
             display: "flex",
             flexWrap: "wrap",
             marginTop: "10px",
-            gap: "30px",
+            gap: "60px",
+            marginLeft:"40px"
           }}
         >
           {filteredData.map((data) => (

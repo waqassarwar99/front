@@ -52,7 +52,7 @@ const PhotographerCard = () => {
   const [userId, setUserId] = useState("");
   const [data, setData] = useState([]);
   return (
-    <div className="ServiceCards">
+    <div className="ServiceCards" style={{ overflow: "scroll" }}>
       <div
         style={{
           display: "flex",
@@ -98,7 +98,7 @@ const PhotographerCard = () => {
                     >
                       <img
                         width={"180px"}
-                        height={"180px"}
+                        height={"250px"}
                         alt="Apple iPhone 11 Pro"
                         src={product.images}
                       />
@@ -146,7 +146,10 @@ const PhotographerCard = () => {
                       </Typography>
                       <Typography sx={{ fontWeight: 500 }}>
                         Price Range:{" "}
-                        <Box component="span" sx={{ fontWeight: "bold" }}>
+                        <Box
+                          component="span"
+                          sx={{ fontWeight: "bold", fontSize: "15px" }}
+                        >
                           PKR {product.basicPlan.price} - PKR{" "}
                           {product.platinumPlan.price}
                         </Box>

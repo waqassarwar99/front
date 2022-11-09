@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import Profiles from '../../Components/Profile/Profiles'
-import './profile.scss'
+import './profile.css'
 
 function Profile() {
   return (
