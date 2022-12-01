@@ -4,14 +4,14 @@ import Updates from "./Updates";
 const RightSide = () => {
   return (
     <div className="RightSide">
-      {/* <div>
+      <div>
         <h3>Updates</h3>
         <Updates />
-      </div> */}
-      {/* <div>
+      </div>
+      <div>
         <h3>Customer Reviews</h3>
         <CustomerReview />
-      </div> */}
+      </div>
     </div>
   );
 };

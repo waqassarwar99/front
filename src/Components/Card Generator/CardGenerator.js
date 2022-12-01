@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 import "./CardGenerator.css";
 import reception from "../../images/reception.png";
-import dinner1 from "../../images/dinner.png"
-
+import dinner1 from "../../images/dinner.png";
+import { Button } from "@mui/material";
+import { Print } from "@mui/icons-material";
 const CardGenerator = () => {
+  // React-to-pdf
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    pageStyle: {
+      size: "a5 landscape",
+      margin: 0,
+    },
+    content: () => componentRef.current,
+  });
+
   const [name, setName] = React.useState("");
   const [name1, setName1] = React.useState("");
   const [date, setDate] = React.useState("");
@@ -13,9 +26,9 @@ const CardGenerator = () => {
   const [dinner, setDinner] = React.useState("");
   return (
     <div>
-      <div>
+      <div ref={componentRef}>
         <div className="sakura-falling"></div>
-        <div>
+        <div style={{}}>
           <img
             src="https://i.imgur.com/dGOOfnA.png"
             alt="image-top-right"
@@ -114,20 +127,10 @@ const CardGenerator = () => {
             </div>
           </div>
           <div className="time">Bless the married couple for happy life!</div>
-          {/* <p className="dance-med">dinner & dancing to follow</p> */}
-          <div className="actions">
-            {/* <a href="https://goo.gl/maps/5z5xX2hTYzU8VGEJ9" target="_blank">
-              <div className="venue">SEE THE VENUE</div>
-            </a>
-            <a
-              href="https://github.com/vinitshahdeo/vinitshahdeo/raw/master/docs/Sonali%20%26%20Gagan.pdf"
-              download="Invitation | 23 Nov | Hope to see you there!"
-            >
-            </a> */}
-            {/* <div className="venue1">DOWNLOAD INVITATION CARD</div> */}
-          </div>
+
           <p className="footer">
             Can't wait to celebrate auspicious moment of our family with you!{" "}
+            <br />
             <br />
             Just a ping away for any queries:{" "}
             <input
@@ -145,6 +148,19 @@ const CardGenerator = () => {
             ></audio>
           </div>
         </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Button color="success" variant="contained" onClick={handlePrint}>
+          <Print sx={{ marginRight: "5px" }} />
+          {"  "}
+          Print
+        </Button>
       </div>
     </div>
   );

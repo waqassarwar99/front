@@ -25,6 +25,7 @@ import {
   HouseOutlined,
   TimeToLeave,
   DescriptionOutlined,
+  ReviewsOutlined,
 } from "@mui/icons-material";
 import star from "../../../images/star.png";
 import PhotographerSubscription from "./PhotographerSubscription";
@@ -431,6 +432,7 @@ const PhotographerDetails = () => {
                 variant="contained"
                 onClick={submitReviewToggle}
                 style={{ marginTop: "30px" }}
+                startIcon={<ReviewsOutlined />}
               >
                 Review
               </Button>
@@ -506,13 +508,25 @@ const PhotographerDetails = () => {
                     >
                       Rating
                     </span>
-                    <Rating
-                      name="simple-controlled"
-                      value={rating}
-                      onChange={(e) => setRating(e.target.value)}
-                      sx={{ marginBottom: "15px" }}
-                      size="large"
-                    />
+                    <div
+                      style={{
+                        // backgroundColor: "red",
+                        // border: "1px solid red",
+                        scale: "170%",
+                        width: "40%",
+                        height: "20px",
+                        marginLeft: "30px",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      <Rating
+                        name="simple-controlled"
+                        value={rating}
+                        onChange={(e) => setRating(e.target.value)}
+                        sx={{ marginBottom: "15px" }}
+                        size="large"
+                      />
+                    </div>
                     <span
                       style={{
                         fontWeight: "600",
@@ -525,8 +539,9 @@ const PhotographerDetails = () => {
                     </span>
                     <textarea
                       className="submitDialogTextArea"
-                      cols="20"
-                      rows="1"
+                      cols="60"
+                      rows="2"
+                      maxLength={50}
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
                       sx={{
@@ -581,3 +596,4 @@ const PhotographerDetails = () => {
 };
 
 export default PhotographerDetails;
+

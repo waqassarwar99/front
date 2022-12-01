@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import star from "../../../images/star.png";
 import rupee from "../../../images/pakistani.png";
+import "./ProductCards.css";
 import { Divider } from "@mui/material";
 
 const ProductCards = () => {
@@ -30,6 +31,13 @@ const ProductCards = () => {
     setFilteredData(service.data);
   };
 
+  
+  const ratings = async () => {
+    const service = await axios.get("/product/ratings");
+    setFilteredData(service.data);
+  };
+
+
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
@@ -37,6 +45,7 @@ const ProductCards = () => {
   const [city, setCity] = useState("All");
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
+  const [rating, setRating] = useState("");
   const [service, setService] = useState([]);
 
   useEffect(() => {
@@ -49,26 +58,15 @@ const ProductCards = () => {
     getData();
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("/product/viewproduct")
-  //     .then((data) => {
-  //       setData(data.data);
-  //       setFilteredData(data.data);
-  //     })
-  //     .catch((e) => console.log(e));
-  // }, []);
-
   useEffect(() => {
     filtering();
-  }, [keyword, city, minPrice, maxPrice]);
+  }, [keyword, minPrice, maxPrice, rating]);
 
   const filtering = () => {
     if (keyword === "" && city === "All" && minPrice === 0 && maxPrice === 0) {
       return setFilteredData(data);
     } else if (keyword !== "") {
       let data1 = data.filter((e) => e.name.startsWith(keyword));
-      console.log(data1);
       return setFilteredData(data1);
     } else if (keyword === "" && city !== "All") {
       let data1 = data.filter((e) => e.location === city);
@@ -146,7 +144,7 @@ const ProductCards = () => {
                 fontSize: "15px",
               }}
             >
-              City
+              Category
             </span>
             <div
               className="cityFilter"
@@ -212,7 +210,7 @@ const ProductCards = () => {
                   />
                   <label className="form-check-label">Lowest To Highest</label>
                 </div>
-                <div className="form-check">
+                <div className="form-check" style={{ marginTop: "20px" }}>
                   <input
                     className="form-check-input"
                     type="radio"
@@ -222,6 +220,17 @@ const ProductCards = () => {
                     onChange={(e) => setMinPrice(e.target.value)}
                   />
                   <label className="form-check-label">Highest To Lowest</label>
+                </div>
+                <div className="form-check" style={{ marginTop: "20px" }}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="lowest"
+                    value="rating"
+                    id="flexRadioDefault1"
+                    onChange={ratings}
+                  />
+                  <label className="form-check-label">Rating</label>
                 </div>
               </div>
               <Divider sx={{ marginBottom: "10px" }} />
@@ -236,67 +245,51 @@ const ProductCards = () => {
             flexWrap: "wrap",
             marginTop: "10px",
             gap: "60px",
-            marginLeft:"40px"
+            marginLeft: "40px",
           }}
         >
           {filteredData.map((data) => (
             <div
-              // className="cardContainer"
               onClick={() => navigate("/productdetails", { state: data })}
+              key={data._id}
             >
-              <div className="photographersCards">
-                <img
-                  src={data.images}
-                  alt="service image"
-                  style={{
-                    width: "242px",
-                    height: "200px",
-                    objectFit: "cover",
-                    borderRadius: "8px",
-                  }}
-                />
-                <div className="photograhphersDetails">
-                  <div>
-                    <span
-                      style={{
-                        fontFamily: "poppins-semi-bold, sans-serif",
-                        /* font-family: Roboto; */
-                        fontSize: "15px",
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                        overflow: "hidden",
-                        fontWeight: "600",
-                      }}
-                    >
-                      {data.name}
-                    </span>
-                    <img
-                      src={star}
-                      alt="rating"
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        marginLeft: "15px",
-                      }}
-                    />
-                    <span style={{ fontWeight: "bold", marginLeft: "10px" }}>
-                      {data.ratings.toFixed(2)} ({data.numOfReviews})
-                    </span>
+             
+              <div className="flip-card">
+                <div className="flip-card-inner">
+                  <div className="flip-card-front">
+                    <img src={data.images} alt="prodcut images" />
                   </div>
-                  <div style={{ marginTop: "10px" }}>
-                    <img src={rupee} alt="rupee" />
-                    <span
+                  <div className="flip-card-back">
+                    <img src={data.images} alt="image" />
+                    <div
                       style={{
-                        fontSize: "15px",
-                        fontWeight: "bold",
-                        marginLeft: "10px",
-                        marginRight: "60px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
-                      {data.price}
-                    </span>
-                    <LocationOnOutlinedIcon />
-                    <span style={{ fontWeight: "bold" }}>Islamabad</span>
+                      <h3>{data.name}</h3>
+                      <img
+                        src={star}
+                        alt="rating"
+                        style={{
+                          width: "15px",
+                          height: "15px",
+                          marginLeft: "10px",
+                          marginTop: "10px",
+                        }}
+                      />
+                      <span
+                        style={{
+                          fontWeight: "bold",
+                          marginLeft: "10px",
+                          marginTop: "10px",
+                        }}
+                      >
+                        {data.ratings.toFixed(2)} ({data.numOfReviews})
+                      </span>
+                    </div>
+                    <h1>PKR {data.price}</h1>
                   </div>
                 </div>
               </div>

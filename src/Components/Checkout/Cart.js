@@ -242,7 +242,7 @@ const Checkout = () => {
             cursor: "pointer",
           }}
           onClick={() =>
-            navigate("/paymentform", {
+            navigate("/productPaymentform", {
               state: {
                 orderItems: [
                   {

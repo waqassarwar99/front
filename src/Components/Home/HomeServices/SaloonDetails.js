@@ -25,6 +25,7 @@ import {
   AccountCircleOutlined,
   HouseOutlined,
   TimeToLeave,
+  ReviewsOutlined,
   DescriptionOutlined,
 } from "@mui/icons-material";
 import star from "../../../images/star.png";
@@ -432,6 +433,7 @@ const SaloonDetails = () => {
                 variant="contained"
                 onClick={submitReviewToggle}
                 sx={{ marginTop: "30px" }}
+                startIcon={<ReviewsOutlined />}
               >
                 Review
               </Button>

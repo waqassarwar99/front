@@ -19,7 +19,7 @@ const PhotographerCard = ({ data }) => {
         </div>
         <div className="cardInfo">
           <div className="cardHeader">
-            <span style={{ fontSize: "20px" }}>{data.name}</span>
+            <span style={{ fontSize: "25px", fontFamily:"Dancing Script" }}>{data.name}</span>
 
             <div className="cardHeaderDetails">
               <img
@@ -32,7 +32,7 @@ const PhotographerCard = ({ data }) => {
                 }}
               />
               <span>
-                {data.ratings} ({data.numOfReviews})
+                {data.ratings.toFixed(2)} ({data.numOfReviews})
               </span>
             </div>
           </div>
@@ -45,7 +45,7 @@ const PhotographerCard = ({ data }) => {
           <div className="cardFooter">
             <p>
               Starting at <strong>PKR</strong>{" "}
-              <strong>{data.basicPlan.price}</strong>
+              <strong >{data.basicPlan.price}</strong>
             </p>
           </div>
         </div>

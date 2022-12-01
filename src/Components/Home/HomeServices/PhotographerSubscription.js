@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+
 import {
   Box,
   Typography,
@@ -14,7 +14,7 @@ import {
 import { CloseOutlined, AccountCircleOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
-import axios from 'axios';
+import axios from "axios";
 
 const PhotographerSubscription = (props) => {
   const navigate = useNavigate();
@@ -39,14 +39,13 @@ const PhotographerSubscription = (props) => {
 
   const submitBookToggle = (data) => {
     setPrice(data);
-    book ? setBook(false) : setBook(true)
+    book ? setBook(false) : setBook(true);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const getData = async () => {
       const res = await axios.get("/photographer/orders");
       setOrder(res.data);
-    
     };
     getData();
   });
@@ -63,8 +62,7 @@ const PhotographerSubscription = (props) => {
     const orders = order.filter(check);
     if (orders.length > 0) {
       alert("Photographer is already booked");
-    }
-    else {
+    } else {
       navigate("/photographerpaymentform", {
         state: { date, time, items: props.data, totalPrice: price },
       });
@@ -80,7 +78,6 @@ const PhotographerSubscription = (props) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-evenly",
-       
       }}
     >
       <Box
@@ -97,7 +94,11 @@ const PhotographerSubscription = (props) => {
       >
         <Typography
           variant="h3"
-          sx={{ fontWeight: "bold", fontStyle: "Roboto", textAlign: "center" }}
+          sx={{
+            fontWeight: "bold",
+            fontFamily: "Dancing Script",
+            textAlign: "center",
+          }}
         >
           Basic
         </Typography>
@@ -150,7 +151,7 @@ const PhotographerSubscription = (props) => {
           <CloseOutlined
             sx={{
               marginLeft: "140px",
-              marginTop: "-40px",
+              marginTop: "-10px",
               cursor: "pointer",
               color: "red",
             }}
@@ -201,7 +202,7 @@ const PhotographerSubscription = (props) => {
                 type="time"
                 name="time"
                 onChange={(e) => setTime(e.target.value)}
-                style={{ marginLeft: "10px" }}
+                style={{ marginLeft: "10px", width:"140px" }}
               />
             </label>
           </div>
@@ -237,7 +238,7 @@ const PhotographerSubscription = (props) => {
             variant="h3"
             sx={{
               fontWeight: "bold",
-              fontStyle: "Roboto",
+              fontFamily: "Dancing Script",
               textAlign: "center",
               color: "warning.light",
             }}
@@ -290,7 +291,7 @@ const PhotographerSubscription = (props) => {
             variant="h3"
             sx={{
               fontWeight: "bold",
-              fontStyle: "Roboto",
+              fontFamily: "Dancing Script",
               textAlign: "center",
             }}
           >

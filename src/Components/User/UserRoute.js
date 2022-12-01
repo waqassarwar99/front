@@ -49,13 +49,13 @@ import EditSaloon from "../Seller/Saloon/EditSaloon";
 
 import UserMainChat from "../UserChat/MainChat";
 import ClientProfile from "../Home/Profile/ClientProfile";
-import Testing from "../Home/HomeServices/Testing";
 import MainChat from "../Chat/MainChat";
 
 // Invitation Card
-
+import UserOrders from "../Home/Orders/UserOrders";
 import CardGenerator from "../Card Generator/CardGenerator";
 import WalimaCard from "../Card Generator/WalimaCard";
+import ProductPaymentForm from "../Checkout/ProductPaymentForm";
 const stripePromise = loadStripe(
   "sk_test_51Kr2oHDGZefk1hIJPmvj4miJ6yZMVPKPpO1vTh33XktHv1jxMf41PF4qZytZNGDKWwH0c70tI5bzWVbrNDPqeGro00jiI06fND"
 );
@@ -68,10 +68,10 @@ export default function UserRoute() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Home />} />
-            <Route path="/form" element={<Testing />} />
 
             <Route path="/userProfile" element={<ClientProfile />} />
             <Route path="/userchat" element={<UserMainChat />} />
+            <Route path="/userOrders" element={<UserOrders />} />
             <Route path="/products" element={<Products />} />
             <Route path="/productdetails" element={<ProductDetails />} />
             <Route path="/services" element={<HomeServices />} />
@@ -104,6 +104,7 @@ export default function UserRoute() {
             />
             <Route path="/addressform" element={<AddressForm />} />
             <Route path="/paymentform" element={<PaymentForm />} />
+            <Route path="/productPaymentform" element={<ProductPaymentForm />} />
             <Route
               path="/photographerpaymentform"
               element={<PhotographerPaymentForm />}

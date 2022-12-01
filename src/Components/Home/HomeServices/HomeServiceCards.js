@@ -84,13 +84,7 @@ const HomeServiceCards = () => {
   };
   return (
     <>
-      {/* <Navbar />
-
-      {isLogged ? (
-        <div>
-          <UserSpeedDial />
-        </div>
-      ) : null} */}
+     
 
       <div style={{ display: "flex", gap: "30px" }}>
         {/* Search and filtering */}

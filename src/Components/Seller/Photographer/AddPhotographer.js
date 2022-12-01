@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../Sidebar";
 import "../Services/addService.css";
+import { TextField, InputAdornment } from "@mui/material";
 import {
   AccountTree,
   Description,
@@ -11,6 +12,7 @@ import {
   Phone,
   PriceCheck,
   ArticleOutlined,
+  Article,
 } from "@mui/icons-material";
 
 import experience from "../../../images/experience.png";
@@ -90,7 +92,7 @@ const AddPhotographer = () => {
       </div>
       <div className="productglass">
         <Sidebar />
-        <div className="newProductContainer" style={{ marginLeft: "20px" }}>
+        <div className="newProductContainer" style={{ marginLeft: "20px", height:"90%" }}>
           <h1
             style={{
               color: "rgba(0, 0, 0, 0.733)",
@@ -106,155 +108,250 @@ const AddPhotographer = () => {
           <div className="addMarquee row">
             <div className="col-4">
               <div>
-                <Spellcheck />
-                <input
-                  type="text"
+                <TextField
+                  label="Name"
                   placeholder="Name"
-                  required
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <Description />
-
-                <textarea
-                  placeholder="Description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  cols="22"
-                  rows="1"
-                ></textarea>
-              </div>
-
-              <div>
-                <AccountTree />
-                <input
-                  type="text"
-                  placeholder="Category"
-                  value={category}
-                  required
-                  onChange={(e) => setCategory(e.target.value)}
-                />
-              </div>
-              <div>
-                <Phone />
-                <input
-                  type="text"
-                  placeholder="Phone No"
-                  value={phoneNo}
-                  required
-                  onChange={(e) => setNumber(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <LocationOn />
-                <input
-                  type="string"
-                  placeholder="Location"
-                  value={location}
-                  required
-                  onChange={(e) => setLocation(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="col-4">
-              <div>
-                <img
-                  src={experience}
-                  width={25}
-                  height={25}
-                  style={{
-                    position: "absolute",
-                    transform: "translateY(1vmax)",
-                    marginLeft: "15px",
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Spellcheck />
+                      </InputAdornment>
+                    ),
                   }}
                 />
-                <input
-                  type="string"
-                  placeholder="Experties"
+              </div>
+
+              <div>
+                <TextField
+                  label="Description"
+                  placeholder="Description"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Description />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </div>
+
+              <div>
+                <TextField
+                  label="Category"
+                  placeholder="Category"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <AccountTree />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </div>
+              <div>
+                <TextField
+                  label="Phone No"
+                  placeholder="Phone No"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
+                  value={phoneNo}
+                  onChange={(e) => setNumber(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Phone />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </div>
+
+              <div>
+                <TextField
+                  label="Location"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
+                  value={location}
+                  placeholder="Location"
+                  onChange={(e) => setLocation(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LocationOn />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </div>
+
+              <button
+                id="createProductBtn"
+                type="submit"
+                onClick={addService}
+                style={{
+                  width: "60%",
+                  marginLeft: "10px",
+                  fontWeight: "400",
+                  fontSize: "20px",
+                  padding: 10,
+                }}
+              >
+                Create
+              </button>
+            </div>
+            <div className="col-4">
+              <div>
+                <TextField
+                  label="Experties"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
                   value={experties}
-                  required
+                  placeholder="Experties"
                   onChange={(e) => setExperties(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <img src={experience} />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </div>
               <div>
-                <ArticleOutlined />
-                <input
-                  type="string"
-                  placeholder="Cancelation Policy"
+                <TextField
+                  label="Cancelation Policy"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
                   value={policy}
-                  required
+                  placeholder="Cancelation Policy"
                   onChange={(e) => setPolicy(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <ArticleOutlined />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </div>
 
               <div>
-                <PriceCheck />
-                <input
-                  type="number"
-                  placeholder="Basic Plan Price"
+                <TextField
+                  label="Basic Plan Price"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
                   value={basicPrice}
+                  placeholder="Basic Plan Price"
                   onChange={(e) => setBasicPrice(e.target.value)}
-                  cols="22"
-                  rows="1"
-                ></input>
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PriceCheck />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </div>
 
               <div>
-                <PriceCheck />
-                <textarea
-                  placeholder="Basic Plan services"
+                <TextField
+                  label="Basic Plan Services"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
+                  value={basicService}
+                  placeholder="Basic Plan Services"
                   onChange={(e) => setBasicService(e.target.value)}
-                  cols="22"
-                  rows="1"
-                ></textarea>
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Article />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </div>
 
               <div>
-                <PriceCheck />
-                <input
-                  type="number"
-                  placeholder="Gold Plan Price"
+                <TextField
+                  label="Gold Plan Price"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
                   value={goldPrice}
+                  placeholder="Gold Plan Price"
                   onChange={(e) => setGoldPrice(e.target.value)}
-                  cols="22"
-                  rows="1"
-                ></input>
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PriceCheck />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </div>
             </div>
             <div className="col-4">
               <div>
-                <PriceCheck />
-                <textarea
+                <TextField
+                  label="Gold Plan Services"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
+                  value={goldService}
                   placeholder="Gold Plan Services"
                   onChange={(e) => setGoldService(e.target.value)}
-                  cols="22"
-                  rows="1"
-                ></textarea>
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Article />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </div>
               <div>
-                <PriceCheck />
-                <input
-                  type="text"
-                  placeholder="Platinum Plan Price"
+                <TextField
+                  label="Platinum Plan Price"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
                   value={platinumPrice}
+                  placeholder="Platinum Plan Price"
                   onChange={(e) => setPlatinumPrice(e.target.value)}
-                  cols="22"
-                  rows="1"
-                ></input>
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PriceCheck />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </div>
               <div>
-                <PriceCheck />
-                <textarea
-                  placeholder="Platinum Plan Services"
+                <TextField
+                  label="Platinum Plan Services"
+                  id="outlined-start-adornment"
+                  sx={{ m: 1, width: "30ch" }}
                   value={platinumService}
+                  placeholder="Platinum Plan Services"
                   onChange={(e) => setPlatinumService(e.target.value)}
-                  cols="22"
-                  rows="1"
-                ></textarea>
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Article />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </div>
               <div id="createProductFormFile">
                 <input
@@ -271,10 +368,6 @@ const AddPhotographer = () => {
                 ))}
               </div>
             </div>
-
-            <button id="createProductBtn" type="submit" onClick={addService}>
-              Create
-            </button>
           </div>
         </div>
       </div>

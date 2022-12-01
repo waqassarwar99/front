@@ -10,6 +10,8 @@ import { useDispatch } from "react-redux";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 import "./login.css";
 
 const initialState = {
@@ -20,9 +22,28 @@ const initialState = {
   success: "",
 };
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function Login() {
   const navigate = useNavigate();
 
+  // snack bar
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+  // states
   const [user, setUser] = React.useState(initialState);
   const [passwordVisible, setPasswordVisible] = React.useState(true);
   const dispatch = useDispatch();
@@ -31,6 +52,7 @@ export default function Login() {
   const [cnic, setCnic] = React.useState();
   const [phone, setPhone] = React.useState();
   const [serviceType, setServiceType] = React.useState();
+  const [errorMsg, setErrorMsg] = React.useState("");
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -41,19 +63,24 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await axios.post("/user/sellerLogin", { email, password });
-      const res1 = await axios.get("/user/sellerdetail", {
-        headers: { Authorization: res.data.token },
-      });
-      setUser({ ...user, err: "", success: res.data.msg });
-      localStorage.setItem("firstLogin", true);
-      localStorage.setItem("name", res1.data.name);
-      localStorage.setItem("email", res1.data.email);
-      localStorage.setItem("avatar", res1.data.avatar);
-      localStorage.setItem("role", res1.data.role);
-      localStorage.setItem("token", res.data.token);
-      dispatch(dispatcLogin());
+      setErrorMsg(res.data.msg);
+      if (res.data.msg == "Login Successfull!") {
+        const res1 = await axios.get("/user/sellerdetail", {
+          headers: { Authorization: res.data.token },
+        });
+        setUser({ ...user, err: "", success: res.data.msg });
+        localStorage.setItem("firstLogin", true);
+        localStorage.setItem("name", res1.data.name);
+        localStorage.setItem("email", res1.data.email);
+        localStorage.setItem("avatar", res1.data.avatar);
+        localStorage.setItem("role", res1.data.role);
+        localStorage.setItem("token", res.data.token);
+        dispatch(dispatcLogin());
 
-      navigate("/dashboard");
+        navigate("/dashboard");
+      } else {
+        handleClick();
+      }
     } catch (error) {
       err.response.data.msg &&
         setUser({ ...user, err: err.response.data.msg, success: "" });
@@ -93,6 +120,11 @@ export default function Login() {
         }
         id="container"
       >
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            {errorMsg}
+          </Alert>
+        </Snackbar>
         <div className="form-container sign-up-container">
           <form action="" onSubmit={handleRegisterSubmit}>
             <h3 className="mt-2" style={{ fontFamily: "Roboto" }}>

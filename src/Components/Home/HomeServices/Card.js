@@ -19,7 +19,7 @@ const Card = ({ data }) => {
         </div>
         <div className="cardInfo">
           <div className="cardHeader">
-            <span>{data.name}</span>
+            <span style={{fontFamily:"Dancing Script"}}>{data.name}</span>
             <div className="cardHeaderDetails">
               <img
                 src={star}

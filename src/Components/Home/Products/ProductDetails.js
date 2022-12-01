@@ -116,16 +116,11 @@ const ProductDetails = () => {
 
   const addtocart = (item) => {
     const data = items.some(checkSeller);
-    console.log("productdata", data);
 
     function checkSeller(seller) {
-      console.log(seller.product.seller._id)
-      return (
-        seller.product.seller._id === item.seller._id
-      );
+      return seller.product.seller._id === item.seller._id;
     }
-    
-      console.log(data);
+
     if (data || items.length === 0) {
       dispatch(ADD_ITEM_TO_CART(item));
     } else {
@@ -604,7 +599,9 @@ const ProductDetails = () => {
         {product.reviews && product.reviews[0] ? (
           <div className="reviews">
             {product.reviews &&
-              product.reviews.map((review) => <ReviewCard review={review} />)}
+              product.reviews.map((review) => (
+                <ReviewCard review={review} key={review._id} />
+              ))}
           </div>
         ) : (
           <p className="noReviews"> No Reviews Yet!</p>

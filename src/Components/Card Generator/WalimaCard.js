@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 import "./CardGenerator.css";
 import reception from "../../images/reception.png";
 import dinner1 from "../../images/dinner.png";
 import s3 from "../../images/s3.png";
 import t2 from "../../images/t2.png";
-
+import { Button } from "@mui/material";
+import { Print } from "@mui/icons-material";
 const WalimaCard = () => {
+  // React-to-pdf
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    copyStyles: true,
+    pageStyle: { size: "297mm 210mm" },
+    content: () => componentRef.current,
+  });
+
+  // states
   const [name, setName] = React.useState("");
   const [name1, setName1] = React.useState("");
   const [date, setDate] = React.useState("");
@@ -15,7 +27,7 @@ const WalimaCard = () => {
   const [dinner, setDinner] = React.useState("");
   return (
     <div>
-      <div>
+      <div ref={componentRef}>
         <div className="sakura-falling"></div>
         <div>
           <img
@@ -23,7 +35,7 @@ const WalimaCard = () => {
             alt="image-top-right"
             className="top-right-decoration"
             style={{
-              width: "28%",
+              width: "26%",
               marginRight: "20px",
               top: "-35px",
               transform: "rotate(90deg)",
@@ -33,18 +45,18 @@ const WalimaCard = () => {
             src={s3}
             alt="image-top-left"
             className="top-left-decoration"
-            style={{ width: "32%", marginLeft: "-12px", maginTop: "-10px" }}
+            style={{ width: "28%", marginLeft: "-12px", maginTop: "-10px" }}
           />
           <img
             src={t2}
             alt="image-bottom-right"
             className="bottom-right-decoration"
-            // style={{width:"32%", marginLeft:"-12px", maginTop:"-10px"}}
             style={{
               position: "absolute",
-              bottom: 5,
-              right: 5,
+              bottom: 130,
+              right: 20,
               display: "block",
+            
             }}
           />
 
@@ -169,6 +181,19 @@ const WalimaCard = () => {
             ></audio>
           </div>
         </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Button color="success" variant="contained" onClick={handlePrint}>
+          <Print sx={{ marginRight: "5px" }} />
+          {"  "}
+          Print
+        </Button>
       </div>
     </div>
   );

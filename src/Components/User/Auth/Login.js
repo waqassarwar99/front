@@ -10,8 +10,13 @@ import { useDispatch } from "react-redux";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 import "./login.css";
-import { useFormik } from "formik";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const initialState = {
   name: "",
@@ -21,61 +26,24 @@ const initialState = {
   success: "",
 };
 
-const initialValues = {
-  name: "",
-  email: "",
-  password: "",
-};
-
-const onSubmit = (values) => {
-  console.log("Form values", values);
-  const res = axios.post("/user/login", {
-    email: values.email,
-    password: values.password,
-  });
-  const res1 = axios.get("/user/detail", {
-    headers: { Authorization: res.data.token },
-  });
-  // setUser({ ...user, err: "", success: res.data.msg });
-  localStorage.setItem("firstLogin", true);
-  localStorage.setItem("name", res1.data.name);
-  localStorage.setItem("email", res1.data.email);
-  localStorage.setItem("avatar", res1.data.avatar);
-  localStorage.setItem("role", res1.data.role);
-  localStorage.setItem("token", res.data.token);
-  // dispatch(dispatcLogin());
-
-  // navigate("/");
-};
-
-const validate = (values) => {
-  let errors = {};
-
-  if (!values.name) {
-    errors.name = "*Required";
-  }
-
-  if (!values.email) {
-    errors.email = "*Required";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = "Invalid email format";
-  }
-
-  if (!values.password) {
-    errors.password = "*Required";
-  }
-
-  return errors;
-};
-
 export default function Login() {
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    validate,
-  });
-
   const navigate = useNavigate();
+
+  // snack bar
+  const [open, setOpen] = React.useState(false);
+  const [errorMsg, setErrorMsg] = React.useState("");
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const [user, setUser] = React.useState(initialState);
   const [passwordVisible, setPasswordVisible] = React.useState(true);
@@ -91,25 +59,29 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await axios.post("/user/login", { email, password });
-      const res1 = await axios.get("/user/detail", {
-        headers: { Authorization: res.data.token },
-      });
-      setUser({ ...user, err: "", success: res.data.msg });
-      localStorage.setItem("firstLogin", true);
-      localStorage.setItem("name", res1.data.name);
-      localStorage.setItem("email", res1.data.email);
-      localStorage.setItem("avatar", res1.data.avatar);
-      localStorage.setItem("role", res1.data.role);
-      localStorage.setItem("token", res.data.token);
-      dispatch(dispatcLogin());
+      setErrorMsg(res.data.msg);
+      if (res.data.msg == "Login Successfull!") {
+        const res1 = await axios.get("/user/detail", {
+          headers: { Authorization: res.data.token },
+        });
+        setUser({ ...user, err: "", success: res.data.msg });
+        localStorage.setItem("firstLogin", true);
+        localStorage.setItem("name", res1.data.name);
+        localStorage.setItem("email", res1.data.email);
+        localStorage.setItem("avatar", res1.data.avatar);
+        localStorage.setItem("role", res1.data.role);
+        localStorage.setItem("token", res.data.token);
+        dispatch(dispatcLogin());
 
-      navigate("/");
+        navigate("/");
+      } else {
+        handleClick();
+      }
     } catch (error) {
       err.response.data.msg &&
         setUser({ ...user, err: err.response.data.msg, success: "" });
     }
   };
-
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -143,6 +115,11 @@ export default function Login() {
         }
         id="container"
       >
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            {errorMsg}
+          </Alert>
+        </Snackbar>
         <div className="form-container sign-up-container">
           <form action="" onSubmit={handleRegisterSubmit}>
             <h2 className="mt-1" style={{ fontFamily: "Roboto" }}>
@@ -166,27 +143,21 @@ export default function Login() {
               name="name"
               onChange={handleChangeInput}
             />
-            {formik.errors.name ? (
-              <div className="error">{formik.errors.email}</div>
-            ) : null}
+
             <input
               type="text"
               placeholder="Email"
               name="email"
               onChange={handleChangeInput}
             />
-            {formik.errors.email ? (
-              <div className="error">{formik.errors.email}</div>
-            ) : null}
+
             <input
               type={passwordVisible ? "password" : "password"}
               placeholder="Password"
               name="password"
               onChange={handleChangeInput}
             />
-            {formik.errors.password ? (
-              <div className="error">{formik.errors.email}</div>
-            ) : null}
+
             <button
               className="Loginbtn"
               type="submit"
@@ -218,18 +189,14 @@ export default function Login() {
               name="email"
               onChange={handleChangeInput}
             />
-            {formik.errors.email ? (
-              <div className="error">{formik.errors.email}</div>
-            ) : null}
+
             <input
               type={passwordVisible ? "password" : "password"}
               placeholder="Password"
               name="password"
               onChange={handleChangeInput}
             />
-            {formik.errors.password ? (
-              <div className="error">{formik.errors.password}</div>
-            ) : null}
+
             <Link
               to="/forgotPassword"
               className="border-bottom"

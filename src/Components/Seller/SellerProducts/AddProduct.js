@@ -71,23 +71,21 @@ const AddProduct = () => {
       </div>
       <div className="productglass" style={{ overflow: "scroll" }}>
         <Sidebar />
-        <div
-          className="newProductContainer"
-          style={{ overflow: "scroll" }}
-        >
+        <div className="newProductContainer" style={{ overflow: "scroll" }}>
           <h1
             style={{
               color: "rgba(0, 0, 0, 0.733)",
-              font: "300 2rem Roboto",
+              font: "400 3rem Roboto",
               textAlign: "center",
               marginTop: "10px",
+              marginBottom: "20px",
             }}
           >
             Add Product
           </h1>
 
           <div className="addMarquee row">
-            <div className="col-4">
+            <div className="col-6">
               <div>
                 <Spellcheck />
                 <input
@@ -108,9 +106,6 @@ const AddProduct = () => {
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
-            </div>
-            <div className="col-4">
-              {" "}
               <div>
                 <Description />
 
@@ -122,6 +117,8 @@ const AddProduct = () => {
                   rows="1"
                 ></textarea>
               </div>
+            </div>
+            <div className="col-6">
               <div>
                 <AccountTree />
                 <input
@@ -130,26 +127,8 @@ const AddProduct = () => {
                   placeholder="Category"
                   required
                   onChange={(e) => setCategory(e.target.value)}
-                  style={{ width: "92%" }}
                 />
               </div>
-              <div id="createProductFormFile">
-                <input
-                  type="file"
-                  name="avatar"
-                  accept="image/*"
-                  multiple
-                  onChange={(e) => setFile(e.target.files[0])}
-                />
-              </div>
-              <div id="createProductFormImage">
-                {imagesPreview.map((image, index) => (
-                  <img key={index} src={image} alt="Product Preview" />
-                ))}
-              </div>
-            </div>
-            <div className="col-4">
-              {" "}
               <div>
                 <Phone />
                 <input
@@ -170,13 +149,46 @@ const AddProduct = () => {
               </div>
             </div>
             <div
+              id="createProductFormFile"
               style={{
                 display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "flex-end",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              <Button id="createProductBtn" type="submit" onClick={addProduct}>
+              <input
+                type="file"
+                name="avatar"
+                accept="image/*"
+                multiple
+                onChange={(e) => setFile(e.target.files[0])}
+                style={{
+                  width: "30%",
+                  marginTop:"-110px"
+                }}
+              />
+            </div>
+            <div id="createProductFormImage">
+              {imagesPreview.map((image, index) => (
+                <img key={index} src={image} alt="Product Preview" />
+              ))}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                id="createProductBtn"
+                type="submit"
+                onClick={addProduct}
+                style={{
+                  width: "30%", 
+                  marginTop:"-190px"
+                }}
+              >
                 Create
               </Button>
             </div>

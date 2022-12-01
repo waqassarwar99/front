@@ -18,9 +18,15 @@ import {
   DialogTitle,
   Divider,
   TextField,
-  InputAdornment
+  InputAdornment,
 } from "@mui/material";
-import { CloseOutlined, Spellcheck, Mail, Article } from "@mui/icons-material";
+import {
+  CloseOutlined,
+  Spellcheck,
+  Mail,
+  Article,
+  CreditScore,
+} from "@mui/icons-material";
 
 import MainChat from "../../Chat/MainChat";
 
@@ -30,7 +36,7 @@ const UserSpeedDial = () => {
   const navigate = useNavigate();
 
   const auth = useSelector((state) => state.authReducer);
-  
+
   const { user } = auth;
 
   const handleLogout = async () => {
@@ -61,7 +67,6 @@ const UserSpeedDial = () => {
 
   const getChat = async () => {
     const res = await axios.post("/chat/getChat", { userId: user._id });
-    console.log(res);
     navigate("/userchat", { state: { chatID: res.data[0]._id } });
   };
   return (
@@ -76,7 +81,7 @@ const UserSpeedDial = () => {
             <img
               src={img1}
               alt="profile image"
-              style={{ height: "60px", width: "60px", borderRadius:"100%" }}
+              style={{ height: "60px", width: "60px", borderRadius: "100%" }}
             />
           }
           onClose={() => setOpen(false)}
@@ -97,6 +102,11 @@ const UserSpeedDial = () => {
             icon={<ShoppingCartIcon />}
             tooltipTitle="Cart"
             onClick={() => navigate("/cart")}
+          />
+          <SpeedDialAction
+            icon={<CreditScore />}
+            tooltipTitle="Orders"
+            onClick={() => navigate("/userOrders")}
           />
           <SpeedDialAction
             icon={<DescriptionIcon />}
@@ -141,36 +151,46 @@ const UserSpeedDial = () => {
             sx={{ display: "flex", flexDirection: "column" }}
           >
             <TextField
-          label="Name"
-          placeholder="Name"
-          id="outlined-start-adornment"
-          sx={{ m: 1, width: '25ch', marginBottom:"20px" }}
-    
-          InputProps={{
-            startAdornment: <InputAdornment position="start"><Spellcheck /></InputAdornment>,
-          }}
-        />
+              label="Name"
+              placeholder="Name"
+              id="outlined-start-adornment"
+              sx={{ m: 1, width: "25ch", marginBottom: "20px" }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Spellcheck />
+                  </InputAdornment>
+                ),
+              }}
+            />
             <TextField
-          label="Email"
-          placeholder="Email"
-          id="outlined-start-adornment"
-          sx={{ m: 1, width: '25ch', marginBottom:"20px" }}
-    
-          InputProps={{
-            startAdornment: <InputAdornment position="start"><Mail /></InputAdornment>,
-          }}
-        />
+              label="Email"
+              placeholder="Email"
+              id="outlined-start-adornment"
+              sx={{ m: 1, width: "25ch", marginBottom: "20px" }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Mail />
+                  </InputAdornment>
+                ),
+              }}
+            />
             <TextField
-          label="Complain"
-          placeholder="Complain"
-          id="outlined-start-adornment"
-          sx={{ m: 1, width: '25ch' }}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          InputProps={{
-            startAdornment: <InputAdornment position="start"><Article /></InputAdornment>,
-          }}
-        />
+              label="Complain"
+              placeholder="Complain"
+              id="outlined-start-adornment"
+              sx={{ m: 1, width: "25ch" }}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Article />
+                  </InputAdornment>
+                ),
+              }}
+            />
             {/* <input
               type="text"
               placeholder="Name"

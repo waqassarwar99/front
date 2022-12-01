@@ -15,11 +15,13 @@
 .profilePicture {
     height: 580px;
     background-color: white;
+    border-radius: 8px;
 }
 
 .profileDetails {
     height: 580px;
     background-color: white;
+    border-radius: 8px;
 }
 
 .changePassword {
@@ -32,14 +34,15 @@ input[type="file"] {
 }
 
 .custom-file-upload {
-    background-color: white;
-    border: 1px solid black;
+    background-color: white; 
+     border: 1px solid black;
+     border-radius: 100%;
     color: black;
     display: inline-block;
-    padding: 4px 8px;
+    padding: 2px 6px;
     cursor: pointer;
     position: absolute;
-    top: 7%;
-    left: 70%;
+    top: 4%;
+    left: 72%;
     transform: translate(-50%, -50%);
 }

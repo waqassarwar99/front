@@ -2,18 +2,14 @@ img {
   max-width: 100%;
   height: auto;
 }
-/* 
-@media (max-width: 900px) {
-  img {
-    max-width: 30%;
-  }
-} */
+
 
 .top-right-decoration {
   position: absolute;
   top: 0;
   right: 0;
   display: block;
+  width: 25%;
 }
 
 .top-left-decoration {
@@ -21,14 +17,14 @@ img {
   top: 0;
   left: 0;
   display: block;
+  width: 25%;
 }
-
 
 .title1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Dancing Script", cursive;
+  font-family: "Dancing Script";
   font-weight: bold;
   font-style: normal;
   font-size: 35px;
@@ -38,7 +34,6 @@ img {
   text-align: center;
   width: 90%;
 }
-
 
 .name1 {
   display: flex;
@@ -58,8 +53,8 @@ img {
 }
 
 .details1 {
-    font-family: "Avro";
-    font-size: 18px;
+  font-family: "Avro";
+  font-size: 18px;
 }
 
 .name {
@@ -100,7 +95,7 @@ img {
 }
 
 .dance-med {
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
   font-weight: bolder;
   font-style: normal;
   font-size: 32px;
@@ -135,9 +130,10 @@ img {
 
 .time {
   display: flex;
-  align-items: center;
+  align-self: center;
   justify-content: center;
-  width: 23%;
+  width: 360px;
+  margin: auto;
   height: auto;
   padding: 20px;
   background-color: #eee;
@@ -146,7 +142,6 @@ img {
   font-family: Arvo;
   text-align: center;
   font-weight: 600;
-  margin-left: 590px; 
 }
 
 .venue1 {
@@ -165,8 +160,8 @@ img {
   color: #fff;
 }
 
-.dateAndTime{
-    font-family: Arvo;
+.dateAndTime {
+  font-family: Arvo;
 }
 
 .date {
@@ -183,7 +178,6 @@ img {
   font-weight: 900;
   font-family: Arvo;
   border: none;
-  
 }
 
 .footer {

@@ -1,0 +1,14 @@
+.orderSummary {
+  width: "98%";
+  height: "550px";
+  background: "	#E8E8E8";
+  border-radius: "8px";
+}
+.orderSummaryHeading {
+  display: flex;
+  align-items: center;
+  justify-content: "center";
+  font-family: "Dancing Script";
+  margin-bottom: "20px";
+  margin-top: "10px";
+}

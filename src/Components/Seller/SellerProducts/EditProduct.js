@@ -19,7 +19,6 @@ const EditProduct = () => {
 
   const editProduct = async (e) => {
     e.preventDefault();
-    console.log(product.phoneNo)
 
     const editSellerProduct = await axios.patch(
       `/product/updateproduct/${product._id}`,
@@ -50,85 +49,97 @@ const EditProduct = () => {
       <div>
         <SellerSpeedDial />
       </div>
-      <div className="productglass">
+      <div className="productglass" >
         <Sidebar />
-        <div className="newProductContainer">
+        <div className="newProductContainer" style={{height:"90%"}}>
           <h1
             style={{
               color: "rgba(0, 0, 0, 0.733)",
-              font: "300 2rem Roboto",
+              font: "400 3rem Roboto",
               textAlign: "center",
               marginTop: "10px",
+              marginBottom: "20px",
             }}
           >
             Edit Product
           </h1>
-          <form className="createProductForm" encType="multipart/form-data">
-            <div>
-              <SpellcheckIcon />
-              <input
-                type="text"
-                placeholder="Product Name"
-                required
-                defaultValue={product.name}
-                onChange={(e) => setName(e.target.value)}
-              />
+          <div className="addMarquee row">
+            <div className="col-6">
+              <div>
+                <SpellcheckIcon />
+                <input
+                  type="text"
+                  placeholder="Product Name"
+                  required
+                  defaultValue={product.name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div>
+                <AttachMoneyIcon />
+                <input
+                  type="number"
+                  placeholder="Price"
+                  required
+                  defaultValue={product.price}
+                  onChange={(e) => setPrice(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <DescriptionIcon />
+
+                <textarea
+                  placeholder="Product Description"
+                  defaultValue={product.description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  cols="30"
+                  rows="1"
+                ></textarea>
+              </div>
             </div>
-            <div>
-              <AttachMoneyIcon />
-              <input
-                type="number"
-                placeholder="Price"
-                required
-                defaultValue={product.price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
+            <div className="col-6">
+              <div>
+                <AccountTreeIcon />
+                <input
+                  type="text"
+                  placeholder="Category"
+                  required
+                  defaultValue={product.category}
+                  onChange={(e) => setCategory(e.target.value)}
+                />
+              </div>
+              <div>
+                <Phone />
+                <input
+                  type="text"
+                  placeholder="Phone No"
+                  required
+                  defaultValue={product.phoneNo}
+                  onChange={(e) => setNumber(e.target.value)}
+                />
+              </div>
+              <div>
+                <StorageIcon />
+                <input
+                  type="number"
+                  placeholder="Stock"
+                  required
+                  defaultValue={product.stock}
+                  onChange={(e) => setStock(e.target.value)}
+                />
+              </div>
             </div>
 
-            <div>
-              <DescriptionIcon />
-
-              <textarea
-                placeholder="Product Description"
-                defaultValue={product.description}
-                onChange={(e) => setDescription(e.target.value)}
-                cols="30"
-                rows="1"
-              ></textarea>
-            </div>
-
-            <div>
-              <AccountTreeIcon />
-              <input
-                type="text"
-                placeholder="Category"
-                required
-                defaultValue={product.category}
-                onChange={(e) => setCategory(e.target.value)}
-              />
-            </div>
-            <div>
-              <Phone />
-              <input
-                type="text"
-                placeholder="Phone No"
-                required
-                defaultValue={product.phoneNo}
-                onChange={(e) => setNumber(e.target.value)}
-              />
-            </div>
-            <div>
-              <StorageIcon />
-              <input
-                type="number"
-                placeholder="Stock"
-                required
-                defaultValue={product.stock}
-                onChange={(e) => setStock(e.target.value)}
-              />
-            </div>
-
-            <div id="createProductFormFile">
+            <div
+              id="createProductFormFile"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "-110px",
+              }}
+            >
               <input type="file" name="avatar" accept="image/*" multiple />
             </div>
 
@@ -137,11 +148,26 @@ const EditProduct = () => {
                 <img key={index} src={image} alt="Product Preview" />
               ))}
             </div>
-
-            <Button id="createProductBtn" type="submit" onClick={editProduct}>
-              Edit
-            </Button>
-          </form>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                id="createProductBtn"
+                type="submit"
+                onClick={editProduct}
+                style={{
+                  width: "25%",
+                  marginTop: "-190px",
+                }}
+              >
+                Edit
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

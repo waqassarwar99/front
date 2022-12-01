@@ -42,9 +42,10 @@ const AddService = () => {
 
     getData();
   }, []);
+
   const addService = async (e) => {
     e.preventDefault();
-    console.log("values", formValues);
+    // console.log("values", formValues);
     let formData = new FormData();
     formData.append("file", file);
 
@@ -65,8 +66,8 @@ const AddService = () => {
       amenities,
       parking,
       catering,
-      basicPlan: formValues,
-      goldPlan: venueValues,
+      basicPlan: inputList,
+      goldPlan: venueList,
     });
     navigate("/marquees");
   };
@@ -84,88 +85,80 @@ const AddService = () => {
   const [imagesPreview, setImagesPreview] = useState([]);
 
   //adding and removing fields for menus
-  const [formValues, setFormValues] = useState([
-    { basicPrice: 0, basicService: "" },
+  const [inputList, setinputList] = React.useState([
+    { basicPrice: "", basicService: "" },
   ]);
 
-  let addFormFields = () => {
-    setFormValues([...formValues, { basicPrice: 0, basicService: "" }]);
+  const handleinputchange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...inputList];
+    list[index][name] = value;
+    setinputList(list);
+    console.log(inputList);
   };
 
-  console.log("basic", formValues.basicPrice);
-
-  let removeFormFields = (i) => {
-    let newFormValues = [...formValues];
-    newFormValues.splice(i, 1);
-    setFormValues(newFormValues);
+  const handleremove = (index) => {
+    const list = [...inputList];
+    list.splice(index, 1);
+    setinputList(list);
   };
 
-  let handleChange = (i, e) => {
-    let newFormValues = [...formValues];
-    newFormValues[i][e.target.name] = e.target.value;
-    setFormValues(newFormValues);
+  const handleaddclick = () => {
+    setinputList([...inputList, { basicPrice: "", basicService: "" }]);
   };
 
   //adding and removing fields for venues
-  const [venueValues, setvenueValues] = useState([
-    {
-      venueName: "",
-      VenueCapacity: 0,
-      venueGoldPrice: 0,
-      venueGoldService: "",
-    },
+
+  const [addonsList, setAddonsList] = useState([
+    { addOns: "", addOnsPrice: "" },
   ]);
 
-  let addVenueFormFields = () => {
-    setvenueValues([
-      ...venueValues,
-      {
-        venueName: "",
-        VenueCapacity: 0,
-        venueGoldPrice: 0,
-        venueGoldService: "",
-      },
+  const handleVenueAddoninputchange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...addonsList];
+    list[index][name] = value;
+    setAddonsList(list);
+    console.log("Addons: ", addonsList);
+  };
+
+  const handleVenueAddonremove = (index) => {
+    const list = [...addonsList];
+    list.splice(index, 1);
+    setAddonsList(list);
+  };
+
+  const handleVenueAddonaddclick = () => {
+    setAddonsList([...addonsList, { addOns: "", addOnsPrice: "" }]);
+  };
+
+  const [venueList, setVenueList] = useState([
+    { venueName: "", maxCapacity: "", addonsList },
+  ]);
+
+  const handleVenueinputchange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...venueList];
+    const addons = [...addonsList];
+    console.log("SSSS: ", addonsList);
+
+    list[index][name] = value;
+    list[index]["addonsList"] = addons;
+    setVenueList(list);
+    console.log("Venue: ", venueList);
+  };
+
+  const handleVenueremove = (index) => {
+    const list = [...venueList];
+    list.splice(index, 1);
+    setVenueList(list);
+  };
+
+  const handleVenueaddclick = () => {
+    setVenueList([
+      ...venueList,
+      { venueName: "", maxCapacity: "", addonsList },
     ]);
   };
-
-  let removeVenueFormFields = (i) => {
-    let newFormValues = [...venueValues];
-    newFormValues.splice(i, 1);
-    setvenueValues(newFormValues);
-  };
-
-  let handleChangeVenue = (i, e) => {
-    let newFormValues = [...venueValues];
-    newFormValues[i][e.target.name] = e.target.value;
-    setvenueValues(newFormValues);
-  };
-
-  // adding and removing venue services
-
-  // const [serviceAddons, setServiceAddons] = useState([
-  //   { goldServiceName: "", goldServicePrice: null },
-  // ]);
-
-  // console.log("service addons", serviceAddons);
-  // let addServiceFormFields = () => {
-  //   setServiceAddons([
-  //     ...serviceAddons,
-  //     { goldServiceName: "", goldServicePrice: null },
-  //   ]);
-  // };
-
-  // let removeServiceFormFields = (i) => {
-  //   let newFormValues = [...serviceAddons];
-  //   newFormValues.splice(i, 1);
-  //   setServiceAddons(newFormValues);
-  // };
-
-  // let handleServiceChange = (i, e) => {
-  //   console.log(e.target.name)
-  //   let newFormValues = [...serviceAddons];
-  //   newFormValues[i][e.target.name] = e.target.value;
-  //   setServiceAddons(newFormValues);
-  // };
 
   return (
     <div className="service">
@@ -190,20 +183,11 @@ const AddService = () => {
           <div className="addMarquee row " style={{ overflow: "auto" }}>
             <div className="col-4">
               <div>
-                {/* <Spellcheck /> */}
-                {/* <input
-                  type="text"
-                  placeholder="Name"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                /> */}
-
                 <TextField
                   label="Name"
                   placeholder="Name"
                   id="outlined-start-adornment"
-                  sx={{ m: 1, width: "25ch" }}
+                  sx={{ m: 1, width: "30ch" }}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   InputProps={{
@@ -221,7 +205,7 @@ const AddService = () => {
                   label="Description"
                   placeholder="Description"
                   id="outlined-start-adornment"
-                  sx={{ m: 1, width: "25ch" }}
+                  sx={{ m: 1, width: "30ch" }}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   InputProps={{
@@ -239,7 +223,7 @@ const AddService = () => {
                   label="Phone No"
                   placeholder="Phone No"
                   id="outlined-start-adornment"
-                  sx={{ m: 1, width: "25ch" }}
+                  sx={{ m: 1, width: "30ch" }}
                   value={phoneNo}
                   onChange={(e) => setNumber(e.target.value)}
                   InputProps={{
@@ -256,7 +240,7 @@ const AddService = () => {
                 <TextField
                   label="Location"
                   id="outlined-start-adornment"
-                  sx={{ m: 1, width: "25ch" }}
+                  sx={{ m: 1, width: "30ch" }}
                   value={location}
                   placeholder="Location"
                   onChange={(e) => setLocation(e.target.value)}
@@ -273,7 +257,7 @@ const AddService = () => {
                 <TextField
                   label="Venue Type"
                   id="outlined-start-adornment"
-                  sx={{ m: 1, width: "25ch" }}
+                  sx={{ m: 1, width: "30ch" }}
                   value={venue}
                   placeholder="Venue Type"
                   onChange={(e) => setVenue(e.target.value)}
@@ -286,13 +270,26 @@ const AddService = () => {
                   }}
                 />
               </div>
+              <div id="createProductFormImage">
+                {imagesPreview.map((image, index) => (
+                  <img key={index} src={image} alt="Product Preview" />
+                ))}
+                <button
+                  id="createProductBtn"
+                  type="submit"
+                  onClick={addService}
+                  style={{width:"57%",marginLeft:"10px"}}
+                >
+                  Create
+                </button>
+              </div>
             </div>
             <div className="col-4">
               <div>
                 <TextField
                   label="Ameneties"
                   id="outlined-start-adornment"
-                  sx={{ m: 1, width: "25ch" }}
+                  sx={{ m: 1, width: "30ch" }}
                   value={amenities}
                   placeholder="Ameneties"
                   onChange={(e) => setAmenities(e.target.value)}
@@ -302,11 +299,9 @@ const AddService = () => {
                         <img
                           src={ameneties}
                           style={{
-                            height: "25px",
-                            width: "25px",
-                            fontWeight: "bold",
-                            position: "absolute",
-                            fontSize: "1.6vmax",
+                            height: "21px",
+                            width: "21px",
+                            
                           }}
                         />{" "}
                       </InputAdornment>
@@ -318,7 +313,7 @@ const AddService = () => {
                 <TextField
                   label="Parking"
                   id="outlined-start-adornment"
-                  sx={{ m: 1, width: "25ch" }}
+                  sx={{ m: 1, width: "30ch" }}
                   value={parking}
                   placeholder="Parking"
                   onChange={(e) => setParking(e.target.value)}
@@ -336,7 +331,7 @@ const AddService = () => {
                 <TextField
                   label="Catering"
                   id="outlined-start-adornment"
-                  sx={{ m: 1, width: "25ch" }}
+                  sx={{ m: 1, width: "30ch" }}
                   value={catering}
                   placeholder="Catering"
                   onChange={(e) => setCatering(e.target.value)}
@@ -349,201 +344,19 @@ const AddService = () => {
                   }}
                 />
               </div>
-              {formValues.map((index) => (
-                <div className="form-inline" key={index}>
-                  <TextField
-                    className="input"
-                    label="Menu Price"
-                    id="outlined-start-adornment"
-                    sx={{ m: 1, width: "25ch", background: "transparent" }}
-                    onChange={(e) => handleChange(index, e)}
-                    name="basicPrice"
-                    placeholder="Menu Price"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <PriceCheck />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
 
-                  <TextField
-                    label="Menu Addons"
-                    id="outlined-start-adornment"
-                    sx={{ m: 1, width: "25ch" }}
-                    onChange={(e) => handleChange(index, e)}
-                    name="basicService"
-                    placeholder=" Menu Add Ons"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Article />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  {index ? (
-                    <button
-                      type="button"
-                      className="btn btn-icon btn-danger rounded-circle"
-                      onClick={() => removeFormFields(index)}
-                      style={{ marginRight: "90px" }}
-                    >
-                      <Remove />
-                    </button>
-                  ) : null}
-                </div>
-              ))}
-              <div className="button-section">
-                <button
-                  className="btn btn-icon btn-primary add"
-                  type="button"
-                  onClick={() => addFormFields()}
-                  style={{ marginTop: "-30px" }}
-                >
-                  <Add />
-                  Add Menu
-                </button>
-              </div>
-              {/* <div>
-                <PriceCheck />
-                <input
-                  type="number"
-                  placeholder="Basic Plan Price"
-                  value={basicPrice}
-                  onChange={(e) => setBasicPrice(e.target.value)}
-                  cols="22"
-                  rows="1"
-                ></input>
-              </div>
-
-              <div>
-                <PriceCheck />
-                <textarea
-                  placeholder="Basic Plan services"
-                  onChange={(e) => setBasicService(e.target.value)}
-                  cols="22"
-                  rows="1"
-                ></textarea>
-              </div> */}
-            </div>
-            <div className="col-4">
-              {venueValues.map((index) => (
-                <div className="form-inline" key={index}>
-                  <TextField
-                    label="Venue Name"
-                    id="outlined-start-adornment"
-                    sx={{ m: 1, width: "25ch" }}
-                    onChange={(e) => handleChangeVenue(index, e)}
-                    name="venueName"
-                    placeholder="Venue Name"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <PriceCheck />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <TextField
-                    label="Venue Price"
-                    id="outlined-start-adornment"
-                    sx={{ m: 1, width: "25ch" }}
-                    onChange={(e) => handleChangeVenue(index, e)}
-                    name="venueGoldPrice"
-                    placeholder="Venue Price"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <PriceCheck />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <TextField
-                    label="Max Capacity"
-                    id="outlined-start-adornment"
-                    sx={{ m: 1, width: "25ch" }}
-                    onChange={(e) => handleChangeVenue(index, e)}
-                    name="venueCapacity"
-                    placeholder="Max Capacity"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <PriceCheck />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <TextField
-                    label="Venue Service"
-                    id="outlined-start-adornment"
-                    sx={{ m: 1, width: "25ch" }}
-                    onChange={(e) => handleChangeVenue(index, e)}
-                    name="venueGoldService"
-                    placeholder="Venue Service"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Article />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  {/* {index ? (
-                    <button
-                      type="button"
-                      className="btn btn-icon btn-danger rounded-circle"
-                      onClick={() => removeServiceFormFields(index)}
-                      style={{ marginRight: "90px" }}
-                    >
-                      <Remove />
-                    </button>
-                  ) : null} */}
-                  {/*
-
-                  <TextField
-                    label="Service Price"
-                    id="outlined-start-adornment"
-                    sx={{ m: 1, width: "25ch" }}
-                    onChange={(e) => handleChangeVenue(index, e)}
-                    name="goldServicePrice"
-                    placeholder="Service Price"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <PriceCheck />
-                        </InputAdornment>
-                      ),
-                    }}
-                  /> */}
-                  {/* {serviceAddons.map((index) => (
-                    <div className="form-inline" key={index}>
+              {inputList.map((x, i) => {
+                return (
+                  <div>
+                    <div className="form-group ">
                       <TextField
-                        label="Venue Services"
+                        className="input"
+                        label="Menu Price"
                         id="outlined-start-adornment"
-                        sx={{ m: 1, width: "25ch" }}
-                        onChange={(e) => handleServiceChange(index, e)}
-                        name="goldServiceName"
-                        placeholder="Venue Services"
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <Article />
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-
-                      <TextField
-                        label="Service Price"
-                        id="outlined-start-adornment"
-                        sx={{ m: 1, width: "25ch" }}
-                        onChange={(e) => handleServiceChange(index, e)}
-                        name="goldServicePrice"
-                        placeholder="Service Price"
+                        sx={{ m: 1, width: "30ch", background: "transparent" }}
+                        name="basicPrice"
+                        placeholder="Menu Price"
+                        onChange={(e) => handleinputchange(e, i)}
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
@@ -552,60 +365,191 @@ const AddService = () => {
                           ),
                         }}
                       />
-
-                      {index ? (
-                        <button
-                          type="button"
-                          className="btn btn-icon btn-danger rounded-circle"
-                          onClick={() => removeServiceFormFields(index)}
-                          style={{ marginRight: "90px" }}
-                        >
-                          <Remove />
-                        </button>
-                      ) : null}
                     </div>
-                  ))} */}
-                  {/* <div className="button-section">
-                    <button
-                      className="btn btn-icon btn-primary add "
-                      type="button"
-                      onClick={() => addServiceFormFields()}
-                      style={{ marginRight: "80px" }}
-                    >
-                      <Add />
-                      Add Service
-                    </button>
-                  </div> */}
+                    <div class="form-group ">
+                      <TextField
+                        label="Menu Addons"
+                        id="outlined-start-adornment"
+                        sx={{ m: 1, width: "30ch" }}
+                        name="basicService"
+                        placeholder=" Menu Add Ons"
+                        onChange={(e) => handleinputchange(e, i)}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Article />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </div>
 
-                  {/* <button
-                    className="btn btn-icon btn-primary add rounded-circle"
-                    type="button"
-                    onClick={() => addVenueFormFields()}
-                    style={{ marginRight: "80px" }}
-                  >
-                    <Add />
-                  </button> */}
-                  {index ? (
-                    <button
-                      type="button"
-                      className="button remove"
-                      onClick={() => removeVenueFormFields(index)}
-                    >
-                      Remove
-                    </button>
-                  ) : null}
-                </div>
-              ))}
-              <div className="button-section">
-                <button
-                  className="btn btn-icon btn-primary add"
-                  type="button"
-                  onClick={() => addVenueFormFields()}
-                >
-                  <Add />
-                  Add Venue
-                </button>
-              </div>
+                    <div className="form-group col-md-2 mt-4">
+                      {inputList.length !== 1 && (
+                        <button
+                          className="btn btn-danger mx-1"
+                          onClick={() => handleremove(i)}
+                        >
+                          Remove
+                        </button>
+                      )}
+                      {inputList.length - 1 === i && (
+                        <button
+                          className="btn btn-success"
+                          style={{ marginTop: 20, width: "160px", marginLeft:"10px" }}
+                          onClick={handleaddclick}
+                        >
+                          <Add
+                            sx={{ marginRight: "5px", marginBottom: "3px" }}
+                          />
+                          Add Menu
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="col-4">
+              {venueList.map((x, i) => {
+                return (
+                  <div>
+                    <div className="form-group ">
+                      <TextField
+                        className="input"
+                        label="Venue Name"
+                        id="outlined-start-adornment"
+                        sx={{ m: 1, width: "30ch", background: "transparent" }}
+                        name="venueName"
+                        placeholder="Venue Name"
+                        onChange={(e) => handleVenueinputchange(e, i)}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Spellcheck />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </div>
+                    <div class="form-group ">
+                      <TextField
+                        label="Venue Capacity"
+                        id="outlined-start-adornment"
+                        sx={{ m: 1, width: "30ch" }}
+                        name="maxCapacity"
+                        placeholder="Venue Capacity"
+                        onChange={(e) => handleVenueinputchange(e, i)}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Article />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </div>
+                    {addonsList.map((x, i) => {
+                      return (
+                        <div style={{ maginTop: "20px" }}>
+                          <div className="form-group ">
+                            <TextField
+                              className="input"
+                              label="Addons"
+                              id="outlined-start-adornment"
+                              sx={{
+                                m: 1,
+                                width: "30ch",
+                                background: "transparent",
+                              }}
+                              name="addOns"
+                              placeholder="Addons"
+                              onChange={(e) =>
+                                handleVenueAddoninputchange(e, i)
+                              }
+                              InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <PriceCheck />
+                                  </InputAdornment>
+                                ),
+                              }}
+                            />
+                          </div>
+                          <div class="form-group ">
+                            <TextField
+                              label="Addons Price"
+                              id="outlined-start-adornment"
+                              sx={{ m: 1, width: "30ch" }}
+                              name="addOnsPrice"
+                              placeholder="Addons Price"
+                              onChange={(e) =>
+                                handleVenueAddoninputchange(e, i)
+                              }
+                              InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <Article />
+                                  </InputAdornment>
+                                ),
+                              }}
+                            />
+                          </div>
+
+                          <div className="form-group col-md-2 mt-4">
+                            {addonsList.length !== 1 && (
+                              <button
+                                className="btn btn-danger mx-1"
+                                onClick={() => handleVenueAddonremove(i)}
+                                style={{ marginBottom: 20 }}
+                              >
+                                Remove
+                              </button>
+                            )}
+                            {addonsList.length - 1 === i && (
+                              <button
+                                className="btn btn-success"
+                                style={{ marginTop: 20, width: "180px", marginLeft:"20px" }}
+                                onClick={handleVenueAddonaddclick}
+                              >
+                                <Add
+                                  sx={{
+                                    marginRight: "5px",
+                                    marginBottom: "3px",
+                                  }}
+                                />
+                                Add Service
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                    <div className="form-group col-md-2 mt-4">
+                      {venueList.length !== 1 && (
+                        <button
+                          className="btn btn-danger mx-1"
+                          onClick={() => handleVenueremove(i)}
+                        >
+                          Remove
+                        </button>
+                      )}
+                      {venueList.length - 1 === i && (
+                        <button
+                          className="btn btn-success"
+                          style={{ marginTop: 20, width: "160px", marginLeft:"20px" }}
+                          onClick={handleVenueaddclick}
+                        >
+                          <Add
+                            sx={{ marginRight: "5px", marginBottom: "3px" }}
+                          />
+                          Add Venue
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
               <div id="createProductFormFile">
                 <input
                   type="file"
@@ -615,18 +559,6 @@ const AddService = () => {
                   onChange={(e) => setFile(e.target.files[0])}
                 />
               </div>{" "}
-              <div id="createProductFormImage">
-                {imagesPreview.map((image, index) => (
-                  <img key={index} src={image} alt="Product Preview" />
-                ))}
-                <button
-                  id="createProductBtn"
-                  type="submit"
-                  onClick={addService}
-                >
-                  Create
-                </button>
-              </div>
             </div>
           </div>
         </div>

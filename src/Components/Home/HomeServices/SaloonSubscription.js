@@ -55,9 +55,8 @@ const SaloonSubscription = (props) => {
     const orders = order.filter(check);
     if (orders.length > 0) {
       alert("Photographer is already booked");
-    }
-    else {
-      navigate("/saloonpaymentform", {
+    } else {
+      navigate("/photographerpaymentform", {
         state: { date, time, items: props.data, totalPrice: price },
       });
     }
@@ -89,7 +88,11 @@ const SaloonSubscription = (props) => {
       >
         <Typography
           variant="h3"
-          sx={{ fontWeight: "bold", fontStyle: "Roboto", textAlign: "center" }}
+          sx={{
+            fontWeight: "bold",
+            fontFamily: "Dancing Script",
+            textAlign: "center",
+          }}
         >
           Basic
         </Typography>
@@ -132,7 +135,6 @@ const SaloonSubscription = (props) => {
         <DialogTitle
           sx={{
             display: "flex",
-
             fontWeight: "bold",
             fontFamily: "Roboto",
             fontSize: "30px",
@@ -142,7 +144,7 @@ const SaloonSubscription = (props) => {
           <CloseOutlined
             sx={{
               marginLeft: "140px",
-              marginTop: "-40px",
+              marginTop: "-10px",
               cursor: "pointer",
               color: "red",
             }}
@@ -193,7 +195,7 @@ const SaloonSubscription = (props) => {
                 type="time"
                 name="time"
                 onChange={(e) => setTime(e.target.value)}
-                style={{ marginLeft: "10px" }}
+                style={{ marginLeft: "10px", width: "140px" }}
               />
             </label>
           </div>
@@ -229,7 +231,7 @@ const SaloonSubscription = (props) => {
             variant="h3"
             sx={{
               fontWeight: "bold",
-              fontStyle: "Roboto",
+              fontFamily: "Dancing Script",
               textAlign: "center",
               color: "warning.light",
             }}
@@ -282,7 +284,7 @@ const SaloonSubscription = (props) => {
             variant="h3"
             sx={{
               fontWeight: "bold",
-              fontStyle: "Roboto",
+              fontFamily: "Dancing Script",
               textAlign: "center",
             }}
           >

@@ -4,13 +4,14 @@ import { SpeedDial, SpeedDialAction, Backdrop } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import TextsmsIcon from "@mui/icons-material/Textsms";
 import LogoutIcon from "@mui/icons-material/Logout";
-import img1 from "../../../images/img1.png";
+
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const SellerSpeedDial = () => {
   const [open, setOpen] = useState(false);
   const [userId, setId] = useState("");
+  const [image, setImage] = useState("");
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -31,6 +32,7 @@ const SellerSpeedDial = () => {
   const token = useSelector((state) => state.token);
 
   const { user, isLogged } = auth;
+  
 
   React.useEffect(() => {
     const getSellerData = async () => {
@@ -38,6 +40,7 @@ const SellerSpeedDial = () => {
         headers: { Authorization: token1 },
       });
       setId(res.data._id);
+      setImage(res.data.image);
     };
 
     getSellerData();
@@ -45,7 +48,7 @@ const SellerSpeedDial = () => {
 
   const getChat = async () => {
     const res = await axios.post("/chat/getChat", { userId: userId, sellerId: user._id });
-    console.log(res);
+    
     navigate("/sellerChat", { state: { chatID: res.data[0]._id } });
   };
   return (
@@ -57,9 +60,9 @@ const SellerSpeedDial = () => {
         sx={{ position: "fixed", top: 16, right: 16, borderRadius: "100%" }}
         icon={
           <img
-            src={img1}
+            src={user.avatar}
             alt="profile image"
-            style={{ height: "60px", width: "60px" }}
+            style={{ height: "60px", width: "60px", borderRadius: "100%" }}
           />
         }
         onClose={() => setOpen(false)}

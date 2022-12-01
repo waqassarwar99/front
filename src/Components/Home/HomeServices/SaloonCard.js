@@ -19,7 +19,9 @@ const SaloonCard = ({ data }) => {
         </div>
         <div className="cardInfo">
           <div className="cardHeader">
-            <span style={{ fontSize: "20px" }}>{data.name}</span>
+            <span style={{ fontSize: "25px", fontFamily: "Dancing Script" }}>
+              {data.name}
+            </span>
 
             <div className="cardHeaderDetails">
               <img

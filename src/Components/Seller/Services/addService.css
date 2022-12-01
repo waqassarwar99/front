@@ -1,38 +1,34 @@
 .addMarquee {
-    padding: 3vmax;
-    height: auto;
-    width: 97%;
-    background-color: #e0e1dc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.267);
-    border-radius: 15px;
-    
+  padding: 3vmax;
+  height: 97%;
+  width: 97%;
+  background-color: #e0e1dc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.267);
+  border-radius: 15px;
 }
 
-
-.addMarquee>div>div {
-    /* display: flex; */
-    /* width: 100%; */
-    /* align-items: center; */
-    margin-bottom: 30px;
-    justify-content: space-between;
+.addMarquee > div > div {
+  margin-bottom: 30px;
+  justify-content: space-between;
 }
 
-.addMarquee>div>div>input,
-.addMarquee>div>div>select,
-.addMarquee>div>div>textarea {
-    padding: 1vmax 4vmax;
-    padding-right: 1vmax;
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.267);
-    border-radius: 4px;
-    font: 300 0.9vmax cursive;
-    outline: none;
+.addMarquee > div > div > input,
+.addMarquee > div > div > select,
+.addMarquee > div > div > textarea {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 4px;
+  font: 300 0.9vmax cursive;
+  outline: none;
+  width: 70%;
 }
 
-.addMarquee>div>div>svg {
-    position: absolute;
-    margin-top: 10px;
-    transform: translateX(1.1vmax);
-    font-size: 1.6vmax;
-    color: rgba(0, 0, 0, 0.623);
+.addMarquee > div > div > svg {
+  position: absolute;
+  margin-top: 10px;
+  transform: translateX(1.1vmax);
+  font-size: 1.6vmax;
+  color: rgba(0, 0, 0, 0.623);
 }

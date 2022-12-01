@@ -13,7 +13,6 @@ const Dashboard = () => {
       const res = await axios.get("/user/sellerdetail", {
         headers: { Authorization: token },
       });
-      console.log(res);
     };
 
     getData();

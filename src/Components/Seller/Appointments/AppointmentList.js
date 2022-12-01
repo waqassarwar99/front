@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -10,15 +11,12 @@ const AppointmentList = () => {
     const getData = async () => {
       const appointment = await axios.get("/order/orders");
       setData(appointment.data);
-      const res1 = await axios.get("/photographer/orders");
+      const res1 = await axios.get("/photographer/viewOrder");
       setData1(res1.data);
-      console.log(res1.data);
     };
 
     getData();
   }, []);
-
-  //Seller Data
 
   const token = localStorage.getItem("token");
 
@@ -43,7 +41,7 @@ const AppointmentList = () => {
   return (
     <div>
       <table className="table table-hover table-striped table-bordered">
-        <thead class="thead-dark">
+        <thead className="thead-dark">
           <tr className="table-dark">
             <th scope="col">Name</th>
             <th scope="col">Date</th>
@@ -78,7 +76,7 @@ const AppointmentList = () => {
                 <td>{appointment.user.name}</td>
                 <td>{appointment.date}</td>
                 <td>{appointment.time}</td>
-                <td>{appointment.orderItems.map((data) => data.name)}</td>
+                <td>{appointment.orderItems.name}</td>
 
                 <td style={{ paddingLeft: 30 }}>
                   <Button>

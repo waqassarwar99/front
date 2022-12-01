@@ -17,12 +17,12 @@ import {
 
 import { useSelector } from "react-redux";
 
-export default function CheckoutForm(props) {
-  console.log(props)
+export default function ProductCheckoutForm(props) {
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
+
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,15 +37,12 @@ export default function CheckoutForm(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const addorder = await axios.post("/order/addMarqueeOrder", {
-      orderItems: props.data.items ? props.data.items : "",
-      date: props.data.date ? props.data.date : null,
-      time: props.data.time ? props.data.time : null,
+
+    const addorder = await axios.post("/order/addOrder", {
+      orderItems: props.data.orderItems[0].items,
       shippingInfo: { name, city, address, phoneNo },
       user: user._id,
-      seller: props.data.seller,
-      totalPrice: props.data.totalPrice,
-      venue: props.data.venueName
+      totalPrice: props.data.totalPrice 
     });
 
     if (!stripe || !elements) {

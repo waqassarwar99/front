@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -39,43 +40,55 @@ const makeStyle = (status) => {
 };
 
 export default function BasicTable() {
+  const [order, setOrder] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await axios.get("/order/viewProductOrder");
+      setOrder(data.data);
+      console.log("product", data.data);
+    };
+    getData();
+  }, []);
+
   return (
     <div className="Table">
-      <h3 style={{fontFamily:"Dancing Script", fontWeight:"800", fontSize:"30px"}}>Recent Orders</h3>
-      <TableContainer
-        component={Paper}
-        style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
+      <h3
+        style={{
+          fontFamily: "Dancing Script",
+          fontWeight: "800",
+          fontSize: "30px",
+        }}
       >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Product</TableCell>
-              <TableCell align="left">Tracking ID</TableCell>
-              <TableCell align="left">Date</TableCell>
-              <TableCell align="left">Status</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody style={{ color: "white" }}>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="left">{row.trackingId}</TableCell>
-                <TableCell align="left">{row.date}</TableCell>
-                <TableCell align="left">
-                  <span className="status" style={makeStyle(row.status)}>
-                    {row.status}
-                  </span>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+        Recent Orders
+      </h3>
+    
+       <table className="table table-hover table-striped table-bordered">
+        <thead className="thead-dark">
+          <tr className="table-dark">
+            <th scope="col">Product</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {order.map((appointment) =>
+             (
+              <tr key={appointment._id} style={{ cursor: "pointer" }}>
+                <td>{appointment.orderItems.map((item) => (
+                    <div>{item.product.name}</div>
+                  ))}</td>
+                <td>{appointment.shippingInfo.name}</td>
+                <td>{appointment.totalPrice}</td>
+                
+              </tr>
+            ) 
+          )}
+         
+        </tbody>
+      </table>
     </div>
   );
 }

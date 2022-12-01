@@ -53,7 +53,7 @@ export default function SaloonCheckoutForm(props) {
     const result = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:3001/confirmPayment",
+        return_url: "http://localhost:3000/confirmPayment",
       },
     });
 
