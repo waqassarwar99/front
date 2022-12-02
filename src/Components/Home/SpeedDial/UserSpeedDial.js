@@ -7,7 +7,7 @@ import TextsmsIcon from "@mui/icons-material/Textsms";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DescriptionIcon from "@mui/icons-material/Description";
-// import img1 from "../../../images/img1.png";
+import invitation from "../../../images/invitation.png";
 import img1 from "../../../images/waqas.jpeg";
 import { useNavigate } from "react-router-dom";
 import {
@@ -107,6 +107,18 @@ const UserSpeedDial = () => {
             icon={<CreditScore />}
             tooltipTitle="Orders"
             onClick={() => navigate("/userOrders")}
+          />
+          <SpeedDialAction
+            icon={
+              <img src={invitation} style={{ height: "20px", width: "20px" }} />
+            }
+            tooltipTitle="Card Generator 1"
+            onClick={() => navigate("/cardGenerator")}
+          />
+          <SpeedDialAction
+            icon={<img src={invitation} style={{ height: "20px", width: "20px" }} />}
+            tooltipTitle="Card Generator 2"
+            onClick={() => navigate("/walimaCard")}
           />
           <SpeedDialAction
             icon={<DescriptionIcon />}

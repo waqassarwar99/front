@@ -1,11 +1,18 @@
 import React, { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
+import { useSelector } from "react-redux";
 import "./CardGenerator.css";
 import reception from "../../images/reception.png";
 import dinner1 from "../../images/dinner.png";
 import { Button } from "@mui/material";
 import { Print } from "@mui/icons-material";
+import UserSpeedDial from "../Home/SpeedDial/UserSpeedDial";
 const CardGenerator = () => {
+  // User Data
+  const auth = useSelector((state) => state.authReducer);
+
+  const { isLogged } = auth;
+
   // React-to-pdf
 
   const componentRef = useRef();
@@ -26,6 +33,11 @@ const CardGenerator = () => {
   const [dinner, setDinner] = React.useState("");
   return (
     <div>
+      {isLogged ? (
+        <div>
+          <UserSpeedDial />
+        </div>
+      ) : null}
       <div ref={componentRef}>
         <div className="sakura-falling"></div>
         <div style={{}}>
@@ -42,7 +54,14 @@ const CardGenerator = () => {
           <section id="media"></section>
           <div className="wrap">
             <div className="title">
-              <div style={{ display: "flex" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginLeft: "80px",
+                }}
+              >
                 <span className="title1">Mr. & Mrs.</span>
                 <input placeholder="Majid Jahangir" className="name1" />
               </div>

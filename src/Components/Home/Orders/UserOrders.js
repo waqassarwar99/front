@@ -226,7 +226,7 @@ const UserOrders = () => {
                           variant="contained"
                           onClick={handlePrint}
                         >
-                          <PrintIcon />
+                          <PrintIcon sx={{marginRight:"5px"}} />
                           {"  "}
                           Print
                         </Button>

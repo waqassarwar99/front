@@ -197,6 +197,7 @@ function Navbar() {
                 </StyledMenu>
               </li>
 
+             
               <li
                 className="nav-item"
                 onClick={() => navigate("/about")}
