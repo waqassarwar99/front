@@ -69,9 +69,10 @@ export default function CheckoutForm(props) {
     <div
       style={{
         width: "98%",
-        height: "550px",
+        height: "580px",
         background: "	#E8E8E8",
         borderRadius: "8px",
+        marginTop: "20px",
       }}
     >
       {isLogged ? (
@@ -98,8 +99,8 @@ export default function CheckoutForm(props) {
           >
             <div className="col-5">
               <h6 className="mb-3 border-bottom pb-3">Personal Details</h6>
-              <div className="row">
-                <div className="col-12">
+              <div className="row" >
+                <div className="col-12 mb-4" >
                   <input
                     className="border"
                     style={{
@@ -117,7 +118,7 @@ export default function CheckoutForm(props) {
                 </div>
               </div>
               <div className="row">
-                <div className="col-12">
+                <div className="col-12 mb-4">
                   <input
                     className="border"
                     style={{
@@ -135,7 +136,7 @@ export default function CheckoutForm(props) {
                 </div>
               </div>
               <div className="row">
-                <div className="col-12">
+                <div className="col-12 mb-4">
                   <input
                     className="border"
                     style={{

@@ -541,6 +541,7 @@ const PhotographerDetails = () => {
                       className="submitDialogTextArea"
                       cols="60"
                       rows="2"
+                      placeholder="Write your review here!"
                       maxLength={50}
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
@@ -550,6 +551,7 @@ const PhotographerDetails = () => {
                         outline: "none",
                         padding: "2rem",
                         font: "300 1rem ",
+                        backgroundColor: "#A8A8A8",
                       }}
                     ></textarea>
                   </div>

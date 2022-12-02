@@ -66,9 +66,10 @@ export default function ProductCheckoutForm(props) {
     <div
       style={{
         width: "98%",
-        height: "550px",
+        height: "580px",
         background: "	#E8E8E8",
         borderRadius: "8px",
+        marginTop:"20px"
       }}
     >
       {isLogged ? (
@@ -77,14 +78,14 @@ export default function ProductCheckoutForm(props) {
         </div>
       ) : null}
       <form onSubmit={handleSubmit}>
-        <div className="row">
+        <div className="row" >
           <h1
             style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontFamily: "Roboto",
-              marginTop: "10px",
+              marginTop: "20px",
             }}
           >
             CheckOut
@@ -96,7 +97,7 @@ export default function ProductCheckoutForm(props) {
             <div className="col-5">
               <h6 className="mb-3 border-bottom pb-3">Personal Details</h6>
               <div className="row">
-                <div className="col-12">
+                <div className="col-12 mb-4">
                   <input
                     className="border"
                     style={{
@@ -114,7 +115,7 @@ export default function ProductCheckoutForm(props) {
                 </div>
               </div>
               <div className="row">
-                <div className="col-12">
+                <div className="col-12 mb-4">
                   <input
                     className="border"
                     style={{
@@ -132,7 +133,7 @@ export default function ProductCheckoutForm(props) {
                 </div>
               </div>
               <div className="row">
-                <div className="col-12">
+                <div className="col-12 mb-4">
                   <input
                     className="border"
                     style={{

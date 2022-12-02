@@ -31,12 +31,10 @@ const ProductCards = () => {
     setFilteredData(service.data);
   };
 
-  
   const ratings = async () => {
     const service = await axios.get("/product/ratings");
     setFilteredData(service.data);
   };
-
 
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -95,7 +93,7 @@ const ProductCards = () => {
             backgroundColor: "#E5E4E2",
             position: "relative",
             width: "240px",
-            height: "auto",
+            height: "580px",
             padding: "15px",
             marginTop: "20px",
             // marginLeft: "20px",
@@ -123,8 +121,8 @@ const ProductCards = () => {
                 name="search"
                 onChange={(e) => setKeyword(e.target.value)}
                 style={{
-                  marginTop: "10px",
-                  marginBottom: "10px",
+                  marginTop: "20px",
+                  marginBottom: "20px",
                   height: "40px",
                   border: "2px solid black",
                   borderRadius: "7px",
@@ -144,7 +142,7 @@ const ProductCards = () => {
                 fontSize: "15px",
               }}
             >
-              Category
+              City
             </span>
             <div
               className="cityFilter"
@@ -253,7 +251,6 @@ const ProductCards = () => {
               onClick={() => navigate("/productdetails", { state: data })}
               key={data._id}
             >
-             
               <div className="flip-card">
                 <div className="flip-card-inner">
                   <div className="flip-card-front">

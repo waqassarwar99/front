@@ -82,6 +82,8 @@ export default function BasicTable() {
                   ))}</td>
                 <td>{appointment.shippingInfo.name}</td>
                 <td>{appointment.totalPrice}</td>
+                <td>{appointment.createdAt.split("T")[0]}</td>
+                <td>{appointment.createdAt.split("T")[1]}</td>
                 
               </tr>
             ) 

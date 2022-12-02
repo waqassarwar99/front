@@ -1,3 +1,4 @@
+import React from "react";
 // Sidebar imports
 import {
   UilEstate,
@@ -52,12 +53,12 @@ export const SidebarData = [
 // Analytics Cards Data
 export const cardsData = [
   {
-    title: "Sales",
+    title: "Daily Sales",
     color: {
       backGround: "linear-gradient(180deg, #bb67ff 0%, #c484f3 100%)",
       boxShadow: "0px 10px 20px 0px #e0c6f5",
     },
-    barValue: 70,
+    barValue: 50,
     value: "25,970",
     png: UilUsdSquare,
     series: [
@@ -68,7 +69,7 @@ export const cardsData = [
     ],
   },
   {
-    title: "Revenue",
+    title: "Total Sales",
     color: {
       // backGround: "linear-gradient(180deg, #FF919D 0%, #FC929D 100%)",
       backGround: "#03A9F4",
@@ -85,7 +86,7 @@ export const cardsData = [
     ],
   },
   {
-    title: "Expenses",
+    title: "Bookings",
     color: {
       backGround:
         "linear-gradient(rgb(248, 212, 154) -146.42%, rgb(255 202 113) -46.42%)",

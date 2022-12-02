@@ -621,30 +621,53 @@ const ServiceDetails = () => {
                     >
                       Rating
                     </span>
+                    <div
+                      style={{
+                        // backgroundColor: "red",
+                        // border: "1px solid red",
+                        scale: "170%",
+                        width: "40%",
+                        height: "20px",
+                        marginLeft: "30px",
+                        marginBottom: "25px",
+                      }}
+                    >
+                      <Rating
+                        name="simple-controlled"
+                        value={rating}
+                        onChange={(e) => setRating(e.target.value)}
+                        sx={{ marginBottom: "15px" }}
+                        size="large"
+                      />
+                    </div>
 
-                    <Rating
-                      name="size-large"
-                      value={rating}
-                      size="large"
-                      onChange={(e) => setRating(e.target.value)}
-                      sx={{ marginBottom: "15px" }}
-                    />
-
-                    <TextField
-                      label="Review"
-                      placeholder="Review.."
-                      id="outlined-start-adornment"
-                      sx={{ width: "25ch" }}
+                    <span
+                      style={{
+                        fontWeight: "600",
+                        fontSize: "18px",
+                        fontFamily: "Roboto",
+                        marginBottom: "5px",
+                      }}
+                    >
+                      Review
+                    </span>
+                    <textarea
+                      className="submitDialogTextArea"
+                      cols="60"
+                      rows="2"
+                      placeholder="Write your review here!"
+                      maxLength={50}
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <Article />
-                          </InputAdornment>
-                        ),
+                      sx={{
+                        border: "1px solid rgba(0, 0, 0, 0.082)",
+                        margin: "1vmax 0",
+                        outline: "none",
+                        padding: "2rem",
+                        font: "300 1rem ",
+                        backgroundColor: "#A8A8A8",
                       }}
-                    />
+                    ></textarea>
                   </div>
                 </DialogContent>
                 <DialogActions

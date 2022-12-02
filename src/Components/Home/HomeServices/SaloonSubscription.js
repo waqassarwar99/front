@@ -82,7 +82,7 @@ const SaloonSubscription = (props) => {
           p: 2,
           width: 350,
           marginTop: 5,
-          height: 450,
+          minHeight: 480,
           marginLeft: 5,
         }}
       >
@@ -116,15 +116,22 @@ const SaloonSubscription = (props) => {
             <Typography variant="body1">{arr}</Typography>
           </Stack>
         ))}
-
-        <Button
-          variant="contained"
-          className="openBookModal"
-          onClick={() => submitBookToggle(props.data.basicPlan.price)}
-          sx={{ marginTop: "120px", marginLeft: "70px" }}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          Choose Plan
-        </Button>
+          <Button
+            variant="contained"
+            className="openBookModal"
+            onClick={() => submitBookToggle(props.data.basicPlan.price)}
+            sx={{ marginTop: "140px" }}
+          >
+            Choose Plan
+          </Button>
+        </div>
       </Box>
 
       <Dialog
@@ -222,7 +229,7 @@ const SaloonSubscription = (props) => {
             p: 2,
             width: 350,
             marginTop: 5,
-            height: 450,
+            minHeight: 480,
             marginLeft: 5,
           }}
         >
@@ -257,13 +264,21 @@ const SaloonSubscription = (props) => {
               <Typography variant="body1">{arr}</Typography>
             </Stack>
           ))}
-          <Button
-            variant="contained"
-            sx={{ marginTop: "60px", marginLeft: "70px" }}
-            onClick={() => submitBookToggle(props.data.goldPlan.price)}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
-            Choose Plan
-          </Button>
+            <Button
+              variant="contained"
+              sx={{ marginTop: "80px" }}
+              onClick={() => submitBookToggle(props.data.goldPlan.price)}
+            >
+              Choose Plan
+            </Button>
+          </div>
         </Box>
       </div>
 
@@ -276,7 +291,7 @@ const SaloonSubscription = (props) => {
             p: 2,
             width: 350,
             marginTop: 5,
-            height: 450,
+            minHeight: 480,
             marginLeft: 5,
           }}
         >
@@ -309,13 +324,24 @@ const SaloonSubscription = (props) => {
               <Typography variant="body1">{arr}</Typography>
             </Stack>
           ))}
-          <Button
-            variant="contained"
-            sx={{ marginTop: "10px", marginLeft: "70px" }}
-            onClick={() => submitBookToggle(props.data.platinumPlan.price)}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
-            Choose Plan
-          </Button>
+            <Button
+              variant="contained"
+              sx={{
+                marginTop: "30px",
+                // marginLeft: "70px",
+              }}
+              onClick={() => submitBookToggle(props.data.platinumPlan.price)}
+            >
+              Choose Plan
+            </Button>
+          </div>
         </Box>
       </div>
     </div>

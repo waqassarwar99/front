@@ -509,13 +509,26 @@ const SaloonDetails = () => {
                     >
                       Rating
                     </span>
-                    <Rating
-                      name="simple-controlled"
-                      value={rating}
-                      precision={0.5}
-                      onChange={(e) => setRating(e.target.value)}
-                      sx={{ marginBottom: "15px" }}
-                    />
+                    <div
+                      style={{
+                        // backgroundColor: "red",
+                        // border: "1px solid red",
+                        scale: "170%",
+                        width: "40%",
+                        height: "20px",
+                        marginLeft: "30px",
+                        marginBottom: "25px",
+                      }}
+                    >
+                      <Rating
+                        name="simple-controlled"
+                        value={rating}
+                        onChange={(e) => setRating(e.target.value)}
+                        sx={{ marginBottom: "15px" }}
+                        size="large"
+                      />
+                    </div>
+
                     <span
                       style={{
                         fontWeight: "600",
@@ -528,8 +541,10 @@ const SaloonDetails = () => {
                     </span>
                     <textarea
                       className="submitDialogTextArea"
-                      cols="20"
-                      rows="1"
+                      cols="60"
+                      rows="2"
+                      placeholder="Write your review here!"
+                      maxLength={50}
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
                       sx={{
@@ -538,6 +553,7 @@ const SaloonDetails = () => {
                         outline: "none",
                         padding: "2rem",
                         font: "300 1rem ",
+                        backgroundColor: "#A8A8A8",
                       }}
                     ></textarea>
                   </div>

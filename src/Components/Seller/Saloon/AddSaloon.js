@@ -39,38 +39,43 @@ const AddSaloon = () => {
   const addService = async (e) => {
     e.preventDefault();
     let formData = new FormData();
-    formData.append("file", file);
-
-    const res = await axios.post("/user/upload", formData, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
-
-    const addservice = await axios.post("/service/addPhotographer", {
-      name,
-      description,
-      category,
-      location,
-      phoneNo,
-      seller: userId,
-      images: res.data.url,
-      experties,
-      policy,
-      basicPlan: {
-        price: basicPrice,
-        addOns: basicService,
-      },
-      goldPlan: {
-        price: goldPrice,
-        addOns: goldService,
-      },
-      platinumPlan: { price: platinumPrice, addOns: platinumService },
-    });
-    if (res.data.msg == "Added") {
-      navigate("/saloon");
+    if (file === "") {
+      alert("Please select an image");
     } else {
-      alert("Please fill all the fields");
+      formData.append("file", file);
+
+      const res = await axios.post("/user/upload", formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+
+      const addservice = await axios.post("/service/addPhotographer", {
+        name,
+        description,
+        category,
+        location,
+        phoneNo,
+        seller: userId,
+        images: res.data.url,
+        experties,
+        policy,
+        basicPlan: {
+          price: basicPrice,
+          addOns: basicService,
+        },
+        goldPlan: {
+          price: goldPrice,
+          addOns: goldService,
+        },
+        platinumPlan: { price: platinumPrice, addOns: platinumService },
+      });
+      console.log(addservice);
+      if (addservice.data.msg == "Added") {
+        navigate("/saloon");
+      } else {
+        alert("Please fill all the fields");
+      }
     }
   };
   const [userId, setUserId] = useState("");
