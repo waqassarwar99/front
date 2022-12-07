@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./cards.css";
 import Card from "./Card";
 import { cardsData } from "./Data";
@@ -10,22 +10,25 @@ const Cards = () => {
   const [userId, setUserId] = useState("");
 
   const token = localStorage.getItem("token");
+  const id = localStorage.getItem("id");
 
   useEffect(() => {
     const getData = async () => {
       const res = await axios.get("/user/sellerdetail", {
         headers: { Authorization: token },
       });
+      console.log(res.data);
       setUserId(res.data._id);
     };
 
     getData();
   }, []);
 
+  //photographer orders
   React.useEffect(() => {
     const getServices = async () => {
       const res = await axios.get("/photographer/viewOrder");
-      setServices(res.data);
+      setServices(res.data.filter((service) => service.seller._id === id));
     };
     getServices();
   }, []);
@@ -37,7 +40,8 @@ const Cards = () => {
   React.useEffect(() => {
     const getServices = async () => {
       const res = await axios.get("/order/orders");
-      setMarqueeOrder(res.data);
+      setMarqueeOrder(res.data.filter((service) => service.seller._id === id));
+      console.log(res.data);
     };
     getServices();
   }, []);
@@ -58,16 +62,16 @@ const Cards = () => {
   const [totalSales, setTotalSales] = React.useState(0);
   React.useEffect(() => {
     const getData = async () => {
-      const data = await axios.post("/order/totalSale", {userId});
+      console.log("userID", id);
+      const data = await axios.post("/order/totalSale", { userId: id });
       setTotalSales(data.data.msg);
     };
     getData();
-
   }, []);
   const [dailySales, setDailySales] = React.useState(0);
   React.useEffect(() => {
     const getData = async () => {
-      const data = await axios.post("/order/dailySale", {userId});
+      const data = await axios.post("/order/dailySale", { userId });
       console.log(data.data.msg);
       setDailySales(data.data.msg);
     };
@@ -85,8 +89,10 @@ const Cards = () => {
               barValue={card.barValue}
               value={
                 card.title === "Bookings"
-                  ? services.length + marqueeOrder.length + order.length
-                  : card.title === "Total Sales" ?  "PKR " + totalSales : "$ " + card.value
+                  ? services.length + marqueeOrder.length
+                  : card.title === "Total Sales"
+                  ? "PKR " + totalSales
+                  : "$ " + card.value
               }
               png={card.png}
               series={card.series}

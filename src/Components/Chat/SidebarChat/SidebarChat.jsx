@@ -27,10 +27,10 @@ function SideBarChat() {
   const [callback, setCallBack] = React.useState(false);
   const [keyword, setkeyword] = useState("");
   const [allUsers, setAllUsers] = useState([]);
-  const [name, setName] = useState("")
-  const [userId, setId] = useState("")
+  const [name, setName] = useState("");
+  const [userId, setId] = useState("");
+  const [sellerImage, setSellerImage] = useState("");
   const navigate = useNavigate();
-
 
   // Seller Data
 
@@ -42,24 +42,13 @@ function SideBarChat() {
         headers: { Authorization: token1 },
       });
       setName(res.data.name);
-      setId(res.data._id)
+      setSellerImage(res.data.image);
+
+      setId(res.data._id);
     };
-    
+
     getSellerData();
   }, []);
-  console.log("name", name)
-  
-
-// User Data
-  const getData = async () => {
-    const res = await axios.get(`/chat/allUsers?search=${keyword}`, {
-      headers: {
-        Authorization: token,
-      },
-    });
-    console.log(res)
-    setAllUsers(res.data);
-  };
 
   const handleClick1 = async (userId, chatName) => {
     const res = await axios.post(
@@ -84,142 +73,23 @@ function SideBarChat() {
   }, [token, isAdmin, dispatch, callback]);
 
   const handleClick = (data) => {
-    console.log(data);
-    navigate("/admin/chat", { state: data });
+    navigate("/sellerChat", { state: data });
   };
 
   React.useEffect(() => {
     const getData = async () => {
-      const res = await axios.post("/chat/getChat", {userId});
+      const res = await axios.post("/chat/getChat", { userId: user._id });
       setMessage(res.data);
-      console.log(res.data)
     };
     getData();
   }, []);
 
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
-
-  const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 385 }}
-      role="presentation"
-        // onClick={toggleDrawer(anchor, false)}
-      //   onKeyDown={toggleDrawer(anchor, false)}
-      style={{ backgroundColor: 'teal', height: '100vh' }}
-    >
-      <div className="">
-        <div
-          className=""
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 5,
-            border: "1px solid white",
-            marginBottom: 10,
-            marginTop: 20,
-            width: 366,
-            marginLeft: 10
-          }}
-        >
-          <SearchIcon style={{ marginRight: 5, marginLeft: 10, color: 'white' }} />
-          <input
-            type="text"
-            name="search"
-            onChange={(e) => setkeyword(e.target.value)}
-            id=""
-            placeholder="Search User"
-            style={{ color: 'white' }}
-          />
-          <button className="" onClick={getData}>
-            <SearchIcon style={{ color: 'white' }} />
-          </button>
-        </div>
-        <div className="" style={{}}></div>
-        {keyword
-          ? users.map((usr) => (
-            usr.fName.toLowerCase().startsWith(keyword.toLowerCase()) && user._id !== usr._id  ? 
-              <div
-                className="mb-2"
-                key={usr._id}
-                onClick={() => handleClick1(usr._id, usr.fName)}
-                style={{
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  backgroundColor: "white",
-                  padding: 10,
-                  borderRadius: 5,
-                  color: "black",
-                  marginLeft: 10,
-                  marginRight: 10
-                }}
-              >
-                <div style={{ paddingLeft: 10 }}>
-                  <img
-                    src={usr.avatar}
-                    alt=""
-                    style={{ width: 30, height: 30, borderRadius: 50 }}
-                  />
-                  <span style={{color: "black"}}>
-
-                  {name}
-                  </span>
-                </div>
-                <span style={{ color: "black" }}>{usr.fName + " " + usr.lName}</span>
-              </div> : null
-            ))
-          : users.map((usr) => (
-              user._id !== usr._id ?
-              <div
-                className="mb-2"
-                key={usr._id}
-                onClick={() => handleClick1(usr._id, usr.fName)}
-                style={{
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  backgroundColor: "white",
-                  padding: 10,
-                  borderRadius: 5,
-                  color: "white",
-                  marginLeft: 10,
-                  marginRight: 10
-                }}
-              >
-                <div style={{ paddingLeft: 10 }}>
-                  <img
-                    src={usr.avatar}
-                    alt=""
-                    style={{ width: 30, height: 30, borderRadius: 50 }}
-                  />
-                </div>
-                <span style={{ color: "black" }}>{usr.fName + " " + usr.lName}</span>
-              </div>: null
-            ) )}
-      </div>
-    </Box>
-  );
-
   return (
     <>
-      <div className="sidebars" style={{ padding: 20, marginTop: 10, backgroundColor: 'green' }}>
+      <div
+        className="sidebars"
+        style={{ padding: 20, backgroundColor: "#3CB043" }}
+      >
         <div
           className="sidebar_header border-bottom pb-3"
           style={{
@@ -229,46 +99,65 @@ function SideBarChat() {
           }}
         >
           <div className="" style={{ display: "flex", alignItems: "center" }}>
-            <Avatar src={user.avatar} style={{ marginBottom: 0 }} />
-            <div style={{ marginLeft: 10, color: 'black' }}>{name}</div>
+            <Avatar src={sellerImage} style={{ marginBottom: 0 }} />
+            <p
+              style={{
+                marginLeft: 10,
+                color: "white",
+                fontSize: "17px",
+                fontWeight: "600",
+                marginTop: "10px",
+              }}
+            >
+              {name}
+            </p>
           </div>
           <div className="header_right">
             <IconButton>
-              <DonutLargeIcon style={{ color: 'black' }} />
+              <DonutLargeIcon style={{ color: "black" }} />
             </IconButton>
             <IconButton>
-              <ChatIcon style={{ color: 'black' }} />
+              <ChatIcon style={{ color: "black" }} />
             </IconButton>
             <IconButton>
-              <MoreVertIcon style={{ color: 'black' }} />
+              <MoreVertIcon style={{ color: "black" }} />
             </IconButton>
           </div>
         </div>
         <div className="sidebar_chats mt-4">
-          {message.map((user) =>
-                <div
+          {message.map((user) => (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+              className="border-bottom mb-4"
+              onClick={() => handleClick(user)}
+              key={user._id}
+            >
+              <div style={{ display: "flex" }}>
+                <Avatar src={user.user.avatar} style={{ marginBottom: 10 }} />
+                <span
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
+                    fontSize: "17px",
+                    marginLeft: "10px",
+                    marginTop: "5px",
+                    fontWeight: "600",
+                    color: "white",
                   }}
-                  className="border-bottom mb-4"
-                  onClick={() => handleClick(user)}
-                  key = {user._id}
                 >
-                  <Avatar src={user.user.avatar} style={{ marginBottom: 10 }} />
-                  <div className="">
-                    <span>{user.chatName}</span>
-                    <br />
-                    {user.latestMessage ? (
-                      <span style={{ fontSize: 10 }}>
-                        {user.latestMessage.content}
-                      </span>
-                    ) : null}
-                  </div>
-                </div>
-              )
-          }
+                  {user.user.name}
+                </span>
+                <br />
+                {user.latestMessage ? (
+                  <span style={{ fontSize: 10 }}>
+                    {user.latestMessage.content}
+                  </span>
+                ) : null}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </>

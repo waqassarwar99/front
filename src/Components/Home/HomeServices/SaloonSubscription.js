@@ -57,7 +57,7 @@ const SaloonSubscription = (props) => {
       alert("Photographer is already booked");
     } else {
       navigate("/photographerpaymentform", {
-        state: { date, time, items: props.data, totalPrice: price },
+        state: { date, time, items: props.data, totalPrice: price, orderItems:props.orderItems },
       });
     }
   };

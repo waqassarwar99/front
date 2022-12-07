@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 
 import {
   Box,
@@ -18,6 +19,14 @@ import axios from "axios";
 
 const PhotographerSubscription = (props) => {
   const navigate = useNavigate();
+
+  // date check
+
+  const date5 = new Date();
+  const date6 = moment().format('YYYY-MM-DD');
+  const time6 = moment().format('hh:mm:ss');
+  console.log(time6);
+  // console.log("currentDate", currentDate);
 
   // Basic addons
   const basicAddOns = props.data.basicPlan.addOns;
@@ -64,7 +73,13 @@ const PhotographerSubscription = (props) => {
       alert("Photographer is already booked");
     } else {
       navigate("/photographerpaymentform", {
-        state: { date, time, items: props.data, totalPrice: price },
+        state: {
+          date,
+          time,
+          items: props.data,
+          totalPrice: price,
+          orderItems: props.data,
+        },
       });
     }
   };
@@ -195,6 +210,7 @@ const PhotographerSubscription = (props) => {
               <input
                 type="date"
                 name="date"
+                min={date6}
                 onChange={(e) => setDate(e.target.value)}
                 style={{
                   marginLeft: "10px",
@@ -208,6 +224,7 @@ const PhotographerSubscription = (props) => {
               <input
                 type="time"
                 name="time"
+                min={time6}
                 onChange={(e) => setTime(e.target.value)}
                 style={{ marginLeft: "10px", width: "140px" }}
               />

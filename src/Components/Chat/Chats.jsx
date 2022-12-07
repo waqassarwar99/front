@@ -48,19 +48,17 @@ function Chats() {
   };
 
   const location = useLocation();
-  const chatId = location.state.chatID;
+  console.log(location.state, "location");
+  const chatId = location.state._id;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "/chat/sendMessage",
-        {
-          content: message,
-          chatId,
-          userId
-        }
-      );
+      const res = await axios.post("/chat/sendMessage", {
+        content: message,
+        chatId,
+        userId,
+      });
       setUser({ ...values, err: "", success: res.data.msg });
     } catch (error) {
       err.response.data.msg &&
@@ -79,7 +77,6 @@ function Chats() {
   React.useEffect(() => {
     const getData = async () => {
       const res = await axios.post(`/chat/getMessage`, { chatId });
-      console.log(res.data)
       setMessage(res.data);
     };
     getData();
@@ -89,21 +86,19 @@ function Chats() {
       {user ? (
         <div className="chatss">
           <div className="caht_header">
-            {chat.map((chat) => (
-              <div
-                key={user._id}
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Avatar src={user.avatar} />
-                <div className="chatHeader_info">
-                  <h3>{chat.user.name}</h3>
-                </div>
+            <div
+              key={user._id}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Avatar src={location?.state?.user?.avatar} />
+              <div className="chatHeader_info">
+                <h3>{location?.state?.user?.name}</h3>
               </div>
-            ))}
+            </div>
           </div>
 
           <div className="chat-body">
@@ -137,17 +132,7 @@ function Chats() {
                     {message.content}
                   </div>
                 </div>
-                <div
-                  className=""
-                //   style={{
-                //     fontSize: 9,
-                //     float: message.sender._id == userId ? "right" : "left",
-                //     color: "black",
-                //     marginTop: 5,
-                //   }}
-                >
-                  {format(message.createdAt)}
-                </div>
+                <div>{format(message.createdAt)}</div>
               </p>
             ))}
           </div>

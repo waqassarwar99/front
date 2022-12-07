@@ -38,6 +38,7 @@ const UserSpeedDial = () => {
   const auth = useSelector((state) => state.authReducer);
 
   const { user } = auth;
+  console.log(user);
 
   const handleLogout = async () => {
     try {
@@ -79,7 +80,7 @@ const UserSpeedDial = () => {
           sx={{ position: "fixed", top: 6, right: 16, borderRadius: "100%" }}
           icon={
             <img
-              src={img1}
+              src={user.avatar}
               alt="profile image"
               style={{ height: "60px", width: "60px", borderRadius: "100%" }}
             />
@@ -116,7 +117,9 @@ const UserSpeedDial = () => {
             onClick={() => navigate("/cardGenerator")}
           />
           <SpeedDialAction
-            icon={<img src={invitation} style={{ height: "20px", width: "20px" }} />}
+            icon={
+              <img src={invitation} style={{ height: "20px", width: "20px" }} />
+            }
             tooltipTitle="Card Generator 2"
             onClick={() => navigate("/walimaCard")}
           />

@@ -73,6 +73,7 @@ const ServiceDetails = () => {
   const location = useLocation();
 
   const service = location.state;
+  console.log(service);
 
   const auth = useSelector((state) => state.authReducer);
   const token = useSelector((state) => state.token);
@@ -88,7 +89,12 @@ const ServiceDetails = () => {
   }, []);
 
   const submitReviewToggle = () => {
-    open ? setOpen(false) : setOpen(true);
+    if(check1.length > 0) {
+      alert("You have already submitted a review for this service");
+    }
+    else {
+      open ? setOpen(false) : setOpen(true);
+    }
   };
 
   const submitPhoneModalToggle = () => {
@@ -179,7 +185,6 @@ const ServiceDetails = () => {
   const appointment = async (e) => {
     e.preventDefault();
     setTotalPrice(parseInt(menu * guest) + venuePrice);
-    console.log(parseInt(menu * guest) + venuePrice);
     navigate("/paymentform", {
       state: {
         totalPrice: parseInt(menu * guest) + venuePrice,
@@ -191,6 +196,34 @@ const ServiceDetails = () => {
       },
     });
   };
+
+  // Review Check
+
+  const [check, setCheck] = React.useState([]);
+
+  React.useEffect(() => {
+    console.log(user._id, service.name, "hello");
+    const checkReview = async () => {
+      const res = await axios.post("/order/checkReview", {
+        orderItems: service.name,
+        userId: user._id,
+      });
+      setCheck(res.data.marqueeFilteredData);
+
+    };
+    checkReview();
+  }, []);
+
+  const [check1, setCheck1] = React.useState([]);
+
+  React.useEffect(() => {
+    const checkReview = async () => {
+      const data = service.reviews.filter((data) => data.user === user._id);
+      
+      setCheck1(data);
+    };
+    checkReview();
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -546,6 +579,7 @@ const ServiceDetails = () => {
                 variant="contained"
                 onClick={submitReviewToggle}
                 startIcon={<ReviewsOutlined />}
+                disabled={check?.length > 0 ? false : true}
               >
                 Review
               </Button>

@@ -71,6 +71,7 @@ export default function Login() {
         setUser({ ...user, err: "", success: res.data.msg });
         localStorage.setItem("firstLogin", true);
         localStorage.setItem("name", res1.data.name);
+        localStorage.setItem("id", res1.data._id);
         localStorage.setItem("email", res1.data.email);
         localStorage.setItem("avatar", res1.data.avatar);
         localStorage.setItem("role", res1.data.role);

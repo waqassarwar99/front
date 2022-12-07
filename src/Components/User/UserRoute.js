@@ -56,6 +56,7 @@ import UserOrders from "../Home/Orders/UserOrders";
 import CardGenerator from "../Card Generator/CardGenerator";
 import WalimaCard from "../Card Generator/WalimaCard";
 import ProductPaymentForm from "../Checkout/ProductPaymentForm";
+import ContactUs from "../Home/ContactUs";
 const stripePromise = loadStripe(
   "sk_test_51Kr2oHDGZefk1hIJPmvj4miJ6yZMVPKPpO1vTh33XktHv1jxMf41PF4qZytZNGDKWwH0c70tI5bzWVbrNDPqeGro00jiI06fND"
 );
@@ -68,6 +69,7 @@ export default function UserRoute() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Home />} />
+            <Route path="/contact" element={<ContactUs />} />
 
             <Route path="/userProfile" element={<ClientProfile />} />
             <Route path="/userchat" element={<UserMainChat />} />

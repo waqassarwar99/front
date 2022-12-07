@@ -18,7 +18,7 @@ import {
 import { useSelector } from "react-redux";
 
 export default function PhotographerCheckoutForm(props) {
-  console.log(props, "props");
+  console.log(props.data.items, "props");
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
@@ -39,7 +39,7 @@ export default function PhotographerCheckoutForm(props) {
     event.preventDefault();
 
     const addorder = await axios.post("/photographer/addServicesOrder", {
-      orderItems: props.data.items,
+      orderItems: props.data.orderItems.name,
       date: props.data.date ? props.data.date : null,
       time: props.data.time ? props.data.time : null,
       shippingInfo: { name, city, address, phoneNo },

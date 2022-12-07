@@ -20,15 +20,23 @@ const Photographers = () => {
 
   return (
     <div style={{ marginTop: "60px", backgroundColor: "#F0F0F0" }}>
-      <div style={{ marginLeft: "20px" }}>
-        <h2>
+      <div
+        style={{
+          display: "flex",
+          width: "auto",
+          marginBottom: "20px",
+          marginTop: "10px",
+        }}
+      >
+        <h2 style={{ marginTop: "20px", marginLeft:"40px" }}>
           Find the Best
           <br />
           <span
             style={{
               fontWeight: "bold",
               fontSize: "40px",
-              fontFamily: "Roboto",
+              fontFamily: "avant-semi-bold",
+              marginTop: "20px",
             }}
           >
             Photographers
@@ -48,15 +56,16 @@ const Photographers = () => {
             className="photographersCards"
             key={data._id}
             onClick={() => navigate("/photographerdetails", { state: data })}
+            style={{ cursor: "pointer" }}
           >
             <img
               src={data.images}
               alt="service"
               style={{
-                width: "100%",
-                height: "70%",
+                width: "318px",
+                height: "68%",
                 objectFit: "cover",
-                borderRadius: "2px",
+                borderRadius: "5px",
                 flexGrow: 1,
               }}
             />
@@ -69,7 +78,7 @@ const Photographers = () => {
                   style={{ width: "20px", height: "20px", marginRight: "5px" }}
                 />
                 <span style={{ fontWeight: "bold", marginRight: "50px" }}>
-                  {data.ratings} ({data.numOfReviews})
+                  {data.ratings.toFixed(2)} ({data.numOfReviews})
                 </span>
 
                 <LocationOnOutlinedIcon />

@@ -25,7 +25,7 @@ function UserChats() {
 
   const auth = useSelector((state) => state.authReducer);
   const { user } = auth;
-  console.log(user)
+
   const token = useSelector((state) => state.token);
 
   const [chat, setChat] = React.useState([]);
@@ -37,7 +37,7 @@ function UserChats() {
       const res = await axios.get("/user/sellerdetail", {
         headers: { Authorization: token1 },
       });
-      setId(res.data._id);
+      // setId(res.data._id);
     };
 
     getSellerData();
@@ -49,23 +49,19 @@ function UserChats() {
   };
 
   const location = useLocation();
-  const chatId = location.state.chatID;
+  console.log(location.state, "location");
+  const chatId = location.state._id;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "/chat/sendMessage",
-        {
-          content: message,
-          chatId,
-          userId: user._id
-        }
-      );
-      setUser({ ...values, err: "", success: res.data.msg });
+      const res = await axios.post("/chat/sendMessage", {
+        content: message,
+        chatId,
+        userId: user._id,
+      });
     } catch (error) {
-      err.response.data.msg &&
-        setUser({ ...values, err: err.response.data.msg, success: "" });
+      console.log(error);
     }
   };
 
@@ -80,6 +76,7 @@ function UserChats() {
   React.useEffect(() => {
     const getData = async () => {
       const res = await axios.post(`/chat/getMessage`, { chatId });
+      // console.log(res.data, "res");
       setMessage(res.data);
     };
     getData();
@@ -89,21 +86,19 @@ function UserChats() {
       {user ? (
         <div className="chatss">
           <div className="caht_header">
-            {chat.map((chat) => (
-              <div
-                key={user._id}
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Avatar src={user.avatar} />
-                <div className="chatHeader_info">
-                  <h3>{chat.user.name}</h3>
-                </div>
+            <div
+              key={user._id}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Avatar src={location?.state?.seller?.image} />
+              <div className="chatHeader_info">
+                <h3>{location?.state?.seller?.name}</h3>
               </div>
-            ))}
+            </div>
           </div>
 
           <div className="chat-body">
@@ -132,6 +127,7 @@ function UserChats() {
                       borderRadius: 25,
                       paddingLeft: 10,
                       paddingRight: 10,
+                      overflow: "auto",
                     }}
                   >
                     {message.content}
@@ -139,12 +135,12 @@ function UserChats() {
                 </div>
                 <div
                   className=""
-                //   style={{
-                //     fontSize: 9,
-                //     float: message.sender._id == userId ? "right" : "left",
-                //     color: "black",
-                //     marginTop: 5,
-                //   }}
+                  //   style={{
+                  //     fontSize: 9,
+                  //     float: message.sender._id == userId ? "right" : "left",
+                  //     color: "black",
+                  //     marginTop: 5,
+                  //   }}
                 >
                   {format(message.createdAt)}
                 </div>

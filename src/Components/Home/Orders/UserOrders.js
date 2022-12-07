@@ -273,7 +273,7 @@ const UserOrders = () => {
                   <td>{index + 1}</td>
                   <td>{appointment.date}</td>
                   <td>{appointment.time}</td>
-                  <td>{appointment.orderItems.name}</td>
+                  <td>{appointment.orderItems}</td>
                   <td>{appointment.totalPrice}</td>
 
                   <td style={{ paddingLeft: 30 }}>

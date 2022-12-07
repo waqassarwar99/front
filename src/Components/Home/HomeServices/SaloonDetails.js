@@ -58,7 +58,11 @@ const SaloonDetails = () => {
   const { user, isLogged } = auth;
 
   const submitReviewToggle = () => {
-    open ? setOpen(false) : setOpen(true);
+    if (check1.length > 0) {
+      alert("You have already submitted a review for this service");
+    } else {
+      open ? setOpen(false) : setOpen(true);
+    }
   };
 
   const submitPhoneModalToggle = () => {
@@ -83,7 +87,8 @@ const SaloonDetails = () => {
     const addRating = await axios.patch(
       `/service/serviceRating/${service._id}`
     );
-    console.log(addRating);
+    alert("Review Added");
+    submitReviewToggle();
   };
 
   const handleSubmitMsg = async (e) => {
@@ -114,6 +119,32 @@ const SaloonDetails = () => {
       }
     );
   };
+
+  // Review Check
+
+  const [check, setCheck] = React.useState([]);
+
+  React.useEffect(() => {
+    console.log(user._id, service.name);
+    const checkReview = async () => {
+      const res = await axios.post("/order/checkReviewPhotographer", {
+        orderItems: service.name,
+        userId: user._id,
+      });
+      setCheck(res.data.marqueeFilteredData);
+    };
+    checkReview();
+  }, []);
+
+  const [check1, setCheck1] = React.useState([]);
+
+  React.useEffect(() => {
+    const checkReview = async () => {
+      const data = service.reviews.filter((data) => data.user === user._id);
+      setCheck1(data);
+    };
+    checkReview();
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -434,6 +465,7 @@ const SaloonDetails = () => {
                 onClick={submitReviewToggle}
                 sx={{ marginTop: "30px" }}
                 startIcon={<ReviewsOutlined />}
+                disabled={check.length > 0 ? false : true}
               >
                 Review
               </Button>

@@ -17,16 +17,17 @@ const MakeupArtist = () => {
       .catch((e) => console.log(e));
   }, []);
   return (
-    <div style={{ marginTop: "60px", backgroundColor: "#F0F0F0" }}>
-      <div style={{ marginLeft: "20px" }}>
-        <h2>
+    <div style={{ marginTop: "60px", backgroundColor: "#F0F0F0", paddingTop: 3 }}>
+      <div style={{ marginLeft: "40px" }}>
+        <h2 className="mt-3">
           Find the Best
           <br />
           <span
             style={{
               fontWeight: "bold",
               fontSize: "40px",
-              fontFamily: "Roboto",
+              fontFamily: "avant-semi-bold",
+              marginTop: "20px",
             }}
           >
             Makeup Artists
@@ -46,6 +47,7 @@ const MakeupArtist = () => {
             className="photographersCards"
             key={data._id}
             onClick={() => navigate("/saloondetails", { state: data })}
+            style={{ cursor: "pointer" }}
           >
             <img
               src={data.images}
@@ -67,7 +69,7 @@ const MakeupArtist = () => {
                   style={{ width: "20px", height: "20px", marginRight: "5px" }}
                 />
                 <span style={{ fontWeight: "bold", marginRight: "50px" }}>
-                  {data.ratings} ({data.numOfReviews})
+                  {data.ratings.toFixed(2)} ({data.numOfReviews})
                 </span>
 
                 <LocationOnOutlinedIcon />

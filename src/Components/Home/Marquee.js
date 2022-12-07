@@ -19,16 +19,16 @@ const Marquee = () => {
   }, []);
 
   return (
-    <div style={{ marginTop: "60px", backgroundColor: "#F0F0F0" }}>
-      <div style={{ marginLeft: "20px" }}>
-        <h2>
+    <div style={{ marginTop: "60px", backgroundColor: "#F0F0F0", paddingTop:5 }}>
+      <div style={{ marginLeft: "40px" }}>
+        <h2 className="mt-3">
           Find the Best
           <br />
           <span
             style={{
               fontWeight: "bold",
               fontSize: "40px",
-              fontFamily: "Roboto",
+              fontFamily: "avant-semi-bold",
             }}
           >
             Marriage Halls and Marquees
@@ -48,6 +48,7 @@ const Marquee = () => {
             className="photographersCards"
             key={data._id}
             onClick={() => navigate("/servicedetails", { state: data })}
+            style={{ cursor: "pointer" }}
           >
             <img
               src={data.images}
@@ -69,7 +70,7 @@ const Marquee = () => {
                   style={{ width: "20px", height: "20px", marginRight: "5px" }}
                 />
                 <span style={{ fontWeight: "bold", marginRight: "50px" }}>
-                  {data.ratings} ({data.numOfReviews})
+                  {data.ratings.toFixed(2)} ({data.numOfReviews})
                 </span>
 
                 <LocationOnOutlinedIcon />

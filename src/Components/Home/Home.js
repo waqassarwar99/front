@@ -8,6 +8,8 @@ import MakeupArtist from "./MakeupArtist";
 import "./Home.css";
 import Navbar from "./Navbar";
 import UserSpeedDial from "./SpeedDial/UserSpeedDial";
+import ContactUs from "./ContactUs";
+import SiteReview from "./SiteReview";
 const Home = () => {
   const auth = useSelector((state) => state.authReducer);
   const token = useSelector((state) => state.token);
@@ -15,7 +17,6 @@ const Home = () => {
 
   const { user, isLogged } = auth;
 
- 
   return (
     <div>
       <div>
@@ -41,6 +42,12 @@ const Home = () => {
       </div>
       <div>
         <MakeupArtist />
+      </div>
+      <div>
+        <ContactUs />
+      </div>
+      <div>
+        <SiteReview />
       </div>
     </div>
   );

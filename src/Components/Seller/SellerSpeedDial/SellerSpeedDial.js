@@ -60,7 +60,7 @@ const SellerSpeedDial = () => {
         sx={{ position: "fixed", top: 16, right: 16, borderRadius: "100%" }}
         icon={
           <img
-            src={user.avatar}
+            src={image}
             alt="profile image"
             style={{ height: "60px", width: "60px", borderRadius: "100%" }}
           />

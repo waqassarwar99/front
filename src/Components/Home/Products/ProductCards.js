@@ -258,35 +258,46 @@ const ProductCards = () => {
                   </div>
                   <div className="flip-card-back">
                     <img src={data.images} alt="image" />
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <h3>{data.name}</h3>
-                      <img
-                        src={star}
-                        alt="rating"
+                    <div>
+                      <div
                         style={{
-                          width: "15px",
-                          height: "15px",
-                          marginLeft: "10px",
-                          marginTop: "10px",
-                        }}
-                      />
-                      <span
-                        style={{
-                          fontWeight: "bold",
-                          marginLeft: "10px",
-                          marginTop: "10px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                       >
-                        {data.ratings.toFixed(2)} ({data.numOfReviews})
-                      </span>
+                        <h3>{data.name}</h3>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <h3 style={{ marginLeft: "40px" }}>PKR {data.price}</h3>
+                        <img
+                          src={star}
+                          alt="rating"
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            marginLeft: "25px",
+                            marginTop: "5px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            // fontWeight: "bold",
+                            marginLeft: "5px",
+                            fontSize: "15px",
+                            marginTop: "5px",
+                          }}
+                        >
+                          {data.ratings.toFixed(2)} ({data.numOfReviews})
+                        </span>
+                      </div>
                     </div>
-                    <h1>PKR {data.price}</h1>
                   </div>
                 </div>
               </div>
