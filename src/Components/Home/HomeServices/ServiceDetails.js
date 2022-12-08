@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import Navbar from "../Navbar";
-import "./ServiceDetails.css";
 import axios from "axios";
+import Navbar from "../Navbar";
+import Subscription from "./Subscription";
+import ReviewCard from "./ReviewCard";
+import marquee from "../../../images/marquee.png";
+import star from "../../../images/star.png";
+import UserSpeedDial from "../SpeedDial/UserSpeedDial";
+import "./ServiceDetails.css";
 import { useSelector } from "react-redux";
 
 import { useNavigate, useLocation } from "react-router-dom";
@@ -19,8 +24,7 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
-import Subscription from "./Subscription";
-import ReviewCard from "./ReviewCard";
+
 import {
   LocalPhoneOutlined,
   CloseOutlined,
@@ -34,9 +38,12 @@ import {
   ReviewsOutlined,
   AccountBalance,
 } from "@mui/icons-material";
-import marquee from "../../../images/marquee.png";
-import star from "../../../images/star.png";
-import UserSpeedDial from "../SpeedDial/UserSpeedDial";
+
+import moment from "moment";
+import dayjs from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 const theme = createTheme({
   palette: {
     secondary: {
@@ -73,10 +80,16 @@ const ServiceDetails = () => {
   const location = useLocation();
 
   const service = location.state;
-  console.log(service);
-
   const auth = useSelector((state) => state.authReducer);
   const token = useSelector((state) => state.token);
+
+  React.useEffect(() => {
+    const getData = async () => {
+      const data = service.goldPlan.filter((data) => data.venueName === venue);
+      setVenueMaxCapacity(data[0].maxCapacity);
+    };
+    getData();
+  }, [venue]);
 
   const { user, isLogged } = auth;
 
@@ -89,10 +102,9 @@ const ServiceDetails = () => {
   }, []);
 
   const submitReviewToggle = () => {
-    if(check1.length > 0) {
+    if (check1.length > 0) {
       alert("You have already submitted a review for this service");
-    }
-    else {
+    } else {
       open ? setOpen(false) : setOpen(true);
     }
   };
@@ -197,6 +209,17 @@ const ServiceDetails = () => {
     });
   };
 
+  //date check
+  const date6 = moment().format("YYYY-MM-DD");
+
+  //time check
+
+  const [value, setValue] = React.useState(dayjs(new Date()));
+
+  //max capacity check
+
+  const [venueMaxCapacity, setVenueMaxCapacity] = useState("");
+
   // Review Check
 
   const [check, setCheck] = React.useState([]);
@@ -209,7 +232,6 @@ const ServiceDetails = () => {
         userId: user._id,
       });
       setCheck(res.data.marqueeFilteredData);
-
     };
     checkReview();
   }, []);
@@ -219,7 +241,7 @@ const ServiceDetails = () => {
   React.useEffect(() => {
     const checkReview = async () => {
       const data = service.reviews.filter((data) => data.user === user._id);
-      
+
       setCheck1(data);
     };
     checkReview();
@@ -741,8 +763,6 @@ const ServiceDetails = () => {
                 <DialogTitle
                   sx={{
                     display: "flex",
-                    // alignItems: "center",
-                    // justifyContent: "center",
                     fontWeight: "bold",
                     fontFamily: "Roboto",
                     fontSize: "30px",
@@ -792,15 +812,17 @@ const ServiceDetails = () => {
                       <input
                         type="date"
                         name="date"
+                        min={date6}
                         onChange={(e) => setDate(e.target.value)}
                         style={{
                           marginLeft: "10px",
                           marginBottom: "20px",
                           width: "180px",
+                          height: 35,
                         }}
                       />
                     </div>
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex", height:"35px" }}>
                       <label
                         for="slot"
                         style={{ fontWeight: "600", marginRight: "10px" }}
@@ -829,7 +851,7 @@ const ServiceDetails = () => {
                       <select
                         name="select"
                         id="slot"
-                        style={{ width: "100%" }}
+                        style={{ width: "100%", height: 35 }}
                         onChange={(e) => setVenue(e.target.value)}
                       >
                         <option>Select Venue</option>
@@ -851,7 +873,7 @@ const ServiceDetails = () => {
                       <select
                         name="select"
                         id="slot"
-                        style={{ width: "100%" }}
+                        style={{ width: "100%", height: 35 }}
                         onChange={(e) => setMenu(e.target.value)}
                       >
                         <option>Select Menu</option>
@@ -888,9 +910,11 @@ const ServiceDetails = () => {
                         No of Guests:
                       </label>
                       <input
-                        type="text"
+                        type="number"
                         name="guest"
-                        placeholder="150"
+                        placeholder={venueMaxCapacity}
+                        min="0"
+                        max={venueMaxCapacity}
                         onChange={(e) => onChange(e.target.value)}
                         style={{
                           marginLeft: "10px",

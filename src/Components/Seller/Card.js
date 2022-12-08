@@ -3,7 +3,7 @@ import "./card.css";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import { UilTimes } from "@iconscout/react-unicons";
 import { CircularProgressbar } from "react-circular-progressbar";
-import Chart from "react-apexcharts";
+// import Chart from "react-apexcharts";
 import "react-circular-progressbar/dist/styles.css";
 
 const Card = (props) => {
@@ -117,7 +117,7 @@ function ExpandedCard({ param, setExpanded }) {
       </div>
       <span>{param.title}</span>
       <div className="chartContainer">
-        <Chart series={param.series} type="area" options={data.options} />
+        {/* <Chart series={param.series} type="area" options={data.options} /> */}
       </div>
       <span>Last 24 hours</span>
     </motion.div>

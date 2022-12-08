@@ -49,7 +49,7 @@ const Subscription = (props) => {
             justifyContent: "space-evenly",
           }}
         >
-          {props.data.goldPlan.map((data) => (
+          {props?.data?.goldPlan?.map((data) => (
             <Box
               key={data._id}
               sx={{
@@ -71,16 +71,23 @@ const Subscription = (props) => {
                   textAlign: "center",
                 }}
               >
-                {data.venueName}
+                {data?.venueName}
               </Typography>
               <br />
 
               <Divider />
-              {data.addonsList.map((arr) => (
+              <Stack mt={4} direction="row" gap={2}>
+                <FileDownloadDone />
+                <Typography variant="body1">
+                  Max Capacity ({data?.maxCapacity})
+                </Typography>
+              </Stack>
+              {data?.addonsList?.map((arr) => (
                 <Stack mt={4} direction="row" gap={2}>
                   <FileDownloadDone />
+
                   <Typography variant="body1">
-                    {arr.addOns} (PKR {arr.addOnsPrice})
+                    {arr?.addOns} (PKR {arr?.addOnsPrice})
                   </Typography>
                 </Stack>
               ))}
@@ -97,8 +104,7 @@ const Subscription = (props) => {
           width: "98%",
           borderRadius: "10px",
           minHeight: "600px",
-          marginTop:"20px"
-
+          marginTop: "20px",
         }}
       >
         <h1
@@ -120,7 +126,7 @@ const Subscription = (props) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-evenly",
-            marginBottom:"20px"
+            marginBottom: "20px",
           }}
         >
           {props.data.basicPlan.map((data, index) => (
@@ -135,7 +141,7 @@ const Subscription = (props) => {
                 marginTop: 5,
                 minHeight: 480,
                 marginLeft: 5,
-                marginBottom:"40px"
+                marginBottom: "40px",
               }}
             >
               <Typography

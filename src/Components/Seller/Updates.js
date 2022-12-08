@@ -7,7 +7,7 @@ const Updates = () => {
       {UpdatesData.map((update) => {
         return (
           <div className="update">
-            <img src={update.img} alt="" />
+            <img src={update.img} alt="" style={{ borderRadius: "100%" }} />
             <div className="noti">
               <div style={{ marginBottom: "0.5rem" }}>
                 <span>{update.name}</span>

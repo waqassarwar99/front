@@ -37,7 +37,7 @@ export default function SaloonCheckoutForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const addorder = await axios.post("/photographer/addMarqueeOrder", {
+    const addorder = await axios.post("/photographer/addServicesOrder", {
       orderItems: [{ name: props.data.items.name }],
       date: props.data.date ? props.data.date : null,
       time: props.data.time ? props.data.time : null,

@@ -13,9 +13,9 @@ const MainDash = () => {
           alignItems: "center",
           justifyContent: "center",
           fontFamily: "Dancing Script",
-          marginTop: "-50px",
+          marginTop: "-110px",
           fontWeight: "600",
-          marginBottom: "-40px",
+          marginBottom: "-110px",
         }}
       >
         Dashboard

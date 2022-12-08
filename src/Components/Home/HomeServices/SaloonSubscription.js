@@ -10,15 +10,25 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  TextField,
 } from "@mui/material";
 import { CloseOutlined, AccountCircleOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
+import dayjs from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
 const SaloonSubscription = (props) => {
   const navigate = useNavigate();
 
-  console.log(props);
+  //date check
+  const date6 = moment().format("YYYY-MM-DD");
+
+  //time check
+  const [value, setValue] = React.useState(dayjs(new Date()));
 
   // Basic addons
   const basicAddOns = props.data.basicPlan.addOns;
@@ -57,7 +67,13 @@ const SaloonSubscription = (props) => {
       alert("Photographer is already booked");
     } else {
       navigate("/photographerpaymentform", {
-        state: { date, time, items: props.data, totalPrice: price, orderItems:props.orderItems },
+        state: {
+          date,
+          time:`${value.$H}:${value.$m}`,
+          items: props.data,
+          totalPrice: price,
+          orderItems: props.data,
+        },
       });
     }
   };
@@ -188,23 +204,33 @@ const SaloonSubscription = (props) => {
               <input
                 type="date"
                 name="date"
+                min={date6}
                 onChange={(e) => setDate(e.target.value)}
                 style={{
                   marginLeft: "10px",
                   marginBottom: "20px",
+                  height:"35px"
                 }}
               />
             </label>
-
-            <label style={{ fontWeight: "600" }}>
-              Time:
-              <input
-                type="time"
-                name="time"
-                onChange={(e) => setTime(e.target.value)}
-                style={{ marginLeft: "10px", width: "140px" }}
-              />
-            </label>
+            <div style={{ display: "flex", width: 185, marginTop: "20px" }}>
+              <label style={{ fontWeight: "600", marginRight: "12px" }}>
+                Time:{" "}
+              </label>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimePicker
+                  renderInput={(params) => (
+                    <TextField size="small" {...params} />
+                  )}
+                  value={value}
+                  label="Start Time"
+                  onChange={(newValue) => {
+                    setValue(newValue);
+                  }}
+                  minTime={dayjs(new Date())}
+                />
+              </LocalizationProvider>
+            </div>
           </div>
         </DialogContent>
         <DialogActions

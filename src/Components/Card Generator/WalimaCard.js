@@ -79,7 +79,7 @@ const WalimaCard = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  marginLeft:"70px"
+                  marginLeft: "70px",
                 }}
               >
                 <span className="title1">Mr. & Mrs.</span>
@@ -110,7 +110,16 @@ const WalimaCard = () => {
                 placeholder="Muhammad Waqas Sarwar"
                 onChange={(e) => setName(e.target.value)}
               />
-              <h2>with</h2>
+              <h2
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginLeft:"-100px"
+                }}
+              >
+                with
+              </h2>
               <input
                 className="name"
                 value={name1}

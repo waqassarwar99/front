@@ -63,7 +63,7 @@ const CardGenerator = () => {
                 }}
               >
                 <span className="title1">Mr. & Mrs.</span>
-                <input placeholder="Majid Jahangir" className="name1" />
+                <input placeholder="Majid Jahangir" className="name1"  />
               </div>
               <br />
               <span className="details1">

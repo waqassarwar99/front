@@ -47,6 +47,7 @@ const AppointmentList = () => {
             <th scope="col">Date</th>
             <th scope="col">Time</th>
             <th scope="col">Service</th>
+            <th scope="col">Total Price</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -58,6 +59,7 @@ const AppointmentList = () => {
                 <td>{appointment.date}</td>
                 <td>{appointment.time}</td>
                 <td>{appointment.orderItems}</td>
+                <td>{appointment.totalPrice}</td>
 
                 <td style={{ paddingLeft: 30 }}>
                   <Button>
@@ -76,7 +78,8 @@ const AppointmentList = () => {
                 <td>{appointment.user.name}</td>
                 <td>{appointment.date}</td>
                 <td>{appointment.time}</td>
-                <td>{appointment.orderItems.name}</td>
+                <td>{appointment.orderItems}</td>
+                <td>{appointment.totalPrice}</td>
 
                 <td style={{ paddingLeft: 30 }}>
                   <Button>

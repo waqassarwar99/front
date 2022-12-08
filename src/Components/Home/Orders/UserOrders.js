@@ -323,7 +323,7 @@ const UserOrders = () => {
                               marginLeft: "10px",
                             }}
                           >
-                            {service?.orderItems?.name}
+                            {service?.orderItems}
                           </span>
                         </div>
                         <div

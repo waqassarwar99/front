@@ -9,7 +9,6 @@ export default function BasicTable() {
     const getData = async () => {
       const data = await axios.get("/order/viewProductOrder");
       setOrder(data.data);
-      console.log("product", data.data);
     };
     getData();
   }, []);

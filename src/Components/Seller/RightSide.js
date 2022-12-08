@@ -4,14 +4,14 @@ import Updates from "./Updates";
 const RightSide = () => {
   return (
     <div className="RightSide">
-      <div>
-        <h3>Updates</h3>
+      <div style={{ marginTop: "40px" }}>
+        <h3 style={{ fontFamily: "Dancing Script", fontSize:"35px", fontWeight:"600" }}>Updates</h3>
         <Updates />
       </div>
-      <div>
+      {/* <div>
         <h3>Customer Reviews</h3>
         <CustomerReview />
-      </div>
+      </div> */}
     </div>
   );
 };

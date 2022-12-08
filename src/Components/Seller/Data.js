@@ -14,9 +14,10 @@ import {
 import { UilUsdSquare, UilMoneyWithdrawal } from "@iconscout/react-unicons";
 
 // Recent Card Imports
-import img1 from "../../images/img1.png";
-import img2 from "../../images/img2.png";
-import img3 from "../../images/img3.png";
+
+import sajjad from "../../images/sajjad.jpeg";
+import yaseen from "../../images/yaseen.jpeg";
+import zaidi from "../../images/zaidi.jpg";
 
 // Sidebar Data
 export const SidebarData = [
@@ -107,20 +108,20 @@ export const cardsData = [
 // Recent Update Card Data
 export const UpdatesData = [
   {
-    img: img1,
-    name: "Andrew Thomas",
-    noti: "has ordered Apple smart watch 2500mh battery.",
+    img: sajjad,
+    name: "Sajjad Akhtar",
+    noti: "has ordered Chafing Dish.",
     time: "25 seconds ago",
   },
   {
-    img: img2,
-    name: "James Bond",
+    img: yaseen,
+    name: "yaseen",
     noti: "has received Samsung gadget for charging battery.",
     time: "30 minutes ago",
   },
   {
-    img: img3,
-    name: "Iron Man",
+    img: zaidi,
+    name: "Ali Hassan",
     noti: "has ordered Apple smart watch, samsung Gear 2500mh battery.",
     time: "2 hours ago",
   },

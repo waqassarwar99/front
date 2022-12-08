@@ -41,7 +41,6 @@ const Cards = () => {
     const getServices = async () => {
       const res = await axios.get("/order/orders");
       setMarqueeOrder(res.data.filter((service) => service.seller._id === id));
-      console.log(res.data);
     };
     getServices();
   }, []);
@@ -62,9 +61,10 @@ const Cards = () => {
   const [totalSales, setTotalSales] = React.useState(0);
   React.useEffect(() => {
     const getData = async () => {
-      console.log("userID", id);
+
       const data = await axios.post("/order/totalSale", { userId: id });
       setTotalSales(data.data.msg);
+      console.log(data.data.msg, "total");
     };
     getData();
   }, []);

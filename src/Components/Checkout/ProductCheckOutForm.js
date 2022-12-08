@@ -39,7 +39,7 @@ export default function ProductCheckoutForm(props) {
     event.preventDefault();
 
     const addorder = await axios.post("/order/addOrder", {
-      orderItems: props.data.orderItems[0].items,
+      orderItems: props.data.orderItems,
       shippingInfo: { name, city, address, phoneNo },
       user: user._id,
       totalPrice: props.data.totalPrice 
