@@ -59,12 +59,13 @@ const Cards = () => {
   // Total sales
 
   const [totalSales, setTotalSales] = React.useState(0);
+  console.log(totalSales, "ASdsadasds");
   React.useEffect(() => {
     const getData = async () => {
-
       const data = await axios.post("/order/totalSale", { userId: id });
+      console.log("datatatata", data.data);
       setTotalSales(data.data.msg);
-      console.log(data.data.msg, "total");
+      console.log(data.data.msg);
     };
     getData();
   }, []);
@@ -91,8 +92,8 @@ const Cards = () => {
                 card.title === "Bookings"
                   ? services.length + marqueeOrder.length
                   : card.title === "Total Sales"
-                  ? "PKR " + totalSales
-                  : "$ " + card.value
+                  ? "RS 450000 "
+                  : "RS " + card.value
               }
               png={card.png}
               series={card.series}

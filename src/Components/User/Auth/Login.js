@@ -197,13 +197,13 @@ export default function Login() {
               onChange={handleChangeInput}
             />
 
-            <Link
+            {/* <Link
               to="/forgotPassword"
               className="border-bottom"
               style={{ textDecoration: "none", color: "black" }}
             >
               Forgot Password?
-            </Link>
+            </Link> */}
             <button className="Loginbtn" type="submit">
               Sign In
             </button>

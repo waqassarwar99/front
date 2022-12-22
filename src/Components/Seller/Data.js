@@ -60,7 +60,7 @@ export const cardsData = [
       boxShadow: "0px 10px 20px 0px #e0c6f5",
     },
     barValue: 50,
-    value: "25,970",
+    value: "97500",
     png: UilUsdSquare,
     series: [
       {

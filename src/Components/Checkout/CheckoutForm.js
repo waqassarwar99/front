@@ -18,7 +18,7 @@ import {
 import { useSelector } from "react-redux";
 
 export default function CheckoutForm(props) {
-  console.log(props)
+  console.log(props);
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
@@ -45,7 +45,7 @@ export default function CheckoutForm(props) {
       user: user._id,
       seller: props.data.seller,
       totalPrice: props.data.totalPrice,
-      venue: props.data.venueName
+      venue: props.data.venueName,
     });
 
     if (!stripe || !elements) {
@@ -99,8 +99,8 @@ export default function CheckoutForm(props) {
           >
             <div className="col-5">
               <h6 className="mb-3 border-bottom pb-3">Personal Details</h6>
-              <div className="row" >
-                <div className="col-12 mb-4" >
+              <div className="row">
+                <div className="col-12 mb-4">
                   <input
                     className="border"
                     style={{
@@ -208,7 +208,7 @@ export default function CheckoutForm(props) {
                 }}
                 disabled={!stripe}
               >
-                Pay
+                Pay (PKR {props.data.totalPrice})
               </button>
             </div>
           </div>

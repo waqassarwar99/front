@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-
 export default function BasicTable() {
   const [order, setOrder] = useState([]);
 
@@ -9,6 +8,7 @@ export default function BasicTable() {
     const getData = async () => {
       const data = await axios.get("/order/viewProductOrder");
       setOrder(data.data);
+      console.log(data.data, "Products");
     };
     getData();
   }, []);
@@ -41,7 +41,7 @@ export default function BasicTable() {
             return (
               <tr key={appointment?._id} style={{ cursor: "pointer" }}>
                 <td>
-                  {appointment?.orderItems?.map((item) => (
+                  {appointment?.orderItems[0]?.items?.map((item) => (
                     <div>{item?.product?.name}</div>
                   ))}
                 </td>

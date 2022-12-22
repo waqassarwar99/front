@@ -197,6 +197,7 @@ const ServiceDetails = () => {
   const appointment = async (e) => {
     e.preventDefault();
     setTotalPrice(parseInt(menu * guest) + venuePrice);
+    
     navigate("/paymentform", {
       state: {
         totalPrice: parseInt(menu * guest) + venuePrice,
@@ -207,6 +208,7 @@ const ServiceDetails = () => {
         venueName: venue,
       },
     });
+    alert("This is your total price: " + (parseInt(menu * guest) + venuePrice));
   };
 
   //date check
@@ -822,7 +824,7 @@ const ServiceDetails = () => {
                         }}
                       />
                     </div>
-                    <div style={{ display: "flex", height:"35px" }}>
+                    <div style={{ display: "flex", height: "35px" }}>
                       <label
                         for="slot"
                         style={{ fontWeight: "600", marginRight: "10px" }}
